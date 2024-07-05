@@ -1,3 +1,8 @@
+.DS_Store
+*.xcf
+cub3d
+*.json
+
 # Prerequisites
 *.d
 
