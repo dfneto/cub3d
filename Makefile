@@ -15,7 +15,7 @@
 NAME = cub3d
 MAKE = make --no-print-directory
 HEADER = inc/cub3d.h
-SRC = src/main.c src/cub3d.c src/utils.c
+SRC = src/main.c src/cub3d.c src/utils.c src/hooks.c
 DIR_MLX = mlx
 CC = gcc
 CFLAGS += -Wextra -Werror -Wall -MMD -g -I mlx -I inc
