@@ -1,4 +1,4 @@
-# //TODO: remover o -MMD e ver a diferença de com e sem ele
+# //TODO: remover o -MMD e ver a diferença de com e sem ele (sei que ele gera uns .d)
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
@@ -15,7 +15,7 @@
 NAME = cub3d
 MAKE = make --no-print-directory
 HEADER = inc/cub3d.h
-SRC = src/main.c
+SRC = src/main.c src/cub3d.c src/utils.c
 DIR_MLX = mlx
 CC = gcc
 CFLAGS += -Wextra -Werror -Wall -MMD -g -I mlx -I inc

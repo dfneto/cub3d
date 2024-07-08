@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/05 13:47:30 by davifern         ###   ########.fr       */
+/*   Updated: 2024/07/08 11:02:27 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 # include <stdio.h> 
 # include "messages.h"
 
-# define WIDTH 1024
-# define HEIGHT 1024
+# define WIDTH 500
+# define HEIGHT 500
 
 typedef struct s_win
 {
@@ -38,6 +38,11 @@ typedef struct s_img
 	int		line_len;
 }		t_img;
 
-void	plot_game(t_win *win);
+// cub3d.c
+void	plot_game_board(t_img *img);
+
+//utils
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+
 
 #endif
