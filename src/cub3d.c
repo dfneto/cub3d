@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:29:30 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/09 10:18:17 by davifern         ###   ########.fr       */
+/*   Updated: 2024/07/09 20:44:38 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ void	draw_game_board(t_img *img, t_player *player)
 	y = 0;
 	while (y < HEIGHT)
 	{
-		while (x < WIDTH)
+		while (x < WIDTH) //posso não fazer esse loop completo e sim printar somente o range que quero
 		{
 			//make the map borders
-			if ((x > 490 || x < 10) || (y > 490 || y < 10))
+			if ((x > 490 || x < 10) || (y > 490 || y < 10)) //posso converter o y da mlx em y de 0 a Y_MAX
 				my_mlx_pixel_put(img, x, y, YELLOW);
 			
 			//make the player 10x10 pxl
-			if ((x > player->x && (x < player->x + player->size))
+			if ((x > player->x && (x < player->x + player->size)) // desde x-size/2 hasta x+size/2 (y lo mismo para y) 
 					&& (y > player->y && (y < player->y + player->size)))
 				my_mlx_pixel_put(img, x, y, RED);
 			x++;

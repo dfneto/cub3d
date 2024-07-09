@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 19:37:30 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/09 10:13:38 by davifern         ###   ########.fr       */
+/*   Updated: 2024/07/09 20:49:24 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	choose_event(int keycode, t_win *win)
 	if (keycode == ESC && win)
 		close_window(win);
 	if (keycode == KEY_A)
-		return (move_to_left(win->img, win->player));
+		return (move_to_left(win->img, win->player));//atualizo somente a posicao do player.x e chamo a funcao draw_game_board
 	if (keycode == 8) //leta C
 		mlx_clear_window(win->mlx_ptr, win->win_ptr);
 	printf("Keycode: %d\n", keycode);
