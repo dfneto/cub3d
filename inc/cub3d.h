@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/08 13:29:56 by davifern         ###   ########.fr       */
+/*   Updated: 2024/07/09 10:16:27 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define HEIGHT 500
 # define ESC 53
 # define LEFT_CLICK 1
+# define KEY_A			0
 
 typedef struct s_win
 {
@@ -30,6 +31,7 @@ typedef struct s_win
 	void			*mlx_ptr;
 	void			*win_ptr;
 	struct s_img	*img;
+	struct s_player	*player;
 }		t_win;
 
 typedef struct s_img
@@ -42,14 +44,25 @@ typedef struct s_img
 	int		line_len;
 }		t_img;
 
+typedef struct s_player
+{
+	int	x;
+	int	y;
+	int	size;
+	int	speed;
+}	t_player;
+
 // cub3d.c
-void	plot_game_board(t_img *img);
+void	draw_game_board(t_img *img, t_player *player);
 
 //utils.c
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 //hooks.c
 void	set_hooks(t_win *window);
+
+//movements
+int		move_to_left(t_img *img, t_player *player);
 
 
 #endif

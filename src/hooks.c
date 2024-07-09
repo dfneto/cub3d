@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 19:37:30 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/08 13:29:02 by davifern         ###   ########.fr       */
+/*   Updated: 2024/07/09 10:13:38 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,48 +15,20 @@
 */
 #include "cub3d.h"
 
-int	move_to_left(t_img *img, int step)
+int	close_window(t_win *win)
 {
-	int		x;
-	int		y;
-	t_win	*win;
-
-	x = 0;
-	y = 0;
-	win = img->win;
-	while (y < HEIGHT)
-	{
-		while (x < WIDTH)
-		{
-			//make the map borders
-			if ((x > 490 || x < 10) || (y > 490 || y < 10))
-				my_mlx_pixel_put(img, x, y, YELLOW);
-			
-			//make the player 10x10 pxl
-			if ((x > 64 - step && x < 74 - step) && (y > 340 - step && y < 350 - step))
-				my_mlx_pixel_put(img, x, y, RED);
-			x++;
-		}
-		x = 0;
-		y++;
-	}
-	mlx_put_image_to_window(win->mlx_ptr,
-		win->win_ptr, img->img_ptr, 0, 0);
-	return (0);
+	mlx_destroy_window(win->mlx_ptr, win->win_ptr);
+	exit(0);
 }
 
 int	choose_event(int keycode, t_win *win)
 {
 	if (keycode == ESC && win)
-	{
-		mlx_destroy_window(win->mlx_ptr, win->win_ptr);
-		exit(0);
-	}
-	if (keycode == 0)
-	{
-		move_to_left(win->img, 5);
-		return (0);
-	}
+		close_window(win);
+	if (keycode == KEY_A)
+		return (move_to_left(win->img, win->player));
+	if (keycode == 8) //leta C
+		mlx_clear_window(win->mlx_ptr, win->win_ptr);
 	printf("Keycode: %d\n", keycode);
 	return (0);
 }
@@ -64,10 +36,7 @@ int	choose_event(int keycode, t_win *win)
 int	close_window_mouse(t_win *win)
 {
 	if (win)
-	{
-		mlx_destroy_window(win->mlx_ptr, win->win_ptr);
-		exit(0);
-	}
+		close_window(win);
 	return (0);
 }
 

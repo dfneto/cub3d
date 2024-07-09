@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:04:23 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/08 13:24:30 by davifern         ###   ########.fr       */
+/*   Updated: 2024/07/09 10:16:45 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,16 @@ int rgb_to_int(double r, double g, double b)
 
 int main(int argc, char **argv)
 {
-    t_win	win;
-    t_img   img; //vetor de pixels que será plotado depois
+    t_win	    win;
+    t_img       img; //vetor de pixels que será plotado depois
+    t_player    player;
 
     (void)argc;
     (void)argv;
     
     if (parse_map())
         return (err(ERROR_PARSING));
-    //https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html#initialization
+    //Create the window and the image https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html#initialization
     win.mlx_ptr = mlx_init();
 	if (!win.mlx_ptr)
 		return (1);
@@ -61,13 +62,21 @@ int main(int argc, char **argv)
 	img.addr = mlx_get_data_addr(img.img_ptr, &img.bpp,
 			&img.line_len, &img.endian);
     
-    
+    //create the player
+    player.x = 65;
+    player.y = 350;
+    player.size = 30;
+    player.speed = 5;
+
     img.win = &win;
     win.img = &img;
-    plot_game_board(&img);
+    win.player = &player;
+    draw_game_board(&img, &player);
+    
 
     set_hooks(&win);
 
     mlx_loop(win.mlx_ptr);
     return (0);
 }
+//TODO:     1 (48 bytes) ROOT LEAK: <CFString 0x7fbf53730590> [48]  length: 26  "Copyright Apple Inc., 2019"
