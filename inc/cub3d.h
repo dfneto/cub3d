@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/10 11:31:31 by davifern         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:13:00 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,12 @@ typedef struct s_img
 
 typedef struct s_player
 {
-	int	x;
-	int	y;
-	int	size;
-	int	speed;
+	int		x;
+	int		y;
+	int		size;
+	int		speed;
+	float	dir_x;
+	float	dir_y;
 }	t_player;
 
 // cub3d.c

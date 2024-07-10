@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:04:23 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/09 10:16:45 by davifern         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:14:22 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,14 @@ int main(int argc, char **argv)
     player.y = 350;
     player.size = 30;
     player.speed = 5;
+    player.dir_x = 0.0;
+    player.dir_y = 1.0;
 
+    //make the associations
     img.win = &win;
     win.img = &img;
     win.player = &player;
+    
     draw_game_board(&img, &player);
     
 
