@@ -6,13 +6,13 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 08:28:49 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/09 10:29:46 by davifern         ###   ########.fr       */
+/*   Updated: 2024/07/10 11:36:41 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	move_to_left(t_img *img, t_player *player)
+int	move_to_left_original(t_img *img, t_player *player)
 {
 	int		x;
 	int		y;

@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 19:37:30 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/09 20:49:24 by davifern         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:04:36 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,19 @@ int	close_window(t_win *win)
 
 int	choose_event(int keycode, t_win *win)
 {
-	if (keycode == ESC && win)
+	if (!win)
+		return (1);
+	if (keycode == ESC)
 		close_window(win);
 	if (keycode == KEY_A)
-		return (move_to_left(win->img, win->player));//atualizo somente a posicao do player.x e chamo a funcao draw_game_board
-	if (keycode == 8) //leta C
-		mlx_clear_window(win->mlx_ptr, win->win_ptr);
+		win->player->x -= win->player->speed;
+	if (keycode == KEY_D)
+		win->player->x += win->player->speed;
+	if (keycode == KEY_W)
+		win->player->y -= win->player->speed; //o y no alto da tela vale 0 e no fim o HEIGTH
+	if (keycode == KEY_S)
+		win->player->y += win->player->speed;
+	draw_game_board(win->img, win->player);
 	printf("Keycode: %d\n", keycode);
 	return (0);
 }
@@ -48,5 +55,5 @@ void	set_hooks(t_win *win)
 {
 	// t_img	*img = NULL;
 	mlx_hook(win->win_ptr, 17, 0, close_window_mouse, win);
-    mlx_key_hook(win->win_ptr, choose_event, win); // equivalente a mlx_hook(win->win_ptr, 2, 0, close_window, win);
+	mlx_hook(win->win_ptr, 2, 0, choose_event, win); //equivalente a mlx_key_hook(win->win_ptr, choose_event, win);
 }
