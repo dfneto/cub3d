@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/10 12:13:00 by davifern         ###   ########.fr       */
+/*   Updated: 2024/07/11 10:18:08 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@
 # define WIDTH		500
 # define HEIGHT		500
 # define THICKNESS	10
-# define ESC		53
+# define ESC		65307 //53
 # define LEFT_CLICK 1
-# define KEY_A		0
-# define KEY_D		2
-# define KEY_W		13
-# define KEY_S		1
+# define KEY_A		97 //0
+# define KEY_D		100 //2
+# define KEY_W		119 //13
+# define KEY_S		115 //1
 # define KEY_C		8
 
 

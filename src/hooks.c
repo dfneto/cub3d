@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 19:37:30 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/10 12:04:36 by davifern         ###   ########.fr       */
+/*   Updated: 2024/07/11 10:51:09 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,6 @@ void	set_hooks(t_win *win)
 {
 	// t_img	*img = NULL;
 	mlx_hook(win->win_ptr, 17, 0, close_window_mouse, win);
-	mlx_hook(win->win_ptr, 2, 0, choose_event, win); //equivalente a mlx_key_hook(win->win_ptr, choose_event, win);
+	//mlx_hook(win->win_ptr, 2, 0, choose_event, win); //equivalente a mlx_key_hook(win->win_ptr, choose_event, win); //mac
+	mlx_hook(win->win_ptr, 2, 1L << 0, choose_event, win); //linux
 }
