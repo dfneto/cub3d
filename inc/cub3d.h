@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/11 10:18:08 by davifern         ###   ########.fr       */
+/*   Updated: 2024/07/11 11:15:52 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,9 @@ typedef struct s_player
 	int		y;
 	int		size;
 	int		speed;
-	float	dir_x;
-	float	dir_y;
+	float		dir_x;
+	float		dir_y;
+	int		direction_line_size;
 }	t_player;
 
 // cub3d.c

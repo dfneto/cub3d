@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:04:23 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/10 12:14:22 by davifern         ###   ########.fr       */
+/*   Updated: 2024/07/11 11:18:54 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int main(int argc, char **argv)
     player.speed = 5;
     player.dir_x = 0.0;
     player.dir_y = 1.0;
+    player.direction_line_size = 200;
 
     //make the associations
     img.win = &win;

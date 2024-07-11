@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:29:30 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/10 12:29:41 by davifern         ###   ########.fr       */
+/*   Updated: 2024/07/11 11:35:47 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ void	draw_borders(t_img *img)
 void	draw_player_direction(t_img *img, t_player *player)
 {
 	int	y;
-
-	y = player->y - player->size/2 - 30;
-	while (y >= player->y - player->size/2 - 30 && y <= player->y + player->size/2 - (player->size/2))
+	y = player->y - player->size/2 - player->direction_line_size;
+	while (y >= player->y - player->size/2 - player->direction_line_size 
+		&& y <= player->y)
 	{
 		my_mlx_pixel_put(img, player->x, y, YELLOW);
 		y++;
