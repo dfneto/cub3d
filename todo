@@ -1,3 +1,6 @@
 criar um vetor de direcao usando x e y com valores float seguindo um quadrante 
 ao mover o boneco deve seguir essa direcao
 
+Intalar a MLX do CODAM
+https://github.com/42-Madrid-Fundacion-Telefonica/MLX42/
+
