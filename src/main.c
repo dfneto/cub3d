@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:04:23 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/11 11:18:54 by davifern         ###   ########.fr       */
+/*   Updated: 2024/07/12 10:16:56 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,36 @@ int err(char *str)
 }
 
 
-int parse_map()
+int parse_map(t_map *map)
 {
+    *map = (t_map){
+        .grid = {
+            {'1', '1', '1', '1', '1', '1'},
+            {'1', '0', '0', '1', '0', '1'},
+            {'1', '0', '1', '0', '0', '1'},
+            {'1', '1', '0', '0', 'N', '1'},
+            {'1', '1', '1', '1', '1', '1'}
+        }
+    };
     return 0;
 }
 
-
+void    print_map_grid(t_map *map)
+{
+    int i = 0;
+    int j = 0;
+    while (i < ROWS)
+    {
+        while (j < COLS)
+        {
+            printf("%c ", map->grid[i][j]);
+            j++;
+        }
+        j = 0;
+        i++;
+        printf("\n");
+    }
+}
 
 /* ver sobre cores e estudar bitshft e hexadecimal em:
 https://harm-smits.github.io/42docs/libs/minilibx/colors.html
@@ -40,17 +64,22 @@ int rgb_to_int(double r, double g, double b)
 }
 */
 
+
 int main(int argc, char **argv)
 {
     t_win	    win;
     t_img       img; //vetor de pixels que será plotado depois
     t_player    player;
+    t_map       *map = (t_map *)malloc(sizeof(t_map));
 
     (void)argc;
     (void)argv;
     
-    if (parse_map())
+    if (parse_map(map))
         return (err(ERROR_PARSING));
+    
+    print_map_grid(map);
+
     //Create the window and the image https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html#initialization
     win.mlx_ptr = mlx_init();
 	if (!win.mlx_ptr)

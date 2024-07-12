@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/11 11:15:52 by davifern         ###   ########.fr       */
+/*   Updated: 2024/07/12 08:54:28 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,17 @@
 # define WIDTH		500
 # define HEIGHT		500
 # define THICKNESS	10
-# define ESC		65307 //53
+# define ESC		53 //65307 //53
 # define LEFT_CLICK 1
-# define KEY_A		97 //0
-# define KEY_D		100 //2
-# define KEY_W		119 //13
-# define KEY_S		115 //1
+# define KEY_A		0 //97 //0
+# define KEY_D		2 //100 //2
+# define KEY_W		13 //119 //13
+# define KEY_S		1 //115 //1
 # define KEY_C		8
+
+
+#define ROWS 5
+#define COLS 6
 
 
 typedef struct s_win
@@ -56,10 +60,15 @@ typedef struct s_player
 	int		y;
 	int		size;
 	int		speed;
-	float		dir_x;
-	float		dir_y;
+	float	dir_x;
+	float	dir_y;
 	int		direction_line_size;
 }	t_player;
+
+typedef struct s_map
+{
+	char	grid[ROWS][COLS];;
+}	t_map;
 
 // cub3d.c
 void	draw_game_board(t_img *img, t_player *player);

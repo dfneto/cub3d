@@ -16,7 +16,7 @@ NAME = cub3d
 MAKE = make --no-print-directory
 HEADER = inc/cub3d.h
 SRC = src/main.c src/draw_elements.c src/utils.c src/hooks.c src/movements.c
-DIR_MLX = mlx
+DIR_MLX = mlx_linux
 CC = gcc
 CFLAGS += -Wextra -Werror -Wall -MMD -g -I mlx -I inc
 
@@ -28,7 +28,7 @@ DEPS = $(SRC:.c=.d)
 ################################# RULES ####################################### 
 # -C <path> option. This changes the current path to the path '<path>', -s silent
 all: 
-	$(MAKE) -sC mlx
+	$(MAKE) -sC mlx_linux
 	$(MAKE) $(NAME)
 
 # This is a pattern rule that specifies to make how to build an object file (.o) from a 
@@ -38,10 +38,10 @@ all:
 # file into an .o file. $< is the first dependency (the .c file in this case) and $@ 
 # is the target (the .o file).
 %.o : %.c $(HEADER) Makefile
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) -Wall -Wextra -Werror -I/usr/include -Imlx_linux -Iinc -O3 -c $< -o $@
 
 $(NAME): $(OBJ) $(HEADER) Makefile
-	$(CC) $(OBJ) -O3 -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) $(OBJ) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 
 clean:
 	rm -f *.out src/*.o src/*.d
