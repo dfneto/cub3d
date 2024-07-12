@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/12 08:54:28 by davifern         ###   ########.fr       */
+/*   Updated: 2024/07/12 10:19:19 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_win
 	void			*win_ptr;
 	struct s_img	*img;
 	struct s_player	*player;
+	struct s_map	*map;
 }		t_win;
 
 typedef struct s_img

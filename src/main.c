@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:04:23 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/12 10:16:56 by davifern         ###   ########.fr       */
+/*   Updated: 2024/07/12 10:18:54 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ int main(int argc, char **argv)
     img.win = &win;
     win.img = &img;
     win.player = &player;
+    win.map = map;
     
     draw_game_board(&img, &player);
     
