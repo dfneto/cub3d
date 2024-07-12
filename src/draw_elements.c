@@ -58,6 +58,13 @@ void	draw_borders(t_img *img)
 		y++;
 	}
 }
+
+void	draw_map_grid(t_img *img, t_map *map)
+{
+		(void)img;
+		(void)map;
+}
+
 void	draw_player_direction(t_img *img, t_player *player)
 {
 	int	y;
@@ -70,11 +77,12 @@ void	draw_player_direction(t_img *img, t_player *player)
 	}
 }
 
-void	draw_game_board(t_img *img, t_player *player)
+void	draw_game_board(t_win *win)
 {
-	draw_borders(img);
-	draw_player(img, player);
-	draw_player_direction(img, player);
-	mlx_put_image_to_window(img->win->mlx_ptr,
-		img->win->win_ptr, img->img_ptr, 0, 0);
+	draw_borders(win->img);
+	draw_map_grid(win->img, win->map);
+	draw_player(win->img, win->player);
+	draw_player_direction(win->img, win->player);
+	mlx_put_image_to_window(win->mlx_ptr,
+		win->win_ptr, win->img->img_ptr, 0, 0);
 }

@@ -72,7 +72,8 @@ typedef struct s_map
 }	t_map;
 
 // cub3d.c
-void	draw_game_board(t_img *img, t_player *player);
+void	draw_game_board(t_win *win);
+//void	draw_game_board(t_img *img, t_player *player);
 
 //utils.c
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);

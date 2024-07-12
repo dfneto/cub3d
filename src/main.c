@@ -106,7 +106,7 @@ int main(int argc, char **argv)
     win.player = &player;
     win.map = map;
     
-    draw_game_board(&img, &player);
+    draw_game_board(&win);
     
 
     set_hooks(&win);

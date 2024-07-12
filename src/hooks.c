@@ -35,7 +35,7 @@ int	choose_event(int keycode, t_win *win)
 		win->player->y -= win->player->speed; //o y no alto da tela vale 0 e no fim o HEIGTH
 	if (keycode == KEY_S)
 		win->player->y += win->player->speed;
-	draw_game_board(win->img, win->player);
+	draw_game_board(win);
 	printf("Keycode: %d\n", keycode);
 	return (0);
 }
