@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:29:30 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/11 11:35:47 by davifern         ###   ########.fr       */
+/*   Updated: 2024/07/15 15:46:49 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,18 @@ void	draw_player(t_img *img, t_player *player)
 		while (x >= player->x - player->size/2 && x <= player->x + player->size/2)
 			my_mlx_pixel_put(img, x++, y, RED);
 		x = player->x - player->size/2;
+		y++;
+	}
+}
+
+void	draw_player_direction(t_img *img, t_player *player)
+{
+	int	y;
+	y = player->y - player->size/2 - player->direction_line_size;
+	while (y >= player->y - player->size/2 - player->direction_line_size 
+		&& y <= player->y)
+	{
+		my_mlx_pixel_put(img, player->x, y, YELLOW);
 		y++;
 	}
 }
@@ -59,27 +71,71 @@ void	draw_borders(t_img *img)
 	}
 }
 
-void	draw_map_grid(t_img *img, t_map *map)
+void	fill_black(t_img *img, int counter)
 {
-		(void)img;
-		(void)map;
+	int wall_size = 64;
+	int x = counter * wall_size - wall_size;
+	int y = counter * wall_size - wall_size;
+	while (x < counter * wall_size)
+	{
+		while (y < counter * wall_size)
+		{
+			my_mlx_pixel_put(img, x, y, BLACK);
+			y++;
+		}
+		y = counter * wall_size - wall_size;
+		x++;
+	}
+
 }
 
-void	draw_player_direction(t_img *img, t_player *player)
+void	draw_the_wall(t_img *img, int counter)
 {
-	int	y;
-	y = player->y - player->size/2 - player->direction_line_size;
-	while (y >= player->y - player->size/2 - player->direction_line_size 
-		&& y <= player->y)
+		(void)img;
+	int wall_size = 64;
+	int x = counter * wall_size - wall_size;
+	int y = counter * wall_size;
+	while (x < counter * wall_size) //x: 0 - 64
 	{
-		my_mlx_pixel_put(img, player->x, y, YELLOW);
-		y++;
+		while (y > counter * wall_size  - wall_size) //y: 64 - 0
+		{
+			printf("aqui x=%d, y=%d\n", x, y);
+			// my_mlx_pixel_put(img, x, y, YELLOW);
+			y--;
+		}
+		y = counter * wall_size;
+		x++;
+	}
+}
+
+void	draw_map_grid(t_img *img, t_map *map)
+{
+	(void) map;
+	(void) img;
+	int counter = 1;
+	int i = 0;
+	int j = 0;
+	while (i < ROWS) //6
+	{
+		while (j < COLS) //6
+		{
+			if (map->grid[i][j] == '1')
+				draw_the_wall(img, counter);
+		//	else
+			//	fill_black(img, counter);
+				//printf("%c ", map->grid[i][j]);
+			j++;
+		}
+		j = 0;
+		i++;
+		counter++;
+		printf("\n");
 	}
 }
 
 void	draw_game_board(t_win *win)
 {
-	draw_borders(win->img);
+//	draw_borders(win->img);
 	draw_map_grid(win->img, win->map);
 	draw_player(win->img, win->player);
 	draw_player_direction(win->img, win->player);

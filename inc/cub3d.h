@@ -18,8 +18,8 @@
 # include <stdlib.h>
 # include "messages.h"
 
-# define WIDTH		500
-# define HEIGHT		500
+# define WIDTH		384
+# define HEIGHT		384
 # define THICKNESS	10
 # define ESC		53 //65307 //53
 # define LEFT_CLICK 1
@@ -30,7 +30,7 @@
 # define KEY_C		8
 
 
-#define ROWS 5
+#define ROWS 6
 #define COLS 6
 
 
