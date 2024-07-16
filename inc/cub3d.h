@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/16 10:05:31 by davifern         ###   ########.fr       */
+/*   Updated: 2024/07/16 11:19:07 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <stdlib.h>
 # include "messages.h"
 
-# define WIDTH		384
-# define HEIGHT		384
+# define WIDTH		768
+# define HEIGHT		768
 # define THICKNESS	10
 # define ESC		53 //65307 //53
 # define LEFT_CLICK 1
@@ -30,9 +30,9 @@
 # define KEY_C		8
 
 
-#define ROWS 6
-#define COLS 6
-#define WALL_SIZE 64
+#define ROWS 24
+#define COLS 24
+#define WALL_SIZE 32
 
 
 typedef struct s_win

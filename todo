@@ -1,7 +1,8 @@
 Intalar a MLX do CODAM
 https://github.com/42-Madrid-Fundacion-Telefonica/MLX42/
 
-[] Ler de um array as paredes e printar no mapa
+[x] Ler de um array as paredes e printar no mapa
 [] Criar um vetor de direcao usando x e y com valores float seguindo um quadrante 
 [] Ao mover o boneco deve seguir essa direcao
 ? como é possível fazer uma reta inclinada numa tela de pixels?
+[] Colocar o player/sua direção de acordo com o map grid
