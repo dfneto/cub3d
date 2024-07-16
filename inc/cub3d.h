@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/12 10:19:19 by davifern         ###   ########.fr       */
+/*   Updated: 2024/07/16 10:05:31 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 
 #define ROWS 6
 #define COLS 6
+#define WALL_SIZE 64
 
 
 typedef struct s_win
@@ -68,7 +69,7 @@ typedef struct s_player
 
 typedef struct s_map
 {
-	char	grid[ROWS][COLS];;
+	char	grid[ROWS][COLS];
 }	t_map;
 
 // cub3d.c

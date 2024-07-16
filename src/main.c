@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:04:23 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/15 11:47:32 by davifern         ###   ########.fr       */
+/*   Updated: 2024/07/16 11:03:08 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ int main(int argc, char **argv)
 {
     t_win	    win;
     t_img       img; //vetor de pixels que será plotado depois
-    t_player    player;
-    t_map       *map = (t_map *)malloc(sizeof(t_map));
+    t_player    player; //TODO: devo criar um malloc? Pq sim ou pq não?
+    t_map       *map = (t_map *)malloc(sizeof(t_map)); //TODO: precisa de malloc? E pq win e img não precisam?
 
     (void)argc;
     (void)argv;

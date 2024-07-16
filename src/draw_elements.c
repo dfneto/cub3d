@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:29:30 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/15 15:46:49 by davifern         ###   ########.fr       */
+/*   Updated: 2024/07/16 11:02:38 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,48 +89,66 @@ void	fill_black(t_img *img, int counter)
 
 }
 
-void	draw_the_wall(t_img *img, int counter)
+void	draw_the_wall(t_img *img, int x_counter) // c 1
 {
-		(void)img;
-	int wall_size = 64;
-	int x = counter * wall_size - wall_size;
-	int y = counter * wall_size;
-	while (x < counter * wall_size) //x: 0 - 64
-	{
-		while (y > counter * wall_size  - wall_size) //y: 64 - 0
+	(void)img;
+	int x = x_counter * WALL_SIZE - WALL_SIZE; //0
+	int y = 0; //counter * WALL_SIZE - WALL_SIZE; //0
+	// int y = 382;
+	while (y < WALL_SIZE) //64
+	{		
+		// printf("y=%d\n", y);								 
+		while (x < x_counter * WALL_SIZE) //64
 		{
-			printf("aqui x=%d, y=%d\n", x, y);
-			// my_mlx_pixel_put(img, x, y, YELLOW);
-			y--;
+			// printf("y=%d, x=%d\n", y, x);
+			my_mlx_pixel_put(img, x, y, YELLOW);
+			x++;
 		}
-		y = counter * wall_size;
-		x++;
+		x = x_counter * WALL_SIZE - WALL_SIZE;
+		y++;
 	}
+	printf("\n");	
 }
 
 void	draw_map_grid(t_img *img, t_map *map)
 {
+
 	(void) map;
 	(void) img;
-	int counter = 1;
-	int i = 0;
-	int j = 0;
-	while (i < ROWS) //6
-	{
-		while (j < COLS) //6
-		{
-			if (map->grid[i][j] == '1')
-				draw_the_wall(img, counter);
-		//	else
-			//	fill_black(img, counter);
-				//printf("%c ", map->grid[i][j]);
-			j++;
-		}
-		j = 0;
-		i++;
-		counter++;
-		printf("\n");
-	}
+	// int i = 0;
+	// int j = 0;
+
+	draw_the_wall(img, 1);
+	printf("indo para a próxima parede\n");
+	draw_the_wall(img, 2);
+	draw_the_wall(img, 3);
+	draw_the_wall(img, 4);
+	draw_the_wall(img, 5);
+	draw_the_wall(img, 6);
+	// if (map->grid[i][j] == '1')
+	// 	draw_the_wall(img, j + 1);
+	// // i = 2;
+	// j = 1;
+	// if (map->grid[i][j] == '1')
+	// 	draw_the_wall(img, j + 1);
+		
+	// while (i < ROWS) //6
+	// {
+	// 	while (j < COLS) //6
+	// 	{
+	// 		if (map->grid[i][j] == '1')
+	// 			// printf("1 ");
+	// 			draw_the_wall(img, j + 1);
+	// 		else
+	// 			printf("0 ");
+	// 		//	fill_black(img, counter);
+	// 			//printf("%c ", map->grid[i][j]);
+	// 		j++;
+	// 	}
+	// 	j = 0;
+	// 	i++;
+	// 	printf("\n");
+	// }
 }
 
 void	draw_game_board(t_win *win)
