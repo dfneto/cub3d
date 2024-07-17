@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:29:30 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/16 11:34:05 by davifern         ###   ########.fr       */
+/*   Updated: 2024/07/17 11:11:07 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,6 @@ void	draw_player(t_img *img, t_player *player)
 		while (x >= player->x - player->size/2 && x <= player->x + player->size/2)
 			my_mlx_pixel_put(img, x++, y, RED);
 		x = player->x - player->size/2;
-		y++;
-	}
-}
-
-void	draw_player_direction(t_img *img, t_player *player)
-{
-	int	y;
-	y = player->y - player->size/2 - player->direction_line_size;
-	while (y >= player->y - player->size/2 - player->direction_line_size 
-		&& y <= player->y)
-	{
-		my_mlx_pixel_put(img, player->x, y, BLUE);
 		y++;
 	}
 }
@@ -128,12 +116,53 @@ void	draw_map_grid(t_img *img, t_map *map)
 	}
 }
 
+// Desenho una linha fixa saindo do player->y (meio) para cima
+void	draw_player_direction_inicial(t_img *img, t_player *player)
+{
+	int	y;
+	y = player->y - player->direction_line_size;
+	while (y >= player->y - player->direction_line_size 
+		&& y <= player->y)
+	{
+		my_mlx_pixel_put(img, player->x, y, BLUE);
+		y++;
+	}
+}
+
+int draw_line(t_img *img, int beginX, int beginY, int endX, int endY, int color)
+{
+	double deltaX = endX - beginX; 
+	double deltaY = endY - beginY; 
+	int pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY));
+	deltaX = deltaX / pixels; 
+	deltaY = deltaY / pixels; 
+	double pixelX = beginX;
+	double pixelY = beginY;
+	my_mlx_pixel_put(img, 300, 300, 0xFF0000);
+	while (pixels)
+	{
+		printf("pixelX=%f, pixelY=%f\n", pixelX, pixelY);
+		// mlx_pixel_put(mlx, win, pixelX, pixelY, 0xFFFFFF);
+		my_mlx_pixel_put(img, pixelX, pixelY, color);
+		pixelX += deltaX;
+		pixelY += deltaY;
+		--pixels;
+	}
+	return 0;
+}
+
+void	draw_player_direction(t_win *win, t_player *player)
+{
+ 	draw_line(win->img, player->x, player->y, 300, 300, BLUE);
+}
+
 void	draw_game_board(t_win *win)
 {
 //	draw_borders(win->img);
 	draw_map_grid(win->img, win->map);
 	draw_player(win->img, win->player);
-	draw_player_direction(win->img, win->player);
+// mlx_pixel_put(win->mlx_ptr, win->win_ptr, 312, 312, 0xFF0000); por que não funciona???
+	draw_player_direction(win, win->player);
 	mlx_put_image_to_window(win->mlx_ptr,
 		win->win_ptr, win->img->img_ptr, 0, 0);
 }

@@ -14,6 +14,7 @@
 # define CUB3D_H
 
 # include <mlx.h>
+# include <math.h>
 # include <stdio.h> 
 # include <stdlib.h>
 # include "messages.h"
