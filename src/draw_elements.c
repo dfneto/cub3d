@@ -77,6 +77,7 @@ void	fill_black(t_img *img, int counter)
 
 }
 
+//TODO: se o player passar da parede superior da seg fault
 void	draw_the_wall(t_img *img, int x_counter, int y_counter, int color)
 {
 	int	x;
@@ -129,8 +130,10 @@ void	draw_player_direction_inicial(t_img *img, t_player *player)
 	}
 }
 
-int draw_line(t_img *img, int beginX, int beginY, int endX, int endY, int color)
+int draw_direction_line(t_img *img, t_player *player, int beginX, int beginY, int color)
 {
+	int	endX = beginX + player->delta_x*50;
+	int	endY = beginY - player->delta_y*50;
 	double deltaX = endX - beginX; 
 	double deltaY = endY - beginY; 
 	int pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY));
@@ -153,7 +156,7 @@ int draw_line(t_img *img, int beginX, int beginY, int endX, int endY, int color)
 
 void	draw_player_direction(t_win *win, t_player *player)
 {
- 	draw_line(win->img, player->x, player->y, 300, 300, BLUE);
+ 	draw_direction_line(win->img, player, player->x, player->y, BLUE);
 }
 
 void	draw_game_board(t_win *win)

@@ -21,6 +21,9 @@ int	close_window(t_win *win)
 	exit(0);
 }
 
+int FixAng(int a){ if(a>359){ a-=360;} if(a<0){ a+=360;} return a;}
+float degToRad(int a) { return a*M_PI/180.0;}
+
 int	choose_event(int keycode, t_win *win)
 {
 	if (!win)
@@ -32,9 +35,22 @@ int	choose_event(int keycode, t_win *win)
 	if (keycode == KEY_D)
 		win->player->x += win->player->speed;
 	if (keycode == KEY_W)
-		win->player->y -= win->player->speed; //o y no alto da tela vale 0 e no fim o HEIGTH
+	{
+		win->player->x+=win->player->delta_x*5; win->player->y-=win->player->delta_y*5; //se eu mudo somente o y entao o player nao pode mover-se na diagonal
+		//o y no alto da tela vale 0 e no fim o HEIGTH
+	}
 	if (keycode == KEY_S)
-		win->player->y += win->player->speed;
+	{
+		win->player->x-=win->player->delta_x*5; win->player->y+=win->player->delta_y*5;
+	}
+	if (keycode == KEY_LEFT)
+	{
+		win->player->angle-=5; win->player->angle=FixAng(win->player->angle); win->player->delta_x=cos(degToRad(win->player->angle)); win->player->delta_y=-sin(degToRad(win->player->angle));
+	}
+	if (keycode == KEY_RIGTH)
+	{
+		win->player->angle+=5; win->player->angle=FixAng(win->player->angle); win->player->delta_x=cos(degToRad(win->player->angle)); win->player->delta_y=-sin(degToRad(win->player->angle));
+	}
 	draw_game_board(win);
 	printf("Keycode: %d\n", keycode);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/16 11:19:07 by davifern         ###   ########.fr       */
+/*   Updated: 2024/07/18 10:11:53 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CUB3D_H
 
 # include <mlx.h>
-# include <math.h>
+#include<math.h>
 # include <stdio.h> 
 # include <stdlib.h>
 # include "messages.h"
@@ -22,13 +22,15 @@
 # define WIDTH		768
 # define HEIGHT		768
 # define THICKNESS	10
-# define ESC		53 //65307 //53
+# define ESC		65307 //53
 # define LEFT_CLICK 1
-# define KEY_A		0 //97 //0
-# define KEY_D		2 //100 //2
-# define KEY_W		13 //119 //13
-# define KEY_S		1 //115 //1
+# define KEY_A		97 //0
+# define KEY_D		100 //2
+# define KEY_W		119 //13
+# define KEY_S		115 //1
 # define KEY_C		8
+# define KEY_LEFT	65361
+# define KEY_RIGTH	65363
 
 
 #define ROWS 24
@@ -63,8 +65,11 @@ typedef struct s_player
 	int		y;
 	int		size;
 	int		speed;
+	float	angle;
 	float	dir_x;
 	float	dir_y;
+	float	delta_x;
+	float	delta_y;
 	int		direction_line_size;
 }	t_player;
 

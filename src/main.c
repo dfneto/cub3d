@@ -115,8 +115,11 @@ int main(int argc, char **argv)
     player.y = 350;
     player.size = 20;
     player.speed = 5;
+    player.angle = 90;
     player.dir_x = 0.0;
     player.dir_y = 1.0;
+    player.delta_x =cos(player.angle) * 5;
+    player.delta_y = sin(player.angle) * 5;
     player.direction_line_size = 200;
 
     //make the associations
