@@ -1,0 +1,32 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2639
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\froman\fcharset0 Times-Roman;\f1\froman\fcharset0 Times-Bold;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red255\green255\blue10;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;\cssrgb\c99942\c98555\c0;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs36 \cf0 \expnd0\expndtw0\kerning0
+For every x of the screen (i.e. for every vertical stripe of the screen), send out a ray that starts at the player location and with a direction that depends on both the player's looking direction, \cb3 and the x-coordinate of the screen 
+\f1\b pq??
+\f0\b0 \cb1 . Then, let this ray move forward on the 2D map, until it hits a map square that is a wall. If it hit a wall, calculate the distance of this hit point to the player, and use this distance to calculate how high this wall has to be drawn on the screen: the further away the wall, the smaller it's on screen, and the closer, the higher it appears to be. These are all 2D calculations. This image shows a top down overview of two such rays (red) that start at the player (green dot) and hit blue walls:\
+\
+{{\NeXTGraphic raycastgrid.gif \width3840 \height3840 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\
+\
+We give each square width 1, so each side of a wall is an integer value and the places in between have a value after the point. Now the step size isn't constant, it depends on the distance to the next side:\
+\
+\
+A direction vector can be seen as follows: if you draw a line in the direction the player looks, through the position of the player, then every point of the line is the sum of the position of the player, and a multiple of the direction vector. The length of a direction vector doesn't really matter, only its direction. Multiplying x and y by the same value changes the length but keeps the same direction.\
+\
+\
+If the direction vector is much longer than the camera plane, the FOV will be much smaller than 90\'b0, and you'll have a very narrow vision. You'll see everything more detailed though and there will be less depth, so this is the same as zooming in
+\f1\b \cb3  (why zoom in?????)
+\f0\b0 \cb1 :\
+\pard\pardeftab720\partightenfactor0
+
+\fs24 \cf0 {{\NeXTGraphic raycastingFOV0.gif \width2360 \height6140 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\pard\pardeftab720\partightenfactor0
+
+\fs36 \cf0 \
+}
