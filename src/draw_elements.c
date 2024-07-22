@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:29:30 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/17 11:11:07 by davifern         ###   ########.fr       */
+/*   Updated: 2024/07/22 12:17:46 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ void	draw_player_direction_inicial(t_img *img, t_player *player)
 	}
 }
 
+//Usar a função bresenham abaixo?
 int draw_direction_line(t_img *img, t_player *player, int beginX, int beginY, int color)
 {
 	int	endX = beginX + player->delta_x*50;
@@ -153,6 +154,30 @@ int draw_direction_line(t_img *img, t_player *player, int beginX, int beginY, in
 	}
 	return 0;
 }
+/*
+#define MAXI(a, b) (a> b?a: b)
+#define MOD(a) ((a < 0) ? -a: a)
+void bresenham(float x, float y, float x1, float y1, fdf *data)//(1:1) (3:12)
+{
+    float x_step;
+    float y_step;
+    int max;
+
+    x_step = x1
+    y_step = y1
+
+    max = MAX(MOD (x_step), MOD(y_step)):
+    x_step /= max;
+    y_step /= max;
+
+    while ((int) (x - x1) || (int) (y- y1))
+    {
+        mix pixel put(data-›mlx ptr, data-›win ptr, x, y, oxffffff):
+        x += x_step;
+        y += y_step;
+    }
+}
+*/
 
 void	draw_player_direction(t_win *win, t_player *player)
 {
