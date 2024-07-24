@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 19:37:30 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/11 10:51:09 by davifern         ###   ########.fr       */
+/*   Updated: 2024/07/24 19:00:32 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,18 @@ int	close_window(t_win *win)
 	exit(0);
 }
 
-int FixAng(int a){ if(a>359){ a-=360;} if(a<0){ a+=360;} return a;}
-float degToRad(int a) { return a*M_PI/180.0;}
+int FixAng(int a)
+{ 
+	if (a > 359)
+		a = 0;
+	if (a < 0)
+		a = 360;
+	return a;
+}
+float degToRad(int a) 
+{ 
+	return (a * M_PI) / 180.0;
+}
 
 int	choose_event(int keycode, t_win *win)
 {
@@ -31,25 +41,48 @@ int	choose_event(int keycode, t_win *win)
 	if (keycode == ESC)
 		close_window(win);
 	if (keycode == KEY_A)
-		win->player->x -= win->player->speed;
-	if (keycode == KEY_D)
-		win->player->x += win->player->speed;
-	if (keycode == KEY_W)
 	{
-		win->player->x+=win->player->delta_x*5; win->player->y-=win->player->delta_y*5; //se eu mudo somente o y entao o player nao pode mover-se na diagonal
+		win->player->x -= win->player->speed;
+		// win->player->y -= win->player->speed;
+		// win->player->y -= degToRad(win->player->angle) * win->player->speed;
+
+	}
+	if (keycode == KEY_D)
+	{
+		win->player->x += win->player->speed;
+		// win->player->y += win->player->speed;
+		// win->player->y += win->player->speed; //degToRad(win->player->angle) * win->player->speed;
+	}
+	if (keycode == KEY_W)
+	{	//TODO: devo fazer alguma conta para fazer que quando suba ou desca va na mesma velocidade que para os lados
+		// posicion = posicion + vetor dir * speed
+		win->player->x = (win->player->x + win->player->dir_x);// * win->player->speed;
+		win->player->y = (win->player->y - win->player->dir_y);// * win->player->speed;
+		
+		// win->player->y -= win->player->delta_y * win->player->speed; //se eu mudo somente o y entao o player nao pode mover-se na diagonal
 		//o y no alto da tela vale 0 e no fim o HEIGTH
 	}
 	if (keycode == KEY_S)
 	{
-		win->player->x-=win->player->delta_x*5; win->player->y+=win->player->delta_y*5;
+		// posicion = posicion - vetor dir * speed
+		win->player->x = (win->player->x - win->player->dir_x);// * win->player->speed;
+		win->player->y = (win->player->y + win->player->dir_y);// * win->player->speed;
 	}
 	if (keycode == KEY_LEFT)
 	{
-		win->player->angle-=5; win->player->angle=FixAng(win->player->angle); win->player->delta_x=cos(degToRad(win->player->angle)); win->player->delta_y=-sin(degToRad(win->player->angle));
+		win->player->dir_x = win->player->dir_x * cos(90) - win->player->dir_y * sin(90);
+		win->player->dir_y = win->player->dir_x * sin(90) - win->player->dir_y * cos(90);
+		// x = x * cs(-5) - y * sn; // now x is something different than original vector x
+		// y = x * sn + y * cs;
 	}
 	if (keycode == KEY_RIGTH)
 	{
-		win->player->angle+=5; win->player->angle=FixAng(win->player->angle); win->player->delta_x=cos(degToRad(win->player->angle)); win->player->delta_y=-sin(degToRad(win->player->angle));
+		printf("Antes: dir x: %f, dir y: %f\n", win->player->dir_x, win->player->dir_y);
+		win->player->dir_x = win->player->dir_x * cos(5) + win->player->dir_y * sin(5);
+		win->player->dir_y = win->player->dir_x * sin(5) + win->player->dir_y * cos(5);
+		printf("Depois: dir x: %f, dir y: %f\n", win->player->dir_x, win->player->dir_y);
+		// x = x * cs(+5) - y * sn; // now x is something different than original vector x
+		// y = x * sn + y * cs;
 	}
 	draw_game_board(win);
 	printf("Keycode: %d\n", keycode);

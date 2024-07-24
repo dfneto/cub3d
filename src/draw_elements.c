@@ -6,24 +6,31 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:29:30 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/22 12:17:46 by davifern         ###   ########.fr       */
+/*   Updated: 2024/07/24 10:07:21 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#define MAX(a, b) (a > b ? a : b)
+#define MOD(a) (a < 0 ? -a : a)
 
 void	draw_player(t_img *img, t_player *player)
 {
-	int	x;
-	int	y;
+	float	x;
+	float	y;
+	float x_pixel;
+	float y_pixel;
 
-	x = player->x - player->size/2;
-	y = player->y - player->size/2;
-	while (y >= player->y - player->size/2 && y <= player->y + player->size/2)
+	//Conversao de linhas/colunas do map grid em pixels
+	x_pixel = (player->x + 0.5) * WALL_SIZE;
+	y_pixel = (player->y + 0.5) * WALL_SIZE;
+	x = x_pixel - player->size/2;
+	y = y_pixel - player->size/2;
+	while (y >= y_pixel - player->size/2 && y <= y_pixel + player->size/2)
 	{
-		while (x >= player->x - player->size/2 && x <= player->x + player->size/2)
+		while (x >= x_pixel - player->size/2 && x <= x_pixel + player->size/2)
 			my_mlx_pixel_put(img, x++, y, RED);
-		x = player->x - player->size/2;
+		x = x_pixel - player->size/2;
 		y++;
 	}
 }
@@ -97,7 +104,8 @@ void	draw_the_wall(t_img *img, int x_counter, int y_counter, int color)
 	}
 }
 
-void	draw_map_grid(t_img *img, t_map *map)
+// for every wall on the map grid draw it
+void	draw_map_walls(t_img *img, t_map *map)
 {
 	int i = 0;
 	int j = 0;
@@ -130,11 +138,103 @@ void	draw_player_direction_inicial(t_img *img, t_player *player)
 	}
 }
 
-//Usar a função bresenham abaixo?
-int draw_direction_line(t_img *img, t_player *player, int beginX, int beginY, int color)
+
+//x, y, x1, y1: são as linhas e colunas (coordenadas os 0s e 1s) do grid map, mas não são os 0s e 1s.
+	// draw_line_bresenham(700, 400, 500,500, win); - da ruim
+	// draw_line_bresenham(400, 700, 500,500, win); - da ruim
+void	draw_line_bresenham(int x, int y, int x1, int y1, t_win *win)//(1:1) (3:12)
 {
-	int	endX = beginX + player->delta_x*50;
-	int	endY = beginY - player->delta_y*50;
+    float x_step;
+    float y_step;
+    int max;
+
+    x_step = x1 - x;
+    y_step = y1 - y;
+
+    max = MAX(MOD(x_step), MOD(y_step));
+    x_step /= max;
+    y_step /= max;
+
+    while ((int) (x - x1) || (int) (y - y1))
+    {
+		printf("x=%d, y=%d\n", x, y);
+        // mlx_pixel_put(win->mlx_ptr, win->win_ptr, x, y, YELLOW);
+		my_mlx_pixel_put(win->img, x, y, BLUE);
+        x += x_step;
+        y += y_step;
+    }
+}
+
+//TODO: por que float?
+//x, y, x1, y1: são as linhas e colunas (coordenadas os 0s e 1s) do grid map, mas não são os 0s e 1s.
+void draw_grid_bresenham(float x, float y, float x1, float y1, t_win *win)//(1:1) (3:12)
+{
+    float x_step;
+    float y_step;
+    int max;
+	int z;
+
+	// ao multiplicar pelo zoom eu saio do mundo de linhas e colunas do grid map (coordenadas do grid map) e vou para o mundo de pixels
+	// que serão preenchidos no while abaixo step por step (step=1)
+	x *= win->zoom;
+	y *= win->zoom;
+	x1 *= win->zoom;
+	y1 *= win->zoom;
+    
+	z = win->map->grid[(int) y][(int) x];
+	int color = (z) ? RED : 0xffffff;
+	x_step = x1 - x;
+    y_step = y1 - y;
+
+    max = MAX(MOD(x_step), MOD(y_step));
+    x_step /= max;
+    y_step /= max;
+
+	//para cada linha na horizontal e vertical, vai pixel por pixel
+    while ((int) (x - x1) || (int) (y - y1))
+    {
+		printf("x-x1=%d, y-y1=%d\n", (int) (x - x1), (int) (y - y1));
+        // mlx_pixel_put(win->mlx_ptr, win->win_ptr, x, y, YELLOW);
+		my_mlx_pixel_put(win->img, x, y, color);
+        x += x_step;
+        y += y_step;
+    }
+}
+
+void	draw_grid_lines(t_win *win)
+{
+	(void) win;
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < win->height)
+	// while (y < 4)
+	{
+		x = 0;
+		while (x < win->width)
+		// while (x < 4)
+		{
+			// if (x < win->width)
+				draw_grid_bresenham(x, y, x + 1, y, win);//[0 0] [1 0]
+			// if (y < win->height)
+				draw_grid_bresenham(x, y, x, y + 1, win); //[0 0] [0 1]
+			x++;
+		}
+		y++;
+	}
+}
+
+//Usar a função bresenham abaixo?
+int draw_player_direction_line(t_img *img, t_player *player, int beginX, int beginY, int color)
+{
+	beginX = (player->x + 0.5) * WALL_SIZE;// converter en pixel usando regla de 3
+	beginY = (player->y + 0.5) * WALL_SIZE;// converter en pixel
+	int	endX = (player->x + player->dir_x * 1.5 + 0.5) * WALL_SIZE; // e converto para pixel
+	int	endY = (player->y - player->dir_y * 1.5 + 0.5) * WALL_SIZE;// converto para pixel
+	printf("endX=%d, endY=%d\n", endX, endY);
+	// int	endX = beginX + player->direction_line_size;
+	// int	endY = beginY - player->direction_line_size;
 	double deltaX = endX - beginX; 
 	double deltaY = endY - beginY; 
 	int pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY));
@@ -142,10 +242,9 @@ int draw_direction_line(t_img *img, t_player *player, int beginX, int beginY, in
 	deltaY = deltaY / pixels; 
 	double pixelX = beginX;
 	double pixelY = beginY;
-	my_mlx_pixel_put(img, 300, 300, 0xFF0000);
 	while (pixels)
 	{
-		printf("pixelX=%f, pixelY=%f\n", pixelX, pixelY);
+		// printf("pixelX=%f, pixelY=%f\n", pixelX, pixelY);
 		// mlx_pixel_put(mlx, win, pixelX, pixelY, 0xFFFFFF);
 		my_mlx_pixel_put(img, pixelX, pixelY, color);
 		pixelX += deltaX;
@@ -154,43 +253,16 @@ int draw_direction_line(t_img *img, t_player *player, int beginX, int beginY, in
 	}
 	return 0;
 }
-/*
-#define MAXI(a, b) (a> b?a: b)
-#define MOD(a) ((a < 0) ? -a: a)
-void bresenham(float x, float y, float x1, float y1, fdf *data)//(1:1) (3:12)
-{
-    float x_step;
-    float y_step;
-    int max;
-
-    x_step = x1
-    y_step = y1
-
-    max = MAX(MOD (x_step), MOD(y_step)):
-    x_step /= max;
-    y_step /= max;
-
-    while ((int) (x - x1) || (int) (y- y1))
-    {
-        mix pixel put(data-›mlx ptr, data-›win ptr, x, y, oxffffff):
-        x += x_step;
-        y += y_step;
-    }
-}
-*/
-
-void	draw_player_direction(t_win *win, t_player *player)
-{
- 	draw_direction_line(win->img, player, player->x, player->y, BLUE);
-}
 
 void	draw_game_board(t_win *win)
 {
-//	draw_borders(win->img);
-	draw_map_grid(win->img, win->map);
+	// draw_borders(win->img);
+	// draw_line_bresenham(400, 700, 500,500, win); - da ruim
+	// draw_grid_lines(win);
+	draw_map_walls(win->img, win->map);
 	draw_player(win->img, win->player);
-// mlx_pixel_put(win->mlx_ptr, win->win_ptr, 312, 312, 0xFF0000); por que não funciona???
-	draw_player_direction(win, win->player);
+	draw_player_direction_line(win->img, win->player, win->player->x, win->player->y, BLUE);
 	mlx_put_image_to_window(win->mlx_ptr,
 		win->win_ptr, win->img->img_ptr, 0, 0);
+	// mlx_pixel_put(win->mlx_ptr, win->win_ptr, 312, 312, 0xFF0000); por que não funciona???
 }

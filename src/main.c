@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:04:23 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/16 11:35:33 by davifern         ###   ########.fr       */
+/*   Updated: 2024/07/24 19:06:56 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int parse_map(t_map *map)
         {'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},   
         {'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
         {'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
-        {'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
+        {'1', 'N', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
         {'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
         {'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
         {'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
@@ -111,22 +111,26 @@ int main(int argc, char **argv)
 			&img.line_len, &img.endian);
     
     //create the player
-    player.x = 65;
-    player.y = 350;
+    // player.x = 5 + 0.5; //coordenada del mapa en float (indice da matriz + 0,5)
+    // player.y = 5 + 0.5; //
     player.size = 20;
-    player.speed = 5;
-    player.angle = 90;
-    player.dir_x = 0.0;
-    player.dir_y = 1.0;
-    player.delta_x =cos(player.angle) * 5;
-    player.delta_y = sin(player.angle) * 5;
+    player.speed = 0.5;
+    player.angle = 270;
+    // player.dir_x = 0.0; //N: [0 1], W: [-1 0], S: [0 -1]
+    // player.dir_y = 1.0;
+    player.delta_x = 0;//-sin(degToRad(player.angle));
+    player.delta_y = 1;//cos(degToRad(player.angle));
     player.direction_line_size = 200;
+    set_player_position_and_direction(&player, map); //O vetor posição x e y são colunas e linhas e não coordenadas cartesianas
 
     //make the associations
     img.win = &win;
     win.img = &img;
     win.player = &player;
     win.map = map;
+    win.height = 24;
+    win.width = 24;
+    win.zoom = 32;
     
     draw_game_board(&win);
     set_hooks(&win);

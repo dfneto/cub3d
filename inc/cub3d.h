@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/19 11:28:31 by davifern         ###   ########.fr       */
+/*   Updated: 2024/07/24 09:48:28 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_win
 {
 	int				height;
 	int				width;
+	int				zoom;
 	void			*mlx_ptr;
 	void			*win_ptr;
 	struct s_img	*img;
@@ -61,10 +62,10 @@ typedef struct s_img
 
 typedef struct s_player
 {
-	int		x;
-	int		y;
+	float		x;
+	float		y;
 	int		size;
-	int		speed;
+	float		speed;
 	float	angle;
 	float	dir_x;
 	float	dir_y;
@@ -84,12 +85,12 @@ void	draw_game_board(t_win *win);
 
 //utils.c
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+void	set_player_position_and_direction(t_player *player, t_map *map);
 
 //hooks.c
 void	set_hooks(t_win *window);
+float	degToRad(int a);
 
 //movements
-int		move_to_left(t_img *img, t_player *player);
-
 
 #endif
