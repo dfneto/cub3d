@@ -36,20 +36,25 @@ float degToRad(int a)
 
 int	choose_event(int keycode, t_win *win)
 {
+	double rotSpeed = 0.09;
 	if (!win)
 		return (1);
 	if (keycode == ESC)
 		close_window(win);
 	if (keycode == KEY_A)
 	{
-		win->player->x -= win->player->speed;
+		// win->player->x -= win->player->speed;
+		win->player->x = (win->player->x - win->player->dir_y);// * win->player->speed;
+		win->player->y = (win->player->y - win->player->dir_x);// * win->player->speed;
 		// win->player->y -= win->player->speed;
 		// win->player->y -= degToRad(win->player->angle) * win->player->speed;
 
 	}
 	if (keycode == KEY_D)
 	{
-		win->player->x += win->player->speed;
+		// win->player->x += win->player->speed;
+		win->player->x = (win->player->x + win->player->dir_y);// * win->player->speed;
+		win->player->y = (win->player->y + win->player->dir_x);// * win->player->speed;
 		// win->player->y += win->player->speed;
 		// win->player->y += win->player->speed; //degToRad(win->player->angle) * win->player->speed;
 	}
@@ -70,17 +75,23 @@ int	choose_event(int keycode, t_win *win)
 	}
 	if (keycode == KEY_LEFT)
 	{
-		win->player->dir_x = win->player->dir_x * cos(90) - win->player->dir_y * sin(90);
-		win->player->dir_y = win->player->dir_x * sin(90) - win->player->dir_y * cos(90);
+		double oldDirX = win->player->dir_x;
+            win->player->dir_x = win->player->dir_x * cos(rotSpeed) - win->player->dir_y * sin(rotSpeed);
+            win->player->dir_y = oldDirX * sin(rotSpeed) + win->player->dir_y * cos(rotSpeed);
+		// win->player->dir_x = win->player->dir_x * cos(90) - win->player->dir_y * sin(90);
+		// win->player->dir_y = win->player->dir_x * sin(90) - win->player->dir_y * cos(90);
 		// x = x * cs(-5) - y * sn; // now x is something different than original vector x
 		// y = x * sn + y * cs;
 	}
 	if (keycode == KEY_RIGTH)
 	{
-		printf("Antes: dir x: %f, dir y: %f\n", win->player->dir_x, win->player->dir_y);
-		win->player->dir_x = win->player->dir_x * cos(5) + win->player->dir_y * sin(5);
-		win->player->dir_y = win->player->dir_x * sin(5) + win->player->dir_y * cos(5);
-		printf("Depois: dir x: %f, dir y: %f\n", win->player->dir_x, win->player->dir_y);
+		double oldDirX = win->player->dir_x;
+		win->player->dir_x = win->player->dir_x * cos(-rotSpeed) - win->player->dir_y * sin(-rotSpeed);
+            win->player->dir_y = oldDirX * sin(-rotSpeed) + win->player->dir_y * cos(-rotSpeed);
+		// printf("Antes: dir x: %f, dir y: %f\n", win->player->dir_x, win->player->dir_y);
+		// win->player->dir_x = win->player->dir_x * cos(5) + win->player->dir_y * sin(5);
+		// win->player->dir_y = win->player->dir_x * sin(5) + win->player->dir_y * cos(5);
+		// printf("Depois: dir x: %f, dir y: %f\n", win->player->dir_x, win->player->dir_y);
 		// x = x * cs(+5) - y * sn; // now x is something different than original vector x
 		// y = x * sn + y * cs;
 	}
