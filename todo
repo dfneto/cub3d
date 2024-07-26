@@ -3,10 +3,18 @@ https://github.com/42-Madrid-Fundacion-Telefonica/MLX42/
 
 [x] Ler de um array as paredes e printar no mapa
 [x] Como é possível fazer uma reta inclinada numa tela de pixels?
-[] Criar um vetor de direcao usando x e y com valores float segundo um quadrante 
-    [] Criar o vetor inicialmente para 4 direções somente
-    [] Mudar a direção com as teclas de setas
-    [] Colocar o player/sua direção de acordo com o map grid
-[] Ao mover o boneco deve seguir essa direcao
+[x] Criar um vetor de direcao usando x e y com valores float segundo um quadrante 
+    [x] Criar o vetor inicialmente para 4 direções somente
+    [x] Mudar a direção com as teclas de setas
+    [x] Colocar o player/sua direção de acordo com o map grid
+[x] Ao mover o boneco deve seguir essa direcao
+[x]Parei tentando mover o player usando A e D de acordo com sua direção. Ir para o lodev
+[] Por que a direção e a posição são floats?
+[] Fazer a colisão
+[] Fazer o raycasting
+[] Fazer a textura
 
-Parei tentando mover o player usando A e D de acordo com sua direção. Ir para o lodev
+mlx_clear_window - clears the current window. This is not a recommended function 
+to use. Instead it is recommended to use the function 
+mlx_put_image_to_window with a recycled image that you 
+have cleared

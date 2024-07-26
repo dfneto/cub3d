@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/24 09:48:28 by davifern         ###   ########.fr       */
+/*   Updated: 2024/07/26 12:24:52 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,11 @@ typedef struct s_player
 {
 	float		x;
 	float		y;
-	int		size;
+	int			size;
 	float		speed;
-	float	angle;
-	float	dir_x;
-	float	dir_y;
-	float	delta_x;
-	float	delta_y;
-	int		direction_line_size;
+	float		dir_x;
+	float		dir_y;
+	int			direction_line_size;
 }	t_player;
 
 typedef struct s_map
@@ -92,5 +89,8 @@ void	set_hooks(t_win *window);
 float	degToRad(int a);
 
 //movements
+
+//bresenham
+void	draw_grid_lines(t_win *win);
 
 #endif

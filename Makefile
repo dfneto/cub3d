@@ -15,7 +15,7 @@
 NAME = cub3d
 MAKE = make --no-print-directory
 HEADER = inc/cub3d.h
-SRC = src/main.c src/draw_elements.c src/utils.c src/hooks.c src/movements.c
+SRC = src/main.c src/draw_elements.c src/utils.c src/hooks.c src/movements.c src/bresenham.c
 OBJ_DIR = obj
 DEP_DIR = dep
 DIR_MLX = mlx

@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:04:23 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/24 19:06:56 by davifern         ###   ########.fr       */
+/*   Updated: 2024/07/26 12:33:31 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,13 +115,8 @@ int main(int argc, char **argv)
     // player.y = 5 + 0.5; //
     player.size = 20;
     player.speed = 0.5;
-    player.angle = 270;
-    // player.dir_x = 0.0; //N: [0 1], W: [-1 0], S: [0 -1]
-    // player.dir_y = 1.0;
-    player.delta_x = 0;//-sin(degToRad(player.angle));
-    player.delta_y = 1;//cos(degToRad(player.angle));
     player.direction_line_size = 200;
-    set_player_position_and_direction(&player, map); //O vetor posição x e y são colunas e linhas e não coordenadas cartesianas
+    set_player_position_and_direction(&player, map); 
 
     //make the associations
     img.win = &win;
