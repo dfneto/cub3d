@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:29:30 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/26 12:32:53 by davifern         ###   ########.fr       */
+/*   Updated: 2024/07/29 06:36:54 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	draw_player(t_img *img, t_player *player)
 	while (y >= y_pixel - player->size/2 && y <= y_pixel + player->size/2)
 	{
 		while (x >= x_pixel - player->size/2 && x <= x_pixel + player->size/2)
-			my_mlx_pixel_put(img, x++, y, RED);
+			my_mlx_pixel_put(img, x++, y, RED); //TODO: ver como ocorre a conversão de floats em inteiros
 		x = x_pixel - player->size/2;
 		y++;
 	}
