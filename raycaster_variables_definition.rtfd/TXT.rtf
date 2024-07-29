@@ -20,55 +20,57 @@ Um quadrado tem seu lado de tamanho 1\
 posX and posY: position vector of the player\
 dirX and dirY:direction of the player\
 planeX and planeY: the camera plane of the player \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural\partightenfactor0
 
 \f1\fs24 \cf0 \kerning1\expnd0\expndtw0 {{\NeXTGraphic Screen Shot 2024-07-19 at 11.42.25.png \width8020 \height4760 \appleattachmentpadding0 \appleembedtype0 \appleaqc
-}¬}\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+}¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\pardirnatural\partightenfactor0
 
 \fs48 \cf0 FOV is 2 * atan(0.66/1.0)=66\'b0\
 cameraX: is the x-coordinate on the camera plane that the current x-coordinate of the screen represents, done this way so that the right side of the screen will get coordinate 1, the center of the screen gets coordinate 0, and the left side of the screen gets coordinate -1 
 \f2\fs24 \cf3 \cb4 \expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec3 cameraX\cf5 \strokec5  \cf6 \strokec6 =\cf5 \strokec5  \cf7 \strokec7 2\cf5 \strokec5  \cf6 \strokec6 *\cf5 \strokec5  \cf3 \strokec3 x\cf5 \strokec5  \cf6 \strokec6 /\cf5 \strokec5  \cf6 \strokec6 (\cf8 \strokec8 double\cf6 \strokec6 )\cf9 \strokec9 screenWidth\cf5 \strokec5  \cf6 \strokec6 -\cf5 \strokec5  \cf7 \strokec7 1\cf5 \cb1 \strokec5 \
+cameraX\cf5  \cf6 =\cf5  \cf7 2\cf5  \cf6 *\cf5  \cf3 x\cf5  \cf6 /\cf5  \cf6 (\cf8 double\cf6 )\cf9 screenWidth\cf5  \cf6 -\cf5  \cf7 1\cf5 \cb1 \
 
 \f1\fs48 \cf2 \
 rayDirX,Y\
 the sum of the direction vector and a part of the plane vector\
 \
 mapX and mapY\
-represent the current square of the map the ray is in \cb10 (seria um 0 ou 1 do map grid)\cb1  The ray position itself is a floating point number \cb10 (acho que as coordenadas na realidade s\'e3o um plano cartesiano que depois \'e9 convertido para os pixels)\cb1  and contains both info about in which square of the map we are, and where in that square we are, but mapX and mapY are only the coordinates of that square.\
+represent the current square of the map the ray is in \cb10 (seria um 0 ou 1 do map grid, ent\'e3o seria algo como linha 3, coluna 2)\cb1  The ray position itself is a floating point number and contains both info about in which square of the map we are, and where in that square we are, but mapX and mapY are only the coordinates of that square.\
 \pard\pardeftab720\partightenfactor0
 
-\f0 \cf11 \cb12 \outl0\strokewidth0 //which box of the map we're in\
+\f0 \cf11 \cb12 //which box of the map we're in\
 \cf13 int mapX = int(posX);\
 int mapY = int(posY);
 \fs36 \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\pardirnatural\partightenfactor0
 
-\f1\fs48 \cf2 \cb1 \outl0\strokewidth0 \strokec5 \
+\f1\fs48 \cf2 \cb1 \
 sideDistX and sideDistY are initially the distance the ray has to travel from its start position to the first x-side and the first y-side. Later in the code they will be incremented while steps are taken.\
 If the ray direction has a positive x-component, sideDistX is the distance from the ray starting position to the first side to the right (ver imagem abaixo). The same goes for the y-component, but now with the first side above or below the position.\
 \pard\pardeftab720\partightenfactor0
 
-\f0 \cf11 \cb12 \outl0\strokewidth0 //length of ray from current position to next x or y-side\
+\f0 \cf11 \cb12 //length of ray from current position to next x or y-side\
 \cf13 double sideDistX;\
 double sideDistY;\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\pardirnatural\partightenfactor0
 
-\f1 \cf2 \cb1 \outl0\strokewidth0 \strokec5 \
+\f1 \cf2 \cb1 \
 deltaDistX and deltaDistY\
 Are the distance the ray has to travel to go from 1 x-side to the next x-side, or from 1 y-side to the next y-side. \
 \pard\pardeftab720\partightenfactor0
 
-\f0 \cf11 \cb12 \outl0\strokewidth0  //length of ray from one x or y-side to next x or y-side\
+\f0 \cf11 \cb12  //length of ray from one x or y-side to next x or y-side\
 \cf13 double deltaDistX = (rayDirX == 0) ? 1e30 : std::abs(1 / rayDirX);\
 double deltaDistY = (rayDirY == 0) ? 1e30 : std::abs(1 / rayDirY);\
 double perpWallDist;
-\f1 \cf2 \cb1 \outl0\strokewidth0 \strokec5 \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\f1 \cf2 \cb1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\pardirnatural\partightenfactor0
 
-\fs24 \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {{\NeXTGraphic Screen Shot 2024-07-19 at 13.07.30.png \width5780 \height8840 \appleattachmentpadding0 \appleembedtype0 \appleaqc
-}¬}\
+\fs24 \cf0 \kerning1\expnd0\expndtw0 {{\NeXTGraphic Screen Shot 2024-07-19 at 13.07.30.png \width5780 \height8840 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\pardirnatural\partightenfactor0
+\cf0 \
 
 \fs48 *The DDA algorithm will always jump exactly one square each loop, either a square in the x-direction, or a square in the y- direction.\
 \
@@ -79,15 +81,22 @@ always either -1 or +1. If the ray has to go in the negative or positive directi
 \f0\fs21\fsmilli10667 \cf11 \cb12 \expnd0\expndtw0\kerning0
 /
 \fs48 /what direction to step in x or y-direction (either +1 or -1)\
+\pard\pardeftab720\partightenfactor0
 \cf13 int stepX;\
 int stepY;\
 int hit = 0; \cf11 //was there a wall hit?\
-\cf13 int side; \cf11 //was a NS or a EW wall hit?
-\f1\fs24 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
+\cf13 int side; \cf11 //was a NS or a EW wall hit?\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+\cf2 \cb1 sideDistX and sideDistY get incremented with deltaDistX with every jump in their direction, and mapX and mapY get incremented with stepX and stepY respectively. 
+\fs24 \
+\pard\pardeftab720\partightenfactor0
+
+\f1 \cf0 \kerning1\expnd0\expndtw0 \
 
 \fs48 \
 \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\pardirnatural\partightenfactor0
 \cf0 \
 \pard\pardeftab720\partightenfactor0
 \cf0 \
