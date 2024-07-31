@@ -30,13 +30,13 @@ t_point dda_collision_detection_lodev(t_player *player, t_map *map)
 	double deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1.0 / rayDirY);
     // printf("deltaDistX %f, deltaDistY %f\n", deltaDistX, deltaDistY);   
 	
-	// double perpWallDist;
+	double perpWallDist;
 	
 	int stepX;
 	int stepY;
 
 	int hit = 0;
-	// int side;
+	int side;
 
 	if (rayDirX < 0) 
 	{
@@ -69,14 +69,14 @@ t_point dda_collision_detection_lodev(t_player *player, t_map *map)
 		{
 			sideDistX += deltaDistX;
 			col += stepX;
-			// side = 0;
+			side = 0;
 			printf("mapX = %d\n", col);
 		}
 		else
 		{
 			sideDistY += deltaDistY;
 			row += stepY;
-			// side = 1;
+			side = 1;
 			printf("grid[%d][%d] = %c, mapY = %d\n", row, col, map->grid[col][row], row);
 		}
 		if (map->grid[row][col] == '1') 
@@ -85,8 +85,18 @@ t_point dda_collision_detection_lodev(t_player *player, t_map *map)
             break;
         }    
 	}
-    end_point.x = col;
-    end_point.y = row;
+    // end_point.x = col;
+    // end_point.y = row;
+
+	if (side == 0) perpWallDist = (sideDistX - deltaDistX);
+	else           perpWallDist = (sideDistY - deltaDistY);
+
+	int lineHeight = (int)(screenHeight / perpWallDist);
+
+	int drawStart = -lineHeight / 2 + screenHeight / 2;
+	if (drawStart < 0) drawStart = 0;
+	int drawEnd = lineHeight / 2 + screenHeight / 2;
+	if (drawEnd >= screenHeight) drawEnd = screenHeight - 1;
 
     return end_point; //vai dar ruim se nao achar uma parede
 }
