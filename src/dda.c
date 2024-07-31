@@ -30,10 +30,13 @@ t_point dda_collision_detection_lodev(t_player *player, t_map *map)
 	double deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1.0 / rayDirY);
     // printf("deltaDistX %f, deltaDistY %f\n", deltaDistX, deltaDistY);   
 	
+	// double perpWallDist;
+	
 	int stepX;
 	int stepY;
 
 	int hit = 0;
+	// int side;
 
 	if (rayDirX < 0) 
 	{
@@ -66,12 +69,14 @@ t_point dda_collision_detection_lodev(t_player *player, t_map *map)
 		{
 			sideDistX += deltaDistX;
 			col += stepX;
+			// side = 0;
 			printf("mapX = %d\n", col);
 		}
 		else
 		{
 			sideDistY += deltaDistY;
 			row += stepY;
+			// side = 1;
 			printf("grid[%d][%d] = %c, mapY = %d\n", row, col, map->grid[col][row], row);
 		}
 		if (map->grid[row][col] == '1') 
