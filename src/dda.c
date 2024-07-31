@@ -19,41 +19,45 @@ t_point dda_collision_detection_lodev(t_player *player, t_map *map)
 	float rayDirX = player->dir_x;
 	float rayDirY = player->dir_y;
     printf("rayDirX %f, rayDirY %f\n", rayDirX, rayDirY);   
-	int mapX = (int)player->x;
-	int mapY = (int)player->y;
-    printf("Posição inicial: coluna %d, linha %d\n", mapX, mapY);   
+	int col = (int)player->x;
+	int row = (int)player->y;
+    // printf("Posição inicial: coluna %d, linha %d\n", mapX, mapY);   
 
 	double sideDistX;
 	double sideDistY;
 
 	double deltaDistX = (rayDirX == 0) ? 1e30 : fabs(1.0 / rayDirX);
 	double deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1.0 / rayDirY);
-    printf("deltaDistX %f, deltaDistY %f\n", deltaDistX, deltaDistY);   
+    // printf("deltaDistX %f, deltaDistY %f\n", deltaDistX, deltaDistY);   
 	
 	int stepX;
 	int stepY;
 
 	int hit = 0;
 
-	if (rayDirX < 0)
+	if (rayDirX < 0) 
 	{
 		stepX = -1;
-		sideDistX = (player->x - mapX) * deltaDistX;
+		sideDistX = (player->x - col) * deltaDistX;
+		// printf("rayDirX < 0, sideDistX = %.2f\n", sideDistX);
 	}
-	else
+	else //aqui
 	{
 		stepX = 1;
-		sideDistX = (mapX + 1.0 - player->x) * deltaDistX;
+		sideDistX = (col + 1.0 - player->x) * deltaDistX;
+		// printf("rayDirX >= 0, sideDistX = %.2f\n", sideDistX);
 	}
-	if (rayDirY < 0)
+	if (rayDirY > 0) //aqui
 	{
 		stepY = -1;
-		sideDistY = (player->y - mapY) * deltaDistY;
+		sideDistY = (player->y - row) * deltaDistY;
+		// printf("rayDirY > 0, sideDistY = %.2f\n", sideDistY);
 	}
 	else
 	{
 		stepY = 1;
-		sideDistY = (mapY + 1.0 - player->y) * deltaDistY;
+		sideDistY = (row + 1.0 - player->y) * deltaDistY;
+		// printf("rayDirY <= 0, sideDistY = %.2f\n", sideDistY);
 	}
 
 	while (hit == 0) //enquanto não bateu na parede
@@ -61,21 +65,23 @@ t_point dda_collision_detection_lodev(t_player *player, t_map *map)
 		if (sideDistX < sideDistY)
 		{
 			sideDistX += deltaDistX;
-			mapX += stepX;
+			col += stepX;
+			printf("mapX = %d\n", col);
 		}
 		else
 		{
 			sideDistY += deltaDistY;
-			mapY += stepY;
+			row += stepY;
+			printf("grid[%d][%d] = %c, mapY = %d\n", row, col, map->grid[col][row], row);
 		}
-		if (map->grid[mapX][mapY] == '1') 
+		if (map->grid[row][col] == '1') 
         {
-            printf("Encontrou parede na coluna %d, linha %d\n", mapX, mapY);   
+            printf("Encontrou parede na coluna %d, linha %d\n", col, row);   
             break;
         }    
 	}
-    end_point.x = mapX;
-    end_point.y = mapY;
+    end_point.x = col;
+    end_point.y = row;
 
-    return end_point; //vai dar ruim se nao acho uma parede
+    return end_point; //vai dar ruim se nao achar uma parede
 }

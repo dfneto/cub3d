@@ -89,10 +89,10 @@ int draw_player_direction_line(t_img *img, t_player *player, int beginX, int beg
 	// int endX = end_point.x;
 	// int endY = end_point.y;
 
-	int	endX = (player->x + 0 + 0.5) * WALL_SIZE; //1.5 é o tamanho da direction line
-	int	endY = (player->y - 8) * WALL_SIZE; //TODO: pq + 0.5?
 	t_point end_point = dda_collision_detection_lodev(player, img->win->map);
-	printf("endX=%f, endY=%f\n", end_point.x, end_point.y);
+	int	endX = (end_point.x + 0.5) * WALL_SIZE; //(player->x + 0 + 0.5) * WALL_SIZE; //1.5 é o tamanho da direction line
+	int	endY = (end_point.y + 1) * WALL_SIZE; //(player->y - 8) * WALL_SIZE; //TODO: pq + 0.5?
+	// printf("endX=%f, endY=%f\n", end_point.x, end_point.y);
 	
 
 	double deltaX = endX - beginX; 

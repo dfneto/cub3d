@@ -19,7 +19,7 @@ int dda_collision_detection(t_map *map, float x_start, float y_start, float x_en
 	printf("---------------------------------------------------------------\n");
 	int grid_x = (int)round(x_end);
 	int grid_y = (int)round(y_end);
-	printf("Player is in grid [%d, %d] - y=%.2f, x=%.2f\n", (int)round(y_start), (int)round(x_start), y_start, x_start);
+	// printf("Player is in grid [%d, %d] - y=%.2f, x=%.2f\n", (int)round(y_start), (int)round(x_start), y_start, x_start);
 	printf("Player wants to go to [%d, %d] - y=%.2f, x=%.2f\n", grid_y, grid_x, y_end, x_end);
     // Calculate dx and dy
     float dx = x_end - x_start;
@@ -87,6 +87,7 @@ int FixAng(int a)
 		a = 360;
 	return a;
 }
+
 float degToRad(int a) 
 { 
 	return (a * M_PI) / 180.0;
@@ -119,16 +120,16 @@ int	choose_event(int keycode, t_win *win)
 	}
 	if (keycode == KEY_W)
 	{	//TODO: devo fazer alguma conta para fazer que quando suba ou desca va na mesma velocidade que para os lados
-		if (!dda_collision_detection(win->map, win->player->x, win->player->y, win->player->x + win->player->dir_x, win->player->y - win->player->dir_y))
+		// if (!dda_collision_detection(win->map, win->player->x, win->player->y, win->player->x + win->player->dir_x, win->player->y - win->player->dir_y))
 		// if (!dda_collision_detection_lodev(win->player, win->map))
-		{
+		// {
 			// posicion = posicion + vetor dir * speed
 			win->player->x = (win->player->x + win->player->dir_x);// * win->player->speed;
 			win->player->y = (win->player->y - win->player->dir_y);// * win->player->speed;
-		}
-		int grid_x = (int)round(win->player->x);
-        int grid_y = (int)round(win->player->y);
-		printf("Player is in grid [%d, %d]\n", grid_y, grid_x);
+		// }
+		// int grid_x = (int)round(win->player->x);
+        // int grid_y = (int)round(win->player->y);
+		// printf("Player is in grid [%d, %d]\n", grid_y, grid_x);
 		// win->player->y -= win->player->delta_y * win->player->speed; //se eu mudo somente o y entao o player nao pode mover-se na diagonal
 		//o y no alto da tela vale 0 e no fim o HEIGTH
 	}
@@ -137,9 +138,9 @@ int	choose_event(int keycode, t_win *win)
 		// posicion = posicion - vetor dir * speed
 		win->player->x = (win->player->x - win->player->dir_x);// * win->player->speed;
 		win->player->y = (win->player->y + win->player->dir_y);// * win->player->speed;
-		int grid_x = (int)round(win->player->x);
-        int grid_y = (int)round(win->player->y);
-		printf("Player is in grid [%d, %d]\n", grid_y, grid_x);
+		// int grid_x = (int)round(win->player->x);
+        // int grid_y = (int)round(win->player->y);
+		// printf("Player is in grid [%d, %d]\n", grid_y, grid_x);
 	}
 	if (keycode == KEY_LEFT)
 	{
