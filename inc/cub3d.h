@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/26 12:24:52 by davifern         ###   ########.fr       */
+/*   Updated: 2024/07/30 13:10:17 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,12 @@ typedef struct s_player
 	int			direction_line_size;
 }	t_player;
 
+typedef struct s_point
+{
+	float		x;
+	float		y;
+}	t_point;
+
 typedef struct s_map
 {
 	char	grid[ROWS][COLS];
@@ -92,5 +98,8 @@ float	degToRad(int a);
 
 //bresenham
 void	draw_grid_lines(t_win *win);
+
+//dda
+t_point	dda_collision_detection_lodev(t_player *player, t_map *map);
 
 #endif

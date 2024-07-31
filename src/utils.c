@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 09:43:59 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/26 11:55:30 by davifern         ###   ########.fr       */
+/*   Updated: 2024/07/30 13:47:24 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	set_player_position_and_direction(t_player *player, t_map *map)
 				player->y = i;
 				player->dir_x = 0.0;
 				player->dir_y = 1.0;
-				printf("set player x=%f, y=%f\n", player->x, player->y);
+				// printf("set player x=%f, y=%f\n", player->x, player->y);
 			}
 			if (map->grid[i][j] == 'S') // [0 -1]
 			{
@@ -45,7 +45,7 @@ void	set_player_position_and_direction(t_player *player, t_map *map)
 				player->y = i;
 				player->dir_x = 0.0;
 				player->dir_y = -1.0;
-				printf("set player x=%f, y=%f\n", player->x, player->y);
+				// printf("set player x=%f, y=%f\n", player->x, player->y);
 			}
 			j++;
 		}

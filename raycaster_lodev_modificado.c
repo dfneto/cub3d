@@ -160,15 +160,16 @@ int main()
                 {
                     sideDistX += deltaDistX;
                     mapX += stepX;
-                    side = 0;
+                    // side = 0;
                 }
                 else
                 {
                     sideDistY += deltaDistY;
                     mapY += stepY;
-                    side = 1;
+                    // side = 1;
                 }
                 if (worldMap[mapX][mapY] > 0) hit = 1;
+                    //retornar o map ou fazer uma conta igual do video
             }
 
             if (side == 0) perpWallDist = (sideDistX - deltaDistX);

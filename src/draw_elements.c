@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:29:30 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/29 06:36:54 by davifern         ###   ########.fr       */
+/*   Updated: 2024/07/30 13:34:18 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,24 @@ void	draw_player(t_img *img, t_player *player)
 	}
 }
 
-void	draw_the_wall(t_img *img, int x_counter, int y_counter, int color)
+//fill WALL_SIZE x WALL_SIZE pixels according to [row, column] of the grid map
+void	draw_the_wall(t_img *img, int row, int column, int color)
 {
 	int	x;
 	int	y;
 	
 	//converto de linhas e colunas para pixels
-	x = x_counter * WALL_SIZE - WALL_SIZE; 
-	y = y_counter * WALL_SIZE - WALL_SIZE;
+	x = row * WALL_SIZE - WALL_SIZE; 
+	y = column * WALL_SIZE - WALL_SIZE;
 	
-	while (y < y_counter * WALL_SIZE)
+	while (y < column * WALL_SIZE)
 	{		
-		while (x < x_counter * WALL_SIZE)
+		while (x < row * WALL_SIZE)
 		{
 			my_mlx_pixel_put(img, x, y, color);
 			x++;
 		}
-		x = x_counter * WALL_SIZE - WALL_SIZE;
+		x = row * WALL_SIZE - WALL_SIZE;
 		y++;
 	}
 }
@@ -75,16 +76,25 @@ void	draw_map_walls(t_img *img, t_map *map)
 		i++;
 	}
 }
-
+//TODO: fazer a linha ir até o limite da tela
 //it draws a line
 int draw_player_direction_line(t_img *img, t_player *player, int beginX, int beginY, int color)
 {
 	//Conversao de linhas/colunas do map grid em pixels
 	beginX = (player->x + 0.5) * WALL_SIZE; //0.5 para colocar o jogador no meio do quadrado (WALL_SIZE)
 	beginY = (player->y + 0.5) * WALL_SIZE;
-	int	endX = (player->x + player->dir_x * 1.5 + 0.5) * WALL_SIZE; //1.5 é o tamanho da direction line
-	int	endY = (player->y - player->dir_y * 1.5 + 0.5) * WALL_SIZE;
 	
+	// int	endX = (player->x + player->dir_x * 1.5 + 0.5) * WALL_SIZE; //1.5 é o tamanho da direction line
+	// int	endY = (player->y - player->dir_y * 1.5 + 0.5) * WALL_SIZE; //TODO: pq + 0.5?
+	// int endX = end_point.x;
+	// int endY = end_point.y;
+
+	int	endX = (player->x + 0 + 0.5) * WALL_SIZE; //1.5 é o tamanho da direction line
+	int	endY = (player->y - 8) * WALL_SIZE; //TODO: pq + 0.5?
+	t_point end_point = dda_collision_detection_lodev(player, img->win->map);
+	printf("endX=%f, endY=%f\n", end_point.x, end_point.y);
+	
+
 	double deltaX = endX - beginX; 
 	double deltaY = endY - beginY; 
 	int pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY));
