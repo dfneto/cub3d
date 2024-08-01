@@ -114,7 +114,7 @@ int main(int argc, char **argv)
     // player.x = 5 + 0.5; //coordenada del mapa en float (indice da matriz + 0,5)
     // player.y = 5 + 0.5; //
     player.size = 20;
-    player.speed = 0.5;
+    player.speed = 0.25;
     player.direction_line_size = 200;
     set_player_position_and_direction(&player, map); 
 

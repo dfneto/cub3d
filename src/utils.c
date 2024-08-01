@@ -33,16 +33,16 @@ void	set_player_position_and_direction(t_player *player, t_map *map)
 		{
 			if (map->grid[i][j] == 'N') // [0 1]
 			{
-				player->x = j;
-				player->y = i;
+				player->x = j + 0.5;
+				player->y = i + 0.5;
 				player->dir_x = 0.0;
 				player->dir_y = 1.0;
 				// printf("set player x=%f, y=%f\n", player->x, player->y);
 			}
 			if (map->grid[i][j] == 'S') // [0 -1]
 			{
-				player->x = j;
-				player->y = i;
+				player->x = j + 0.5;
+				player->y = i + 0.5;
 				player->dir_x = 0.0;
 				player->dir_y = -1.0;
 				// printf("set player x=%f, y=%f\n", player->x, player->y);

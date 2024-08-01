@@ -20,8 +20,8 @@ void	draw_player(t_img *img, t_player *player)
 	float y_pixel;
 
 	//Conversao de linhas/colunas do map grid em pixels
-	x_pixel = (player->x + 0.5) * WALL_SIZE;
-	y_pixel = (player->y + 0.5) * WALL_SIZE;
+	x_pixel = (player->x) * WALL_SIZE;
+	y_pixel = (player->y) * WALL_SIZE;
 	
 	x = x_pixel - player->size/2;
 	y = y_pixel - player->size/2;
@@ -76,24 +76,26 @@ void	draw_map_walls(t_img *img, t_map *map)
 		i++;
 	}
 }
-//TODO: fazer a linha ir até o limite da tela
 //it draws a line
 int draw_player_direction_line(t_img *img, t_player *player, int beginX, int beginY, int color)
 {
 	//Conversao de linhas/colunas do map grid em pixels
-	beginX = (player->x + 0.5) * WALL_SIZE; //0.5 para colocar o jogador no meio do quadrado (WALL_SIZE)
-	beginY = (player->y + 0.5) * WALL_SIZE;
+	beginX = (player->x) * WALL_SIZE; //0.5 para colocar o jogador no meio do quadrado (WALL_SIZE)
+	beginY = (player->y) * WALL_SIZE;
 	
 	// int	endX = (player->x + player->dir_x * 1.5 + 0.5) * WALL_SIZE; //1.5 é o tamanho da direction line
 	// int	endY = (player->y - player->dir_y * 1.5 + 0.5) * WALL_SIZE; //TODO: pq + 0.5?
 	// int endX = end_point.x;
 	// int endY = end_point.y;
 
-	t_point end_point = dda_collision_detection_lodev(player, img->win->map);
-	int	endX = (end_point.x + 0.5) * WALL_SIZE; //(player->x + 0 + 0.5) * WALL_SIZE; //1.5 é o tamanho da direction line
-	int	endY = (end_point.y + 0) * WALL_SIZE; //(player->y - 8) * WALL_SIZE; //TODO: pq + 0.5?
+	t_point_distance end_point = dda_collision_detection_lodev(player, img->win->map);
+	// int	endX = (end_point.x + 0.5) * WALL_SIZE; //(player->x + 0 + 0.5) * WALL_SIZE; //1.5 é o tamanho da direction line
+	// int	endY = (end_point.y + 0) * WALL_SIZE; //(player->y - 8) * WALL_SIZE; //TODO: pq + 0.5?
 	// printf("endX=%f, endY=%f\n", end_point.x, end_point.y);
 	
+
+	int	endX = (end_point.x) * WALL_SIZE; //(player->x + 0 + 0.5) * WALL_SIZE; //1.5 é o tamanho da direction line
+	int	endY = (end_point.y) * WALL_SIZE; //(player->y - 8) * WALL_SIZE; //TODO: pq + 0.5?
 
 	double deltaX = endX - beginX; 
 	double deltaY = endY - beginY; 

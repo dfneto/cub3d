@@ -15,7 +15,7 @@
 */
 #include "cub3d.h"
 
-int dda_collision_detection(t_map *map, float x_start, float y_start, float x_end, float y_end) {
+int dda_collision_detection_old(t_map *map, float x_start, float y_start, float x_end, float y_end) {
 	printf("---------------------------------------------------------------\n");
 	int grid_x = (int)round(x_end);
 	int grid_y = (int)round(y_end);
@@ -119,13 +119,18 @@ int	choose_event(int keycode, t_win *win)
 		// win->player->y += win->player->speed; //degToRad(win->player->angle) * win->player->speed;
 	}
 	if (keycode == KEY_W)
-	{	//TODO: devo fazer alguma conta para fazer que quando suba ou desca va na mesma velocidade que para os lados
+	{	
+		double distance = dda_collision_detection_lodev(win->player, win->map).distance;
+		//TODO: devo fazer alguma conta para fazer que quando suba ou desca va na mesma velocidade que para os lados
 		// if (!dda_collision_detection(win->map, win->player->x, win->player->y, win->player->x + win->player->dir_x, win->player->y - win->player->dir_y))
 		// if (!dda_collision_detection_lodev(win->player, win->map))
 		// {
+		if (distance > 0.5)
+		{
 			// posicion = posicion + vetor dir * speed
-			win->player->x = (win->player->x + win->player->dir_x);// * win->player->speed;
-			win->player->y = (win->player->y - win->player->dir_y);// * win->player->speed;
+			win->player->x = win->player->x + win->player->dir_x * win->player->speed;
+			win->player->y = win->player->y - win->player->dir_y * win->player->speed;
+		}
 		// }
 		// int grid_x = (int)round(win->player->x);
         // int grid_y = (int)round(win->player->y);
