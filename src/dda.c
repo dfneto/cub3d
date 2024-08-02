@@ -79,17 +79,6 @@ t_point_distance dda_collision_detection_lodev(t_player *player, t_map *map)
 	if(side == 0) perpWallDist = (sideDistX - deltaDistX);
     else          perpWallDist = (sideDistY - deltaDistY);
 
-	/* Essa parte peguei do chat: https://chatgpt.com/share/e4e4a020-c3d0-4199-b8da-b3d3df881922 
-	I have a point A in a map with known coordinates (x,y), his direction (in a vector form) and 
-	a distance between A and B. How can I calculate the coordinates of B?
-	double dir_magnitude = sqrt(player->dir_x * player->dir_x + player->dir_y * player->dir_y);
-    // Normalize the direction vector
-    double dir_x_unit = player->dir_x / dir_magnitude;
-    double dir_y_unit = player->dir_y / dir_magnitude;
-    // Calculate the coordinates of point B
-    end_point.x = player->x + perpWallDist * dir_x_unit;
-    end_point.y = player->y - perpWallDist * dir_y_unit;
-	*/
 	//essa formula peguei do video do jaxi: end = start + dir * length
 	end_point.x = player->x + player->dir_x * perpWallDist;
     end_point.y = player->y - player->dir_y * perpWallDist; //TODO: usar o y positivo, como eh no x, mas na hora de printar o pixel fazer a conversao

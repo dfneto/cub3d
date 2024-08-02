@@ -33,10 +33,11 @@
 # define KEY_RIGTH	65363
 
 
-#define ROWS 		24
-#define COLS 		24
-#define WALL_SIZE	32
-#define ROT_SPEED	0.09
+#define ROWS 			24
+#define COLS 			24
+#define WALL_SIZE		32
+#define ROT_SPEED		0.09
+#define PLAYER_SPEED	0.5
 
 
 typedef struct s_win
@@ -88,8 +89,9 @@ typedef struct s_map
 	char	grid[ROWS][COLS];
 }	t_map;
 
-// cub3d.c
-void	draw_game_board(t_win *win);
+// draw_elements.c
+void	draw_everything(t_win *win);
+int	is_player_inside_the_borders_map(t_player *player);
 //void	draw_game_board(t_img *img, t_player *player);
 
 //utils.c
@@ -98,7 +100,6 @@ void	set_player_position_and_direction(t_player *player, t_map *map);
 
 //hooks.c
 void	set_hooks(t_win *window);
-float	degToRad(int a);
 
 //bresenham
 void	draw_grid_lines(t_win *win);

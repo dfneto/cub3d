@@ -29,72 +29,50 @@ int	choose_event(int keycode, t_player *player)
 		close_window(player->win);
 	if (keycode == KEY_A)
 	{
-		// player->x -= player->speed;
-		player->x = (player->x - player->dir_y);// * player->speed;
-		player->y = (player->y - player->dir_x);// * player->speed;
-		// player->y -= player->speed;
-		// player->y -= degToRad(player->angle) * player->speed;
+		if (is_player_inside_the_borders_map(player))
+		{
+			player->x = player->x - player->dir_y * PLAYER_SPEED;
+			player->y = player->y - player->dir_x * PLAYER_SPEED;
+		}
 	}
 	if (keycode == KEY_D)
 	{
-		// if (!dda_collision_detection(win->map, player->x, player->y, player->x + player->dir_y, player->y + player->dir_x))
-		// player->x += player->speed;
-		player->x = (player->x + player->dir_y);// * player->speed;
-		player->y = (player->y + player->dir_x);// * player->speed;
-		// player->y += player->speed;
-		// player->y += player->speed; //degToRad(player->angle) * player->speed;
+		player->x = player->x + player->dir_y * PLAYER_SPEED;
+		player->y = player->y + player->dir_x * PLAYER_SPEED;
 	}
 	if (keycode == KEY_W)
 	{	
-		//TODO: devo fazer alguma conta para fazer que quando suba ou desca va na mesma velocidade que para os lados
-		// if (!dda_collision_detection(win->map, player->x, player->y, player->x + player->dir_x, player->y - player->dir_y))
-		// if (!dda_collision_detection_lodev(player, win->map))
-		// {
 		if (!has_wall(player))
 		{
-			// posicion = posicion + vetor dir * speed
-			player->x = player->x + player->dir_x * player->speed;
-			player->y = player->y - player->dir_y * player->speed;
+			// posicion = posicion + vetor_dir * speed
+			player->x = player->x + player->dir_x * PLAYER_SPEED;
+			player->y = player->y - player->dir_y * PLAYER_SPEED;
 		}
-		// }
-		// int grid_x = (int)round(player->x);
-        // int grid_y = (int)round(player->y);
-		// printf("Player is in grid [%d, %d]\n", grid_y, grid_x);
-		// player->y -= player->delta_y * player->speed; //se eu mudo somente o y entao o player nao pode mover-se na diagonal
-		//o y no alto da tela vale 0 e no fim o HEIGTH
+		// se eu mudo somente o y entao o player nao pode mover-se na diagonal
+		// o y no alto da tela vale 0 e no fim o HEIGTH
 	}
 	if (keycode == KEY_S)
 	{
 		// posicion = posicion - vetor dir * speed
-		player->x = (player->x - player->dir_x);// * player->speed;
-		player->y = (player->y + player->dir_y);// * player->speed;
-		// int grid_x = (int)round(player->x);
-        // int grid_y = (int)round(player->y);
-		// printf("Player is in grid [%d, %d]\n", grid_y, grid_x);
+		player->x = player->x - player->dir_x * PLAYER_SPEED;
+		player->y = player->y + player->dir_y * PLAYER_SPEED;
 	}
+
+	// x = x * cs(ang) - y * sn(ang); // ang eh o angulo que quero rotacionar
+	// y = x * sn(ang) + y * cs(ang);
 	if (keycode == KEY_LEFT)
 	{
 		double oldDirX = player->dir_x;
 		player->dir_x = player->dir_x * cos(ROT_SPEED) - player->dir_y * sin(ROT_SPEED);
 		player->dir_y = oldDirX * sin(ROT_SPEED) + player->dir_y * cos(ROT_SPEED);
-		// player->dir_x = player->dir_x * cos(90) - player->dir_y * sin(90);
-		// player->dir_y = player->dir_x * sin(90) - player->dir_y * cos(90);
-		// x = x * cs(-5) - y * sn; // now x is something different than original vector x
-		// y = x * sn + y * cs;
 	}
 	if (keycode == KEY_RIGTH)
 	{
 		double oldDirX = player->dir_x;
 		player->dir_x = player->dir_x * cos(-ROT_SPEED) - player->dir_y * sin(-ROT_SPEED);
 		player->dir_y = oldDirX * sin(-ROT_SPEED) + player->dir_y * cos(-ROT_SPEED);
-		// printf("Antes: dir x: %f, dir y: %f\n", player->dir_x, player->dir_y);
-		// player->dir_x = player->dir_x * cos(5) + player->dir_y * sin(5);
-		// player->dir_y = player->dir_x * sin(5) + player->dir_y * cos(5);
-		// printf("Depois: dir x: %f, dir y: %f\n", player->dir_x, player->dir_y);
-		// x = x * cs(+5) - y * sn; // now x is something different than original vector x
-		// y = x * sn + y * cs;
 	}
-	draw_game_board(player->win);
+	draw_everything(player->win);
 	return (0);
 }
 

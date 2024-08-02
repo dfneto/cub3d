@@ -12,6 +12,14 @@
 
 #include "cub3d.h"
 
+int	is_player_inside_the_borders_map(t_player *player)
+{
+	if (player->x >= 1 && player->x <= 23 && player->y >= 1 && player->y <= 23)
+		return 1;
+	return 0;
+
+}
+
 void	draw_player(t_img *img, t_player *player)
 {
 	float	x;
@@ -114,12 +122,15 @@ int draw_player_direction_line(t_img *img, t_player *player, int beginX, int beg
 	return 0;
 }
 
-void	draw_game_board(t_win *win)
+void	draw_everything(t_win *win)
 {
 	draw_map_walls(win->img, win->map);
 	draw_grid_lines(win);
-	draw_player(win->img, win->player);
-	draw_player_direction_line(win->img, win->player, win->player->x, win->player->y, BLUE);
+	if (is_player_inside_the_borders_map(win->player)) //so posso desenhar o jogador se estiver dentro do mapa. Idealmente tbm so poderia mover dentro das paredes (TODO: o jogador deve encontrar parede atras e aos lados)
+	{
+		draw_player(win->img, win->player);
+		draw_player_direction_line(win->img, win->player, win->player->x, win->player->y, BLUE);
+	}
 	mlx_put_image_to_window(win->mlx_ptr,
 		win->win_ptr, win->img->img_ptr, 0, 0);
 }

@@ -112,7 +112,6 @@ int main(int argc, char **argv)
     
     //create the player
     player.size = 20;
-    player.speed = 0.25;
     player.direction_line_size = 200;
     set_player_position_and_direction(&player, map); 
 
@@ -126,7 +125,7 @@ int main(int argc, char **argv)
     win.zoom = 32;
     player.win = &win;
     
-    draw_game_board(&win);
+    draw_everything(&win);
     set_hooks(&win);
     mlx_loop(win.mlx_ptr);
     return (0);
