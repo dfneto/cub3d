@@ -111,8 +111,6 @@ int main(int argc, char **argv)
 			&img.line_len, &img.endian);
     
     //create the player
-    // player.x = 5 + 0.5; //coordenada del mapa en float (indice da matriz + 0,5)
-    // player.y = 5 + 0.5; //
     player.size = 20;
     player.speed = 0.25;
     player.direction_line_size = 200;
@@ -126,6 +124,7 @@ int main(int argc, char **argv)
     win.height = 24;
     win.width = 24;
     win.zoom = 32;
+    player.win = &win;
     
     draw_game_board(&win);
     set_hooks(&win);

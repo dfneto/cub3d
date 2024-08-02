@@ -94,6 +94,29 @@ t_point_distance dda_collision_detection_lodev(t_player *player, t_map *map)
 	end_point.x = player->x + player->dir_x * perpWallDist;
     end_point.y = player->y - player->dir_y * perpWallDist; //TODO: usar o y positivo, como eh no x, mas na hora de printar o pixel fazer a conversao
 	end_point.distance = perpWallDist;
-	printf("distance = %f\n", end_point.distance);
     return end_point;
+}
+
+//check if there is a wall in front of the player considering the sides also
+int	has_wall(t_player *player)
+{
+	t_player *player_left = (t_player *)malloc(sizeof(t_player));
+	t_player *player_right = (t_player *)malloc(sizeof(t_player));
+
+	player_left->win = player->win;
+	player_left->x = player->x;
+	player_left->y = player->y;
+	player_left->dir_x = player->dir_x * cos(6*ROT_SPEED) - player->dir_y * sin(6*ROT_SPEED);
+	player_left->dir_y = player->dir_x * sin(6*ROT_SPEED) + player->dir_y * cos(6*ROT_SPEED);
+
+	player_right->x = player->x;
+	player_right->y = player->y;
+	player_right->dir_x = player->dir_x * cos(-6*ROT_SPEED) - player->dir_y * sin(-6*ROT_SPEED);
+	player_right->dir_y = player->dir_x * sin(-6*ROT_SPEED) + player->dir_y * cos(-6*ROT_SPEED);
+	player_right->win = player->win;
+	if (dda_collision_detection_lodev(player, player->win->map).distance <= 0.2 || 
+		dda_collision_detection_lodev(player_left, player->win->map).distance <= 0.7 ||
+		dda_collision_detection_lodev(player_right, player->win->map).distance <= 0.7)
+		return 1;
+	return 0;
 }

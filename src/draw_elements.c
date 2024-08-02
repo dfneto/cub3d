@@ -122,5 +122,4 @@ void	draw_game_board(t_win *win)
 	draw_player_direction_line(win->img, win->player, win->player->x, win->player->y, BLUE);
 	mlx_put_image_to_window(win->mlx_ptr,
 		win->win_ptr, win->img->img_ptr, 0, 0);
-	// mlx_pixel_put(win->mlx_ptr, win->win_ptr, 312, 312, 0xFF0000); por que não funciona???
 }
