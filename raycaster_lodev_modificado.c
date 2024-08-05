@@ -110,16 +110,9 @@ int main()
     {
         for (int x = 0; x < screenWidth; x++) //para cada linha vertical da tela (para cada pixel de screenWidth)
         {
-            // double dirX = -1, dirY = 0; //initial direction vector
-            // double planeX = 0, planeY = 0.66; //the 2d raycaster version of camera plane
             double cameraX = 2 * x / (double)screenWidth - 1; //x-coordinate in camera space
-            cameraX: [-1 0 1]
-                               -1      0        
             double rayDirX = dirX + planeX * cameraX;
-                                0      0.66
             double rayDirY = dirY + planeY * cameraX;
-
-            -1,-0.66       -1,0       -1,0.66  
 
             printf("rayDirX: %f, rayDirY: %f\n", rayDirX, rayDirY);
 

@@ -122,7 +122,7 @@ int draw_player_direction_line(t_img *img, t_player *player, int beginX, int beg
 	return 0;
 }
 
-void	draw_everything(t_win *win)
+void	draw_everything_2d(t_win *win)
 {
 	draw_map_walls(win->img, win->map);
 	draw_grid_lines(win);

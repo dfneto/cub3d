@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 13:02:01 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/30 13:48:21 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/05 18:25:51 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ t_point_distance dda_collision_detection_lodev(t_player *player, t_map *map)
     
 	float rayDirX = player->dir_x;
 	float rayDirY = player->dir_y;
-	int col = (int)player->x;
-	int row = (int)player->y;
+	int mapX = (int)player->x;
+	int mapY = (int)player->y;
 
 	double sideDistX;
 	double sideDistY;
@@ -40,22 +40,22 @@ t_point_distance dda_collision_detection_lodev(t_player *player, t_map *map)
 	if (rayDirX < 0) 
 	{
 		stepX = -1;
-		sideDistX = (player->x - col) * deltaDistX;
+		sideDistX = (player->x - mapX) * deltaDistX;
 	}
 	else
 	{
 		stepX = 1;
-		sideDistX = (col + 1.0 - player->x) * deltaDistX;
+		sideDistX = (mapX + 1.0 - player->x) * deltaDistX;
 	}
 	if (rayDirY > 0)
 	{
 		stepY = -1;
-		sideDistY = (player->y - row) * deltaDistY;
+		sideDistY = (player->y - mapY) * deltaDistY;
 	}
 	else
 	{
 		stepY = 1;
-		sideDistY = (row + 1.0 - player->y) * deltaDistY;
+		sideDistY = (mapY + 1.0 - player->y) * deltaDistY;
 	}
 
 	while (hit == 0)
@@ -63,16 +63,16 @@ t_point_distance dda_collision_detection_lodev(t_player *player, t_map *map)
 		if (sideDistX < sideDistY)
 		{
 			sideDistX += deltaDistX;
-			col += stepX;
+			mapX += stepX;
 			side = 0;
 		}
 		else
 		{
 			sideDistY += deltaDistY;
-			row += stepY;
+			mapY += stepY;
 			side = 1;
 		}
-		if (map->grid[row][col] == '1') 
+		if (map->grid[mapY][mapX] == '1') //TODO: por que no do lodev eh mapX, mapY?
             break; 
 		// We won't know exactly where the wall was hit however, but that's not needed in this case because we won't use textured walls for now.
 	}

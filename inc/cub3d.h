@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/30 13:10:17 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/05 18:14:16 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ typedef struct s_map
 }	t_map;
 
 // draw_elements.c
-void	draw_everything(t_win *win);
+void	draw_everything_2d(t_win *win);
 int	is_player_inside_the_borders_map(t_player *player);
 //void	draw_game_board(t_img *img, t_player *player);
 
@@ -107,5 +107,9 @@ void	draw_grid_lines(t_win *win);
 //dda
 t_point_distance	dda_collision_detection_lodev(t_player *player, t_map *map);
 int	has_wall(t_player *player);
+
+//draw_everything_3d.c
+void	draw_everything_3d(t_win *win);
+
 
 #endif

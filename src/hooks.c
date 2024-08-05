@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 19:37:30 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/30 13:11:12 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/05 19:21:20 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ int	choose_event(int keycode, t_player *player)
 		player->dir_x = player->dir_x * cos(-ROT_SPEED) - player->dir_y * sin(-ROT_SPEED);
 		player->dir_y = oldDirX * sin(-ROT_SPEED) + player->dir_y * cos(-ROT_SPEED);
 	}
-	draw_everything(player->win);
+	// draw_everything_2d(player->win);
+	draw_everything_3d(player->win);
 	return (0);
 }
 
