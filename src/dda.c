@@ -26,8 +26,7 @@ t_point_distance dda_collision_detection_lodev(t_player *player, t_map *map)
 
 	double sideDistX;
 	double sideDistY;
-
-	double deltaDistX = (rayDirX == 0) ? 1e30 : fabs(1.0 / rayDirX);
+	double deltaDistX = (rayDirX == 0) ? 1e30 : fabs(1.0 / rayDirX); //como que a posicao do jogador (que eh de onde vem a direacao) vai gerar um delta maior ou menor?
 	double deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1.0 / rayDirY);
 	
 	double perpWallDist;
@@ -74,7 +73,8 @@ t_point_distance dda_collision_detection_lodev(t_player *player, t_map *map)
 			side = 1;
 		}
 		if (map->grid[row][col] == '1') 
-            break;
+            break; 
+		// We won't know exactly where the wall was hit however, but that's not needed in this case because we won't use textured walls for now.
 	}
 	if(side == 0) perpWallDist = (sideDistX - deltaDistX);
     else          perpWallDist = (sideDistY - deltaDistY);

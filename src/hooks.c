@@ -45,7 +45,7 @@ int	choose_event(int keycode, t_player *player)
 		if (!has_wall(player))
 		{
 			// posicion = posicion + vetor_dir * speed
-			player->x = player->x + player->dir_x * PLAYER_SPEED;
+			player->x = player->x + player->dir_x * PLAYER_SPEED; //lodev: if (worldMap[(int)(posX + dirX * moveSpeed)][(int)posY] == 0) posX += dirX * moveSpeed;
 			player->y = player->y - player->dir_y * PLAYER_SPEED;
 		}
 		// se eu mudo somente o y entao o player nao pode mover-se na diagonal

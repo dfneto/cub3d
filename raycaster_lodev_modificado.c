@@ -110,18 +110,27 @@ int main()
     {
         for (int x = 0; x < screenWidth; x++) //para cada linha vertical da tela (para cada pixel de screenWidth)
         {
+            // double dirX = -1, dirY = 0; //initial direction vector
+            // double planeX = 0, planeY = 0.66; //the 2d raycaster version of camera plane
             double cameraX = 2 * x / (double)screenWidth - 1; //x-coordinate in camera space
+            cameraX: [-1 0 1]
+                               -1      0        
             double rayDirX = dirX + planeX * cameraX;
-            double rayDirY = dirY + planeX * cameraX;
+                                0      0.66
+            double rayDirY = dirY + planeY * cameraX;
+
+            -1,-0.66       -1,0       -1,0.66  
 
             printf("rayDirX: %f, rayDirY: %f\n", rayDirX, rayDirY);
 
             int mapX = (int)posX;
             int mapY = (int)posY;
 
+            //side vai aumentando enquanto nao bate na parede
             double sideDistX;
             double sideDistY;
 
+            //delta eh fixo para cada x
             double deltaDistX = (rayDirX == 0) ? 1e30 : fabs(1 / rayDirX);
             double deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1 / rayDirY);
 
@@ -160,22 +169,25 @@ int main()
                 {
                     sideDistX += deltaDistX;
                     mapX += stepX;
-                    // side = 0;
+                    side = 0;
                 }
                 else
                 {
                     sideDistY += deltaDistY;
                     mapY += stepY;
-                    // side = 1;
+                    side = 1;
                 }
                 if (worldMap[mapX][mapY] > 0) hit = 1;
                     //retornar o map ou fazer uma conta igual do video
             }
 
+            //Due to how deltaDist and sideDist were scaled by a factor of |rayDir| above, the length of sideDist already almost equals perpWallDist.
+            //We just need to subtract deltaDist once from it, going one step back, because in the DDA steps above we went one step further to end up inside the wall.
             if (side == 0) perpWallDist = (sideDistX - deltaDistX);
             else           perpWallDist = (sideDistY - deltaDistY);
 
-            int lineHeight = (int)(screenHeight / perpWallDist);
+            //height of the vertical line that should be drawn            
+            int lineHeight = (int)(screenHeight / perpWallDist); //You can of course also multiply it with another value, for example 2*screenHeight, if you want to walls to be higher or lower
 
             int drawStart = -lineHeight / 2 + screenHeight / 2;
             if (drawStart < 0) drawStart = 0;
@@ -229,7 +241,7 @@ int main()
             double oldDirX = dirX;
             dirX = dirX * cos(-rotSpeed) - dirY * sin(-rotSpeed);
             dirY = oldDirX * sin(-rotSpeed) + dirY * cos(-rotSpeed);
-            double oldPlaneX = planeX;
+            double oldPlaneX = planeX; //a direcao do jogador (acima) e a do plano sao rotacionadas
             planeX = planeX * cos(-rotSpeed) - planeY * sin(-rotSpeed);
             planeY = oldPlaneX * sin(-rotSpeed) + planeY * cos(-rotSpeed);
         }
