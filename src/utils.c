@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 09:43:59 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/30 13:47:24 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/06 16:54:55 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,25 @@ void	set_player_position_and_direction(t_player *player, t_map *map)
 		j = 0;
 		i++;
 	}
+}
+
+// fill all the pixels with black
+void	clean_map(t_img *img)
+{
+	int i = 0;
+	int j = 0;
+	
+	while (i < ROWS)
+	{
+		while (j < COLS)
+		{
+			// draw_the_wall(img, j + 1, i + 1, BLACK);
+			my_mlx_pixel_put(img, j, i, BLACK);
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+	mlx_put_image_to_window(img->win->mlx_ptr,
+		img->win->win_ptr, img->win->img->img_ptr, 0, 0);
 }

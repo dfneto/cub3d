@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 19:37:30 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/05 19:21:20 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:55:15 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,10 @@ int	choose_event(int keycode, t_player *player)
 		player->dir_x = player->dir_x * cos(-ROT_SPEED) - player->dir_y * sin(-ROT_SPEED);
 		player->dir_y = oldDirX * sin(-ROT_SPEED) + player->dir_y * cos(-ROT_SPEED);
 	}
-	// draw_everything_2d(player->win);
-	draw_everything_3d(player->win);
+	if (dimension_2d)
+        draw_everything_2d(player->win); //to draw the game in 2D
+    else
+        draw_everything_3d(player->win);
 	return (0);
 }
 

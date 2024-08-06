@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/05 18:14:16 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/06 16:46:44 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,15 @@
 # define WIDTH		768
 # define HEIGHT		768
 # define THICKNESS	10
-# define ESC		65307 //53
+# define ESC		53 //65307 //53
 # define LEFT_CLICK 1
-# define KEY_A		97 //0
-# define KEY_D		100 //2
-# define KEY_W		119 //13
-# define KEY_S		115 //1
+# define KEY_A		0 //97 //0
+# define KEY_D		2 //100 //2
+# define KEY_W		13 //119 //13
+# define KEY_S		1 //115 //1
 # define KEY_C		8
-# define KEY_LEFT	65361
-# define KEY_RIGTH	65363
-
+# define KEY_LEFT	123 //65361
+# define KEY_RIGTH	124 //65363
 
 #define ROWS 			24
 #define COLS 			24
@@ -39,6 +38,7 @@
 #define ROT_SPEED		0.09
 #define PLAYER_SPEED	0.5
 
+extern int         dimension_2d; //1 para 2d, 0 para 3d
 
 typedef struct s_win
 {
@@ -91,10 +91,12 @@ typedef struct s_map
 
 // draw_elements.c
 void	draw_everything_2d(t_win *win);
+void	draw_player(t_img *img, t_player *player);
 int	is_player_inside_the_borders_map(t_player *player);
 //void	draw_game_board(t_img *img, t_player *player);
 
 //utils.c
+void	clean_map(t_img *img);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void	set_player_position_and_direction(t_player *player, t_map *map);
 
