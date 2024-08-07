@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/06 16:46:44 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/07 12:38:24 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ typedef struct s_player
 	float		speed;
 	float		dir_x;
 	float		dir_y;
+	double		planeX;
+    double		planeY;
 	int			direction_line_size;
 }	t_player;
 
@@ -98,7 +100,8 @@ int	is_player_inside_the_borders_map(t_player *player);
 //utils.c
 void	clean_map(t_img *img);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
-void	set_player_position_and_direction(t_player *player, t_map *map);
+t_player	create_player(t_map *map);
+// void	set_player_position_and_direction(t_player *player, t_map *map);
 
 //hooks.c
 void	set_hooks(t_win *window);
@@ -113,5 +116,7 @@ int	has_wall(t_player *player);
 //draw_everything_3d.c
 void	draw_everything_3d(t_win *win);
 
+//utils2.c
+void    print_map_grid(t_map *map);
 
 #endif
