@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 12:09:37 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/26 12:25:47 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/07 14:11:19 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void draw_line_bresenham(float x, float y, float x1, float y1, t_win *win)//(1:1
     }
 }
 
+//TODO: imprimo a borda da esquerda e de cima, mas não a da direita e de baixo
 void	draw_grid_lines(t_win *win)
 {
 	int	x;

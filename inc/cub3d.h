@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/07 13:06:58 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/07 14:58:42 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,19 @@ typedef struct s_point_distance
 
 typedef struct s_map
 {
-	char	grid[ROWS][COLS];
+	char	grid[COLS][ROWS]; //COLS=x, ROWS=y
 }	t_map;
+
+
+void    temp(t_win *win);
 
 // draw_elements.c
 void	draw_everything_2d(t_win *win);
 void	draw_player(t_img *img, t_player *player);
+void	draw_map_walls(t_img *img, t_map *map);
+void	draw_the_wall(t_img *img, int row, int column, int color);
 int	is_player_inside_the_borders_map(t_player *player);
-//void	draw_game_board(t_img *img, t_player *player);
+int draw_player_direction_line(t_img *img, t_player *player, int beginX, int beginY, int color);
 
 //utils.c
 void	clean_map(t_img *img);

@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:29:30 by davifern          #+#    #+#             */
-/*   Updated: 2024/07/30 13:34:18 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/07 14:38:17 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,20 @@ void	draw_the_wall(t_img *img, int row, int column, int color)
 	int	y;
 	
 	//converto de linhas e colunas para pixels
+	row++;
+	column++;
 	x = row * WALL_SIZE - WALL_SIZE; 
 	y = column * WALL_SIZE - WALL_SIZE;
 	
-	while (y < column * WALL_SIZE)
+	while (x < row * WALL_SIZE) // x < 32
 	{		
-		while (x < row * WALL_SIZE)
+		while (y < column * WALL_SIZE) // y < 32
 		{
 			my_mlx_pixel_put(img, x, y, color);
-			x++;
+			y++;
 		}
-		x = row * WALL_SIZE - WALL_SIZE;
-		y++;
+		y = column * WALL_SIZE - WALL_SIZE;
+		x++;
 	}
 }
 
@@ -75,9 +77,9 @@ void	draw_map_walls(t_img *img, t_map *map)
 		while (j < COLS)
 		{
 			if (map->grid[i][j] == '1')
-				draw_the_wall(img, j + 1, i + 1, YELLOW);
+				draw_the_wall(img, i, j, YELLOW);
 			else
-				draw_the_wall(img, j + 1, i + 1, BLACK);
+				draw_the_wall(img, i, j, BLACK);
 			j++;
 		}
 		j = 0;
@@ -91,19 +93,12 @@ int draw_player_direction_line(t_img *img, t_player *player, int beginX, int beg
 	beginX = (player->x) * WALL_SIZE; //0.5 para colocar o jogador no meio do quadrado (WALL_SIZE)
 	beginY = (player->y) * WALL_SIZE;
 	
-	// int	endX = (player->x + player->dir_x * 1.5 + 0.5) * WALL_SIZE; //1.5 é o tamanho da direction line
-	// int	endY = (player->y - player->dir_y * 1.5 + 0.5) * WALL_SIZE; //TODO: pq + 0.5?
-	// int endX = end_point.x;
-	// int endY = end_point.y;
+	int	endX = (player->x + player->dir_x * 3) * WALL_SIZE; //1.5 é o tamanho da direction line
+	int	endY = (player->y + player->dir_y * 3) * WALL_SIZE; //TODO: pq + 0.5?
 
-	t_point_distance end_point = dda_collision_detection_lodev(player, img->win->map);
-	// int	endX = (end_point.x + 0.5) * WALL_SIZE; //(player->x + 0 + 0.5) * WALL_SIZE; //1.5 é o tamanho da direction line
-	// int	endY = (end_point.y + 0) * WALL_SIZE; //(player->y - 8) * WALL_SIZE; //TODO: pq + 0.5?
-	// printf("endX=%f, endY=%f\n", end_point.x, end_point.y);
-	
-
-	int	endX = (end_point.x) * WALL_SIZE; //(player->x + 0 + 0.5) * WALL_SIZE; //1.5 é o tamanho da direction line
-	int	endY = (end_point.y) * WALL_SIZE; //(player->y - 8) * WALL_SIZE; //TODO: pq + 0.5?
+	// t_point_distance end_point = dda_collision_detection_lodev(player, img->win->map);
+	// int	endX = (end_point.x) * WALL_SIZE; //(player->x + 0 + 0.5) * WALL_SIZE; //1.5 é o tamanho da direction line
+	// int	endY = (end_point.y) * WALL_SIZE; //(player->y - 8) * WALL_SIZE; //TODO: pq + 0.5?
 
 	double deltaX = endX - beginX; 
 	double deltaY = endY - beginY; 
@@ -126,11 +121,11 @@ void	draw_everything_2d(t_win *win)
 {
 	draw_map_walls(win->img, win->map);
 	draw_grid_lines(win);
-	if (is_player_inside_the_borders_map(win->player)) //so posso desenhar o jogador se estiver dentro do mapa. Idealmente tbm so poderia mover dentro das paredes (TODO: o jogador deve encontrar parede atras e aos lados)
-	{
+	// if (is_player_inside_the_borders_map(win->player)) //so posso desenhar o jogador se estiver dentro do mapa. Idealmente tbm so poderia mover dentro das paredes (TODO: o jogador deve encontrar parede atras e aos lados)
+	// {
 		draw_player(win->img, win->player);
 		draw_player_direction_line(win->img, win->player, win->player->x, win->player->y, BLUE);
-	}
+	// }
 	mlx_put_image_to_window(win->mlx_ptr,
 		win->win_ptr, win->img->img_ptr, 0, 0);
 }

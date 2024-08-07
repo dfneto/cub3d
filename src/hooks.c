@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 19:37:30 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/07 06:01:02 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/07 14:18:55 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	choose_event(int keycode, t_player *player)
 		// {
 			// posicion = posicion + vetor_dir * speed
 			player->x = player->x + player->dir_x * PLAYER_SPEED; //lodev: if (worldMap[(int)(posX + dirX * moveSpeed)][(int)posY] == 0) posX += dirX * moveSpeed;
-			player->y = player->y - player->dir_y * PLAYER_SPEED;
+			player->y = player->y + player->dir_y * PLAYER_SPEED;
 		// }
 		// se eu mudo somente o y entao o player nao pode mover-se na diagonal
 		// o y no alto da tela vale 0 e no fim o HEIGTH
@@ -55,7 +55,7 @@ int	choose_event(int keycode, t_player *player)
 	{
 		// posicion = posicion - vetor dir * speed
 		player->x = player->x - player->dir_x * PLAYER_SPEED;
-		player->y = player->y + player->dir_y * PLAYER_SPEED;
+		player->y = player->y - player->dir_y * PLAYER_SPEED;
 	}
 
 	// x = x * cs(ang) - y * sn(ang); // ang eh o angulo que quero rotacionar
@@ -85,10 +85,11 @@ int	choose_event(int keycode, t_player *player)
 			player->planeY = oldPlaneX * sin(-ROT_SPEED) + player->planeY * cos(-ROT_SPEED);
 		}
 	}
-	if (dimension_2d)
-        draw_everything_2d(player->win); //to draw the game in 2D
-    else
-        draw_everything_3d(player->win);
+	temp(player->win);
+	// if (dimension_2d)
+    //     draw_everything_2d(player->win); //to draw the game in 2D
+    // else
+    //     draw_everything_3d(player->win);
 	return (0);
 }
 
