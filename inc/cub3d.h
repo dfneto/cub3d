@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/07 12:38:24 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/07 13:06:58 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ int	is_player_inside_the_borders_map(t_player *player);
 void	clean_map(t_img *img);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 t_player	create_player(t_map *map);
-// void	set_player_position_and_direction(t_player *player, t_map *map);
 
 //hooks.c
 void	set_hooks(t_win *window);

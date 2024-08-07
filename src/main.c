@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:04:23 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/06 19:39:03 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/07 13:06:14 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,23 +54,6 @@ int parse_map(t_map *map)
     return 0;
 }
 
-void    print_map_grid(t_map *map)
-{
-    int i = 0;
-    int j = 0;
-    while (i < ROWS)
-    {
-        while (j < COLS)
-        {
-            printf("%c ", map->grid[i][j]);
-            j++;
-        }
-        j = 0;
-        i++;
-        printf("\n");
-    }
-}
-
 /* ver sobre cores e estudar bitshft e hexadecimal em:
 https://harm-smits.github.io/42docs/libs/minilibx/colors.html
 https://gontjarow.github.io/MiniLibX/mlx-tutorial-draw-pixel.html
@@ -86,15 +69,12 @@ int rgb_to_int(double r, double g, double b)
 */
 
 
-int main(int argc, char **argv)
+int main()
 {
     t_win	    win;
     t_img       img; //vetor de pixels que será plotado depois
     t_player    player; //TODO: devo criar um malloc? Pq sim ou pq não?
     t_map       *map = (t_map *)malloc(sizeof(t_map)); //TODO: precisa de malloc? E pq win e img não precisam?
-
-    (void)argc;
-    (void)argv;
     
     if (parse_map(map))
         return (err(ERROR_PARSING));
@@ -112,10 +92,7 @@ int main(int argc, char **argv)
 	img.addr = mlx_get_data_addr(img.img_ptr, &img.bpp,
 			&img.line_len, &img.endian);
     
-    //create the player
-    player.size = 20;
-    player.direction_line_size = 200;
-    set_player_position_and_direction(&player, map); 
+    player = create_player(map); 
 
     //make the associations
     img.win = &win;
