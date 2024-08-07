@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/07 14:58:42 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/07 19:49:08 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@
 # define WIDTH		768
 # define HEIGHT		768
 # define THICKNESS	10
-# define ESC		53 //65307 //53
+# define ESC		65307 //53
 # define LEFT_CLICK 1
-# define KEY_A		0 //97 //0
-# define KEY_D		2 //100 //2
-# define KEY_W		13 //119 //13
-# define KEY_S		1 //115 //1
+# define KEY_A		97 //0
+# define KEY_D		100 //2
+# define KEY_W		119 //13
+# define KEY_S		115 //1
 # define KEY_C		8
-# define KEY_LEFT	123 //65361
-# define KEY_RIGTH	124 //65363
+# define KEY_LEFT	65361 //123
+# define KEY_RIGTH	65363 //124
 
 #define ROWS 			24
 #define COLS 			24
@@ -88,7 +88,7 @@ typedef struct s_point_distance
 
 typedef struct s_map
 {
-	char	grid[COLS][ROWS]; //COLS=x, ROWS=y
+	char	grid[ROWS][COLS]; //ROWS=y, COLS=x
 }	t_map;
 
 
@@ -101,6 +101,7 @@ void	draw_map_walls(t_img *img, t_map *map);
 void	draw_the_wall(t_img *img, int row, int column, int color);
 int	is_player_inside_the_borders_map(t_player *player);
 int draw_player_direction_line(t_img *img, t_player *player, int beginX, int beginY, int color);
+int	row_inverter(int i);
 
 //utils.c
 void	clean_map(t_img *img);

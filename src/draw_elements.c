@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:29:30 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/07 14:38:17 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/07 19:48:09 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,11 @@ void	draw_player(t_img *img, t_player *player)
 	while (y >= y_pixel - player->size/2 && y <= y_pixel + player->size/2)
 	{
 		while (x >= x_pixel - player->size/2 && x <= x_pixel + player->size/2)
-			my_mlx_pixel_put(img, x++, y, RED); //TODO: ver como ocorre a conversão de floats em inteiros
+		{
+			my_mlx_pixel_put(img, x, y, RED); //TODO: ver como ocorre a conversão de floats em inteiros
+			x++;
+
+		}
 		x = x_pixel - player->size/2;
 		y++;
 	}
@@ -45,25 +49,30 @@ void	draw_player(t_img *img, t_player *player)
 //fill WALL_SIZE x WALL_SIZE pixels according to [row, column] of the grid map
 void	draw_the_wall(t_img *img, int row, int column, int color)
 {
-	int	x;
-	int	y;
+	int	i;
+	int	j;
 	
 	//converto de linhas e colunas para pixels
 	row++;
 	column++;
-	x = row * WALL_SIZE - WALL_SIZE; 
-	y = column * WALL_SIZE - WALL_SIZE;
+	i = row * WALL_SIZE - WALL_SIZE; 
+	j = column * WALL_SIZE - WALL_SIZE;
 	
-	while (x < row * WALL_SIZE) // x < 32
+	while (i < row * WALL_SIZE) // x < 32
 	{		
-		while (y < column * WALL_SIZE) // y < 32
-		{
-			my_mlx_pixel_put(img, x, y, color);
-			y++;
+		while (j < column * WALL_SIZE) // y < 32
+		{						//x  y
+			my_mlx_pixel_put(img, j, i, color);
+			j++;
 		}
-		y = column * WALL_SIZE - WALL_SIZE;
-		x++;
+		j = column * WALL_SIZE - WALL_SIZE;
+		i++;
 	}
+}
+
+int	row_inverter(int i)
+{
+	return ROWS - i - 1;
 }
 
 // if it's one fill the pixel with some color else with black
@@ -77,9 +86,15 @@ void	draw_map_walls(t_img *img, t_map *map)
 		while (j < COLS)
 		{
 			if (map->grid[i][j] == '1')
-				draw_the_wall(img, i, j, YELLOW);
+				draw_the_wall(img, row_inverter(i), j, YELLOW);
+			else if (map->grid[i][j] == 'P')
+			{
+				printf("Posicao real [row,col] = %d,%d\n", i, j);
+				printf("Posicao desejada [row,col] = %d,%d\n", row_inverter(i), j);
+				draw_the_wall(img, row_inverter(i), j, BLUE);
+			}
 			else
-				draw_the_wall(img, i, j, BLACK);
+				draw_the_wall(img, row_inverter(i), j, BLACK);
 			j++;
 		}
 		j = 0;
