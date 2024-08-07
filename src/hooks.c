@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 19:37:30 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/06 15:55:15 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/07 06:01:02 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ int	choose_event(int keycode, t_player *player)
 		close_window(player->win);
 	if (keycode == KEY_A)
 	{
-		if (is_player_inside_the_borders_map(player))
-		{
+		// if (is_player_inside_the_borders_map(player))
+		// {
 			player->x = player->x - player->dir_y * PLAYER_SPEED;
 			player->y = player->y - player->dir_x * PLAYER_SPEED;
-		}
+		// }
 	}
 	if (keycode == KEY_D)
 	{
@@ -42,12 +42,12 @@ int	choose_event(int keycode, t_player *player)
 	}
 	if (keycode == KEY_W)
 	{	
-		if (!has_wall(player))
-		{
+		// if (!has_wall(player))
+		// {
 			// posicion = posicion + vetor_dir * speed
 			player->x = player->x + player->dir_x * PLAYER_SPEED; //lodev: if (worldMap[(int)(posX + dirX * moveSpeed)][(int)posY] == 0) posX += dirX * moveSpeed;
 			player->y = player->y - player->dir_y * PLAYER_SPEED;
-		}
+		// }
 		// se eu mudo somente o y entao o player nao pode mover-se na diagonal
 		// o y no alto da tela vale 0 e no fim o HEIGTH
 	}
@@ -65,12 +65,25 @@ int	choose_event(int keycode, t_player *player)
 		double oldDirX = player->dir_x;
 		player->dir_x = player->dir_x * cos(ROT_SPEED) - player->dir_y * sin(ROT_SPEED);
 		player->dir_y = oldDirX * sin(ROT_SPEED) + player->dir_y * cos(ROT_SPEED);
+		if (!dimension_2d)
+		{
+			double oldPlaneX = player->planeX;
+			player->planeX = player->planeX * cos(ROT_SPEED) - player->planeY * sin(ROT_SPEED);
+			player->planeY = oldPlaneX * sin(ROT_SPEED) + player->planeY * cos(ROT_SPEED);
+		}
+		printf("dirX=%f, dirY=%f\n", player->dir_x, player->dir_y);
 	}
 	if (keycode == KEY_RIGTH)
 	{
 		double oldDirX = player->dir_x;
 		player->dir_x = player->dir_x * cos(-ROT_SPEED) - player->dir_y * sin(-ROT_SPEED);
 		player->dir_y = oldDirX * sin(-ROT_SPEED) + player->dir_y * cos(-ROT_SPEED);
+		if (!dimension_2d)
+		{
+			double oldPlaneX = player->planeX; //a direcao do jogador (acima) e a do plano sao rotacionadas
+			player->planeX = player->planeX * cos(-ROT_SPEED) - player->planeY * sin(-ROT_SPEED);
+			player->planeY = oldPlaneX * sin(-ROT_SPEED) + player->planeY * cos(-ROT_SPEED);
+		}
 	}
 	if (dimension_2d)
         draw_everything_2d(player->win); //to draw the game in 2D

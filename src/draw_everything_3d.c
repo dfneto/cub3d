@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 18:07:08 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/06 19:42:19 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/07 12:27:08 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,10 @@
 //TODO: fazer o ceu e o solo
 void verLine(t_win *win, int x, int y_start, int y_end)
 {
-    // draw_player(win->img, win->player);
-    // (void)pixelX;
-    // (void)y1;
-    // (void)y2;
-    printf("PixelX = %d, y1 = %d, y2=%d\n", x, y_start, y_end);
+    // printf("PixelX = %d, y1 = %d, y2=%d\n", x, y_start, y_end);
     int y = y_start;
     while (y <= y_end)
-    // for (int pixelY = y1; pixelY <= y2; pixelY++)
     {
-        // Uint32 *pixels = (Uint32 *)surface->pixels;
-        // pixels[(y * surface->w) + x] = color;
         my_mlx_pixel_put(win->img, x, y, BLUE);
         y++;
     }
@@ -44,22 +37,23 @@ void    draw_everything_3d(t_win *win)
     /* declaracoes iniciais */
     //double posX = 22, posY = 12;  //x and y start position
     //double dirX = -1, dirY = 0; //initial direction vector
-    double planeX = 0;
-    double planeY = 0.66;
-
+    player->planeX = 0;
+    player->planeY = -0.66;
+    double planeX = player->planeX;
+    double planeY = player->planeY;
     /* recalculado no loop */
-    float rayDirX;
-    float rayDirY;
-    double cameraX;
-    int mapX;
-	int mapY;
-    double sideDistX;
-    double sideDistY;
-    double deltaDistX;
-    double deltaDistY;
-    double perpWallDist;
-    int stepX;
-    int stepY;
+    float rayDirX = 0;
+    float rayDirY = 0;
+    double cameraX = 0;
+    int mapX = 0;
+	int mapY = 0;
+    double sideDistX = 0;
+    double sideDistY = 0;
+    double deltaDistX = 0;
+    double deltaDistY = 0;
+    double perpWallDist = 0;
+    int stepX = 0;
+    int stepY = 0;
 
     int hit = 0;
     int side = 0;
@@ -67,7 +61,7 @@ void    draw_everything_3d(t_win *win)
     x = 0;
     while (x < WIDTH)
     {
-        // printf("Aqui %d\n", x);
+        hit = 0;
         cameraX = 2 * x / (double)WIDTH - 1;
         rayDirX = player->dir_x + planeX * cameraX;
         rayDirY = player->dir_y + planeY * cameraX;
@@ -116,19 +110,19 @@ void    draw_everything_3d(t_win *win)
             if (map->grid[mapY][mapX] == '1') //TODO: por que no do lodev eh mapX, mapY?
                 hit = 1; 
         }
-        if (side == 0) 
+        if (side == 0) //acho que entao bateu no lado do quadrado (W O)
             perpWallDist = (sideDistX - deltaDistX);
-        else           
+        else           //bateu em cima ou em baixo (N S)
             perpWallDist = (sideDistY - deltaDistY);
 
         //height of the vertical line that should be drawn            
         int lineHeight = (int)(HEIGHT / perpWallDist); //You can of course also multiply it with another value, for example 2*screenHeight, if you want to walls to be higher or lower
 
         int drawStart = -lineHeight / 2 + HEIGHT / 2;
-        if (drawStart < 0) 
+        if (drawStart < 0) //quer dizer que começaria a desenhar fora da tela
             drawStart = 0;
         int drawEnd = lineHeight / 2 + HEIGHT / 2;
-        if (drawEnd >= HEIGHT) 
+        if (drawEnd >= HEIGHT) //quer dizer que terminaria de desenhar fora da tela
             drawEnd = HEIGHT - 1;
 
         verLine(win, x, drawStart, drawEnd);

@@ -1,4 +1,4 @@
-//gcc -o raycaster raycaster_lodev_modificado.c -lSDL2 -lm
+//gcc -o raycaster -g raycaster_lodev_modificado.c -lSDL2 -lm
 
 #include <math.h>
 #include <stdio.h>
