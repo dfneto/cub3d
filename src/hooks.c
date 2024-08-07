@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 19:37:30 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/07 14:18:55 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/07 20:00:18 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ int	choose_event(int keycode, t_player *player)
 		// if (is_player_inside_the_borders_map(player))
 		// {
 			player->x = player->x - player->dir_y * PLAYER_SPEED;
-			player->y = player->y - player->dir_x * PLAYER_SPEED;
+			player->y = player->y + player->dir_x * PLAYER_SPEED;
 		// }
 	}
 	if (keycode == KEY_D)
 	{
 		player->x = player->x + player->dir_y * PLAYER_SPEED;
-		player->y = player->y + player->dir_x * PLAYER_SPEED;
+		player->y = player->y - player->dir_x * PLAYER_SPEED;
 	}
 	if (keycode == KEY_W)
 	{	
@@ -85,11 +85,15 @@ int	choose_event(int keycode, t_player *player)
 			player->planeY = oldPlaneX * sin(-ROT_SPEED) + player->planeY * cos(-ROT_SPEED);
 		}
 	}
-	temp(player->win);
-	// if (dimension_2d)
-    //     draw_everything_2d(player->win); //to draw the game in 2D
-    // else
-    //     draw_everything_3d(player->win);
+	if (dimension_2d)
+	{
+        draw_everything_2d(player->win); //to draw the game in 2D
+	}
+    else
+	{
+        draw_everything_3d(player->win);
+	}
+		
 	return (0);
 }
 

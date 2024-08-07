@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:29:30 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/07 19:48:09 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/07 20:01:00 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,6 @@ void	draw_map_walls(t_img *img, t_map *map)
 		{
 			if (map->grid[i][j] == '1')
 				draw_the_wall(img, row_inverter(i), j, YELLOW);
-			else if (map->grid[i][j] == 'P')
-			{
-				printf("Posicao real [row,col] = %d,%d\n", i, j);
-				printf("Posicao desejada [row,col] = %d,%d\n", row_inverter(i), j);
-				draw_the_wall(img, row_inverter(i), j, BLUE);
-			}
 			else
 				draw_the_wall(img, row_inverter(i), j, BLACK);
 			j++;
