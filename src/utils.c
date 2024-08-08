@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 09:43:59 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/07 19:49:48 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/08 10:21:14 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
-	y = HEIGHT - y;
+	y = HEIGHT - y - 1;
 	dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
 	*(unsigned int*)dst = color;
 }

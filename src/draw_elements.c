@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:29:30 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/07 20:01:00 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/08 10:24:12 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ void	draw_the_wall(t_img *img, int row, int column, int color)
 	i = row * WALL_SIZE - WALL_SIZE; 
 	j = column * WALL_SIZE - WALL_SIZE;
 	
-	while (i < row * WALL_SIZE) // x < 32
+	while (i < row * WALL_SIZE) // i: 0-31
 	{		
-		while (j < column * WALL_SIZE) // y < 32
+		while (j < column * WALL_SIZE) // j: 0-31
 		{						//x  y
-			my_mlx_pixel_put(img, j, i, color);
+			my_mlx_pixel_put(img, j, i, color); //0,0 -> 767, 767 (preencher esses pixels)
 			j++;
 		}
 		j = column * WALL_SIZE - WALL_SIZE;
@@ -78,20 +78,21 @@ int	row_inverter(int i)
 // if it's one fill the pixel with some color else with black
 void	draw_map_walls(t_img *img, t_map *map)
 {
-	int i = 0;
-	int j = 0;
+	int i;
+	int j;
 	
-	while (i < ROWS)
+	i = 0;
+	while (i < ROWS) //i: 0-23
 	{
-		while (j < COLS)
+		j = 0;
+		while (j < COLS) //j: 0-23
 		{
 			if (map->grid[i][j] == '1')
-				draw_the_wall(img, row_inverter(i), j, YELLOW);
+				draw_the_wall(img, row_inverter(i), j, YELLOW); //23, 0 -> 0, 0
 			else
 				draw_the_wall(img, row_inverter(i), j, BLACK);
 			j++;
 		}
-		j = 0;
 		i++;
 	}
 }
