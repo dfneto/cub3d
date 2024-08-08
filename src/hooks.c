@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 19:37:30 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/07 20:00:18 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/08 10:31:35 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	choose_event(int keycode, t_player *player)
 			player->planeX = player->planeX * cos(ROT_SPEED) - player->planeY * sin(ROT_SPEED);
 			player->planeY = oldPlaneX * sin(ROT_SPEED) + player->planeY * cos(ROT_SPEED);
 		}
-		printf("dirX=%f, dirY=%f\n", player->dir_x, player->dir_y);
+		// printf("dirX=%f, dirY=%f\n", player->dir_x, player->dir_y);
 	}
 	if (keycode == KEY_RIGTH)
 	{

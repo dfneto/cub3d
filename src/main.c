@@ -6,13 +6,13 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:04:23 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/07 20:01:12 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/08 10:30:28 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int         dimension_2d = 1;
+int         dimension_2d = 0;
 
 int err(char *str)
 {
