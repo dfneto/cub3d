@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 18:07:08 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/07 12:27:08 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/08 11:16:26 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,12 @@ void    draw_everything_3d(t_win *win)
     t_map *map = win->map;
 
     /* declaracoes iniciais */
-    //double posX = 22, posY = 12;  //x and y start position
     //double dirX = -1, dirY = 0; //initial direction vector
-    player->planeX = 0;
-    player->planeY = -0.66;
+    // player.dir_x = -1;
+    // player.dir_y = 0;
+    // printf("dirX: %f, dirY=%f\n", player->dir_x, player->dir_y);
+    // player->planeX = 0;
+    // player->planeY = 0.66;
     double planeX = player->planeX;
     double planeY = player->planeY;
     /* recalculado no loop */
@@ -47,16 +49,9 @@ void    draw_everything_3d(t_win *win)
     double cameraX = 0;
     int mapX = 0;
 	int mapY = 0;
-    double sideDistX = 0;
-    double sideDistY = 0;
     double deltaDistX = 0;
     double deltaDistY = 0;
-    double perpWallDist = 0;
-    int stepX = 0;
-    int stepY = 0;
-
     int hit = 0;
-    int side = 0;
 
     x = 0;
     while (x < WIDTH)
@@ -69,9 +64,17 @@ void    draw_everything_3d(t_win *win)
         mapX = (int)player->x;
         mapY = (int)player->y;
 
+        double sideDistX;
+        double sideDistY;
+        
         deltaDistX = (rayDirX == 0) ? 1e30 : fabs(1 / rayDirX);
         deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1 / rayDirY);
         
+        double perpWallDist;
+        int stepX;
+        int stepY;
+        int side;
+
         if (rayDirX < 0)
         {
             stepX = -1;
@@ -107,7 +110,7 @@ void    draw_everything_3d(t_win *win)
                 mapY += stepY;
                 side = 1;
             }
-            if (map->grid[mapY][mapX] == '1') //TODO: por que no do lodev eh mapX, mapY?
+            if (map->grid[mapY][mapX] == '1')
                 hit = 1; 
         }
         if (side == 0) //acho que entao bateu no lado do quadrado (W O)

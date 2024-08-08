@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 09:43:59 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/08 10:21:14 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/08 11:14:29 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,12 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 //N: [0 1], W: [-1 0], S: [0 -1], O: [1  0]
 //O vetor posição x e y são colunas e linhas e não coordenadas cartesianas
 //cria o player com base nas coordenadas do grid
+//TODO: colocar um break no inner while e um flag de player_set para nao ficar no loop mesmo depois de ter setado o jogador
 t_player	create_player(t_map *map)
 {
 	int i = 0;
 	int j = 0;
+	
 	t_player    player; //TODO: devo criar um malloc? Pq sim ou pq não?
 
 	while (i < ROWS) //y
@@ -53,8 +55,10 @@ t_player	create_player(t_map *map)
 		j = 0;
 		i++;
 	}
-	// player.planeX = 0;
-    // player.planeY = -0.66;
+	// player.dir_x = -1;
+    // player.dir_y = 0;
+	player.planeX = 0;
+    player.planeY = 0.66;
 	player.size = 20;
     player.direction_line_size = 200;
 	return player;
@@ -63,18 +67,19 @@ t_player	create_player(t_map *map)
 // fill all the pixels with black
 void	clean_map(t_img *img)
 {
-	int i = 0;
-	int j = 0;
+	int i;
+	int j;
 	
-	while (i < ROWS)
+	i = 0;
+	while (i < ROWS * WALL_SIZE)
 	{
-		while (j < COLS)
+		j = 0;
+		while (j < COLS * WALL_SIZE)
 		{
 			// draw_the_wall(img, j + 1, i + 1, BLACK);
-			my_mlx_pixel_put(img, j, i, BLACK);
+			my_mlx_pixel_put(img, row_inverter(i), j, BLACK);
 			j++;
 		}
-		j = 0;
 		i++;
 	}
 	mlx_put_image_to_window(img->win->mlx_ptr,
