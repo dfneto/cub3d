@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 13:02:01 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/05 18:25:51 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/09 09:12:29 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ t_point_distance dda_collision_detection_lodev(t_player *player, t_map *map)
     
 	float rayDirX = player->dir_x;
 	float rayDirY = player->dir_y;
-	int mapX = (int)player->x;
-	int mapY = (int)player->y;
+	int mapX = (int)player->pos_x;
+	int mapY = (int)player->pos_y;
 
 	double sideDistX;
 	double sideDistY;
@@ -40,22 +40,22 @@ t_point_distance dda_collision_detection_lodev(t_player *player, t_map *map)
 	if (rayDirX < 0) 
 	{
 		stepX = -1;
-		sideDistX = (player->x - mapX) * deltaDistX;
+		sideDistX = (player->pos_x - mapX) * deltaDistX;
 	}
 	else
 	{
 		stepX = 1;
-		sideDistX = (mapX + 1.0 - player->x) * deltaDistX;
+		sideDistX = (mapX + 1.0 - player->pos_x) * deltaDistX;
 	}
 	if (rayDirY > 0)
 	{
 		stepY = -1;
-		sideDistY = (player->y - mapY) * deltaDistY;
+		sideDistY = (player->pos_y - mapY) * deltaDistY;
 	}
 	else
 	{
 		stepY = 1;
-		sideDistY = (mapY + 1.0 - player->y) * deltaDistY;
+		sideDistY = (mapY + 1.0 - player->pos_y) * deltaDistY;
 	}
 
 	while (hit == 0)
@@ -80,8 +80,8 @@ t_point_distance dda_collision_detection_lodev(t_player *player, t_map *map)
     else          perpWallDist = (sideDistY - deltaDistY);
 
 	//essa formula peguei do video do jaxi: end = start + dir * length
-	end_point.x = player->x + player->dir_x * perpWallDist;
-    end_point.y = player->y - player->dir_y * perpWallDist; //TODO: usar o y positivo, como eh no x, mas na hora de printar o pixel fazer a conversao
+	end_point.x = player->pos_x + player->dir_x * perpWallDist;
+    end_point.y = player->pos_y - player->dir_y * perpWallDist; //TODO: usar o y positivo, como eh no x, mas na hora de printar o pixel fazer a conversao
 	end_point.distance = perpWallDist;
     return end_point;
 }
@@ -93,13 +93,13 @@ int	has_wall(t_player *player)
 	t_player *player_right = (t_player *)malloc(sizeof(t_player));
 
 	player_left->win = player->win;
-	player_left->x = player->x;
-	player_left->y = player->y;
+	player_left->pos_x = player->pos_x;
+	player_left->pos_y = player->pos_y;
 	player_left->dir_x = player->dir_x * cos(6*ROT_SPEED) - player->dir_y * sin(6*ROT_SPEED);
 	player_left->dir_y = player->dir_x * sin(6*ROT_SPEED) + player->dir_y * cos(6*ROT_SPEED);
 
-	player_right->x = player->x;
-	player_right->y = player->y;
+	player_right->pos_x = player->pos_x;
+	player_right->pos_y = player->pos_y;
 	player_right->dir_x = player->dir_x * cos(-6*ROT_SPEED) - player->dir_y * sin(-6*ROT_SPEED);
 	player_right->dir_y = player->dir_x * sin(-6*ROT_SPEED) + player->dir_y * cos(-6*ROT_SPEED);
 	player_right->win = player->win;

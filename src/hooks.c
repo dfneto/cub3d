@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 19:37:30 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/08 11:12:57 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/09 12:58:54 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int	choose_event(int keycode, t_player *player)
 		// if (!has_wall(player))
 		// {
 			// posicion = posicion + vetor_dir * speed
-			player->x += player->dir_x * PLAYER_SPEED; //lodev: if (worldMap[(int)(posX + dirX * moveSpeed)][(int)posY] == 0) posX += dirX * moveSpeed;
-			player->y += player->dir_y * PLAYER_SPEED;
-			printf("x=%f, y=%f, dirX=%f, dirY=%f\n", player->x, player->y, player->dir_x, player->dir_y);
+			player->pos_x += player->dir_x * PLAYER_SPEED; //lodev: if (worldMap[(int)(posX + dirX * moveSpeed)][(int)posY] == 0) posX += dirX * moveSpeed;
+			player->pos_y += player->dir_y * PLAYER_SPEED;
+			printf("x=%f, y=%f, dirX=%f, dirY=%f\n", player->pos_x, player->pos_y, player->dir_x, player->dir_y);
 		// }
 		// se eu mudo somente o y entao o player nao pode mover-se na diagonal
 		// o y no alto da tela vale 0 e no fim o HEIGTH
@@ -43,21 +43,23 @@ int	choose_event(int keycode, t_player *player)
 	{
 		// posicion = posicion - vetor dir * speed
 		//posX -= dirX * moveSpeed;
-		player->x -= player->dir_x * PLAYER_SPEED;
-		player->y -= player->dir_y * PLAYER_SPEED;
-		printf("x=%f, y=%f, dirX=%f, dirY=%f\n", player->x, player->y, player->dir_x, player->dir_y);
+		player->pos_x -= player->dir_x * PLAYER_SPEED;
+		player->pos_y -= player->dir_y * PLAYER_SPEED;
+		printf("x=%f, y=%f, dirX=%f, dirY=%f\n", player->pos_x, player->pos_y, player->dir_x, player->dir_y);
 	}
 	if (keycode == KEY_D)
 	{
-		player->x = player->x + player->dir_y * PLAYER_SPEED;
-		player->y = player->y - player->dir_x * PLAYER_SPEED;
+		player->pos_x = player->pos_x + player->dir_y * PLAYER_SPEED;
+		player->pos_y = player->pos_y - player->dir_x * PLAYER_SPEED;
+		printf("x=%f, y=%f, dirX=%f, dirY=%f\n", player->pos_x, player->pos_y, player->dir_x, player->dir_y);
 	}
 	if (keycode == KEY_A)
 	{
 		// if (is_player_inside_the_borders_map(player))
 		// {
-			player->x = player->x - player->dir_y * PLAYER_SPEED;
-			player->y = player->y + player->dir_x * PLAYER_SPEED;
+			player->pos_x = player->pos_x - player->dir_y * PLAYER_SPEED;
+			player->pos_y = player->pos_y + player->dir_x * PLAYER_SPEED;
+			printf("x=%f, y=%f, dirX=%f, dirY=%f\n", player->pos_x, player->pos_y, player->dir_x, player->dir_y);
 		// }
 	}
 
@@ -95,8 +97,10 @@ int	choose_event(int keycode, t_player *player)
     else
 	{
         draw_everything_3d(player->win);
+		mlx_put_image_to_window(player->win->mlx_ptr,
+			player->win->win_ptr, player->win->img->img_ptr, 0, 0);
 	}
-		
+	
 	return (0);
 }
 
@@ -113,7 +117,7 @@ clicarmos no x da janela com o mouse o evento 17
 */
 void	set_hooks(t_win *win)
 {
-	mlx_hook(win->win_ptr, 17, 0, close_window_mouse, win);
+	mlx_hook(win->win_ptr, 33, 0, close_window_mouse, win);
 	//mlx_hook(win->win_ptr, 2, 0, choose_event, win); //equivalente a mlx_key_hook(win->win_ptr, choose_event, win); //mac
 	mlx_hook(win->win_ptr, 2, 1L << 0, choose_event, win->player); //linux
 }

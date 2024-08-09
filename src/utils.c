@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 09:43:59 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/08 11:14:29 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/09 13:34:40 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
-	y = HEIGHT - y - 1;
+	// y = HEIGHT - y - 1; //mac
+	y = HEIGHT - y; //linux
 	dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
 	*(unsigned int*)dst = color;
 }
@@ -38,27 +39,27 @@ t_player	create_player(t_map *map)
 		{
 			if (map->grid[i][j] == 'N') // [0 1]
 			{
-				player.x = j + 0.5; //0.5 para que a posicao x seja no centro e nao na esquina
-				player.y = row_inverter(i) + 0.5;
+				player.pos_x = j + 0.5; //0.5 para que a posicao x seja no centro e nao na esquina
+				player.pos_y = row_inverter(i) + 0.5;
 				player.dir_x = 0.0;
 				player.dir_y = 1.0;
+				player.planeX = 0.66;
+				player.planeY = 0.0;
 			}
 			if (map->grid[j][i] == 'S') // [0 -1]
 			{
-				player.x = j + 0.5;
-				player.y = row_inverter(i) + 0.5;
+				player.pos_x = j + 0.5;
+				player.pos_y = row_inverter(i) + 0.5;
 				player.dir_x = 0.0;
 				player.dir_y = -1.0;
-			}
+				player.planeX = -0.66;
+				player.planeY = 0;
+			}		
 			j++;
 		}
 		j = 0;
 		i++;
 	}
-	// player.dir_x = -1;
-    // player.dir_y = 0;
-	player.planeX = 0;
-    player.planeY = 0.66;
 	player.size = 20;
     player.direction_line_size = 200;
 	return player;

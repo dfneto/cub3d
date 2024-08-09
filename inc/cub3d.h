@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/07 19:49:08 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/09 09:15:51 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,17 @@ typedef struct s_img
 //de valores do que inteiros
 typedef struct s_player
 {
-	float		x;
-	float		y;
 	t_win		*win;
-	int			size;
-	float		speed;
-	float		dir_x;
-	float		dir_y;
+	double		pos_x;
+	double		pos_y;
+	double		dir_x;
+	double		dir_y;
 	double		planeX;
     double		planeY;
+	int			size;
+	int			map_x;
+	int 		map_y;
+	float		speed;
 	int			direction_line_size;
 }	t_player;
 

@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 18:07:08 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/08 11:16:26 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/09 13:32:48 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,11 @@ void verLine(t_win *win, int x, int y_start, int y_end)
 {
     // printf("PixelX = %d, y1 = %d, y2=%d\n", x, y_start, y_end);
     int y = y_start;
-    while (y <= y_end)
+    while (y < y_end)
     {
         my_mlx_pixel_put(win->img, x, y, BLUE);
         y++;
     }
-    mlx_put_image_to_window(win->mlx_ptr,
-		win->win_ptr, win->img->img_ptr, 0, 0);
 }
 
 
@@ -41,59 +39,80 @@ void    draw_everything_3d(t_win *win)
     // printf("dirX: %f, dirY=%f\n", player->dir_x, player->dir_y);
     // player->planeX = 0;
     // player->planeY = 0.66;
-    double planeX = player->planeX;
-    double planeY = player->planeY;
     /* recalculado no loop */
-    float rayDirX = 0;
-    float rayDirY = 0;
-    double cameraX = 0;
-    int mapX = 0;
-	int mapY = 0;
-    double deltaDistX = 0;
-    double deltaDistY = 0;
+    double rayDirX = 0.0;
+    double rayDirY = 0.0;
+    double cameraX = 0.0;
+    double deltaDistX = 0.0;
+    double deltaDistY = 0.0;
+    double sideDistX = 0.0;
+    double sideDistY = 0.0;
+    double perpWallDist = 0.0;
     int hit = 0;
-
+    int mapX = 0;
+    int mapY = 0;
+    int stepX = 0;
+    int stepY = 0;
+    int side = 0;
+    int lineHeight;
+    int drawStart;
+    int drawEnd;
+    
     x = 0;
     while (x < WIDTH)
     {
+        //zera tudo
+        cameraX = 0.0;
+        rayDirX = 0.0;
+        rayDirY = 0.0;
+        mapX = 0;
+        mapY = 0;
+        stepX = 0;
+        stepY = 0;
+        sideDistX = 0.0;
+        sideDistY = 0.0;
+        deltaDistX = 0.0;
+        deltaDistY = 0.0;
+        perpWallDist = 0.0;
+        side = 0;
         hit = 0;
-        cameraX = 2 * x / (double)WIDTH - 1;
-        rayDirX = player->dir_x + planeX * cameraX;
-        rayDirY = player->dir_y + planeY * cameraX;
-        
-        mapX = (int)player->x;
-        mapY = (int)player->y;
+        lineHeight = 0;
+        drawStart = 0;
+        drawEnd = 0;
 
-        double sideDistX;
-        double sideDistY;
+        cameraX = 2 * x / (double)WIDTH - 1;
+        rayDirX = player->dir_x + player->planeX * cameraX;
+        rayDirY = player->dir_y + player->planeY * cameraX;
         
-        deltaDistX = (rayDirX == 0) ? 1e30 : fabs(1 / rayDirX);
-        deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1 / rayDirY);
+        mapX = (int)player->pos_x;
+        mapY = (int)player->pos_y;
+
         
-        double perpWallDist;
-        int stepX;
-        int stepY;
-        int side;
+        // deltaDistX = (rayDirX == 0) ? 1e30 : fabs(1 / rayDirX);
+        // deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1 / rayDirY);
+        deltaDistX = fabs(1 / rayDirX);
+        deltaDistY = fabs(1 / rayDirY);
+
 
         if (rayDirX < 0)
         {
             stepX = -1;
-            sideDistX = (player->x - mapX) * deltaDistX;
+            sideDistX = (player->pos_x - mapX) * deltaDistX;
         }
         else
         {
             stepX = 1;
-            sideDistX = (mapX + 1.0 - player->x) * deltaDistX;
+            sideDistX = (mapX + 1.0 - player->pos_x) * deltaDistX;
         }
-        if (rayDirY > 0)
+        if (rayDirY < 0)
         {
             stepY = -1;
-            sideDistY = (player->y - mapY) * deltaDistY;
+            sideDistY = (player->pos_y - mapY) * deltaDistY;
         }
         else
         {
             stepY = 1;
-            sideDistY = (mapY + 1.0 - player->y) * deltaDistY;
+            sideDistY = (mapY + 1.0 - player->pos_y) * deltaDistY;
         }
 
         while (hit == 0) //enquanto não bateu na parede
@@ -119,12 +138,12 @@ void    draw_everything_3d(t_win *win)
             perpWallDist = (sideDistY - deltaDistY);
 
         //height of the vertical line that should be drawn            
-        int lineHeight = (int)(HEIGHT / perpWallDist); //You can of course also multiply it with another value, for example 2*screenHeight, if you want to walls to be higher or lower
+        lineHeight = (int)(HEIGHT / perpWallDist); //You can of course also multiply it with another value, for example 2*screenHeight, if you want to walls to be higher or lower
 
-        int drawStart = -lineHeight / 2 + HEIGHT / 2;
+        drawStart = -lineHeight / 2 + HEIGHT / 2;
         if (drawStart < 0) //quer dizer que começaria a desenhar fora da tela
             drawStart = 0;
-        int drawEnd = lineHeight / 2 + HEIGHT / 2;
+        drawEnd = lineHeight / 2 + HEIGHT / 2;
         if (drawEnd >= HEIGHT) //quer dizer que terminaria de desenhar fora da tela
             drawEnd = HEIGHT - 1;
 

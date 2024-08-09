@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:29:30 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/08 10:24:12 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/09 12:36:41 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_player_inside_the_borders_map(t_player *player)
 {
-	if (player->x >= 1 && player->x <= 23 && player->y >= 1 && player->y <= 23)
+	if (player->pos_x >= 1 && player->pos_x <= 23 && player->pos_y >= 1 && player->pos_y <= 23)
 		return 1;
 	return 0;
 
@@ -28,8 +28,8 @@ void	draw_player(t_img *img, t_player *player)
 	float y_pixel;
 
 	//Conversao de linhas/colunas do map grid em pixels
-	x_pixel = (player->x) * WALL_SIZE;
-	y_pixel = (player->y) * WALL_SIZE;
+	x_pixel = (player->pos_x) * WALL_SIZE;
+	y_pixel = (player->pos_y) * WALL_SIZE;
 	
 	x = x_pixel - player->size/2;
 	y = y_pixel - player->size/2;
@@ -100,11 +100,11 @@ void	draw_map_walls(t_img *img, t_map *map)
 int draw_player_direction_line(t_img *img, t_player *player, int beginX, int beginY, int color)
 {
 	//Conversao de linhas/colunas do map grid em pixels
-	beginX = (player->x) * WALL_SIZE; //0.5 para colocar o jogador no meio do quadrado (WALL_SIZE)
-	beginY = (player->y) * WALL_SIZE;
+	beginX = (player->pos_x) * WALL_SIZE; //0.5 para colocar o jogador no meio do quadrado (WALL_SIZE)
+	beginY = (player->pos_y) * WALL_SIZE;
 	
-	int	endX = (player->x + player->dir_x * 3) * WALL_SIZE; //1.5 é o tamanho da direction line
-	int	endY = (player->y + player->dir_y * 3) * WALL_SIZE; //TODO: pq + 0.5?
+	int	endX = (player->pos_x + player->dir_x * 3) * WALL_SIZE; //1.5 é o tamanho da direction line
+	int	endY = (player->pos_y + player->dir_y * 3) * WALL_SIZE; //TODO: pq + 0.5?
 
 	// t_point_distance end_point = dda_collision_detection_lodev(player, img->win->map);
 	// int	endX = (end_point.x) * WALL_SIZE; //(player->x + 0 + 0.5) * WALL_SIZE; //1.5 é o tamanho da direction line
@@ -127,14 +127,14 @@ int draw_player_direction_line(t_img *img, t_player *player, int beginX, int beg
 	return 0;
 }
 
-void	draw_everything_2d(t_win *win)
+	void	draw_everything_2d(t_win *win)
 {
 	draw_map_walls(win->img, win->map);
 	draw_grid_lines(win);
 	// if (is_player_inside_the_borders_map(win->player)) //so posso desenhar o jogador se estiver dentro do mapa. Idealmente tbm so poderia mover dentro das paredes (TODO: o jogador deve encontrar parede atras e aos lados)
 	// {
 		draw_player(win->img, win->player);
-		draw_player_direction_line(win->img, win->player, win->player->x, win->player->y, BLUE);
+		draw_player_direction_line(win->img, win->player, win->player->pos_x, win->player->pos_y, BLUE);
 	// }
 	mlx_put_image_to_window(win->mlx_ptr,
 		win->win_ptr, win->img->img_ptr, 0, 0);
