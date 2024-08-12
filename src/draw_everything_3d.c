@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 18:07:08 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/12 13:42:02 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/12 13:49:25 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void verLine(t_win *win, int x, int y_start, int y_end, int color)
 
 void    draw_everything_3d(t_win *win)
 {
-    printf(" Entrou aqui??? \n");
     clean_map(win->img);
     t_player *player = win->player;
     t_map *grid_map = win->map;

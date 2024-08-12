@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:04:23 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/12 13:45:51 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/12 13:49:44 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int main()
     
     if (parse_map(map))
         return (err(ERROR_PARSING));
+    print_map_grid(map);
     invert_grid(map);
 
     //Create the window and the image https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html#initialization
