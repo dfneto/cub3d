@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 12:09:37 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/07 14:11:19 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/12 11:15:49 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,14 @@ void draw_line_bresenham(float x, float y, float x1, float y1, t_win *win)//(1:1
     float x_step;
     float y_step;
     int max;
+	int	zoom = 32;
 
 	// ao multiplicar pelo zoom eu saio do mundo de linhas e colunas do grid map (coordenadas do grid map) e vou para o mundo de pixels
 	// que serão preenchidos no while abaixo step por step (step=1)
-	x *= win->zoom;
-	y *= win->zoom;
-	x1 *= win->zoom;
-	y1 *= win->zoom;
+	x *= zoom;
+	y *= zoom;
+	x1 *= zoom;
+	y1 *= zoom;
     
 	x_step = x1 - x;
     y_step = y1 - y;

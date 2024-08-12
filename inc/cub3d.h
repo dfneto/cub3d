@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/09 09:15:51 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/12 13:45:42 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 
 # define WIDTH		768
 # define HEIGHT		768
-# define THICKNESS	10
 # define ESC		65307 //53
 # define LEFT_CLICK 1
 # define KEY_A		97 //0
@@ -35,8 +34,10 @@
 #define ROWS 			24
 #define COLS 			24
 #define WALL_SIZE		32
+#define MINI_WALL_SIZE	8
 #define ROT_SPEED		0.09
 #define PLAYER_SPEED	0.5
+#define PLAYER_SIZE		2
 
 extern int         dimension_2d; //1 para 2d, 0 para 3d
 
@@ -44,7 +45,6 @@ typedef struct s_win
 {
 	int				height;
 	int				width;
-	int				zoom;
 	void			*mlx_ptr;
 	void			*win_ptr;
 	struct s_img	*img;
@@ -78,7 +78,6 @@ typedef struct s_player
 	int			map_x;
 	int 		map_y;
 	float		speed;
-	int			direction_line_size;
 }	t_player;
 
 typedef struct s_point_distance
@@ -97,13 +96,12 @@ typedef struct s_map
 void    temp(t_win *win);
 
 // draw_elements.c
-void	draw_everything_2d(t_win *win);
+void	draw_minimap(t_win *win);
 void	draw_player(t_img *img, t_player *player);
 void	draw_map_walls(t_img *img, t_map *map);
 void	draw_the_wall(t_img *img, int row, int column, int color);
 int	is_player_inside_the_borders_map(t_player *player);
 int draw_player_direction_line(t_img *img, t_player *player, int beginX, int beginY, int color);
-int	row_inverter(int i);
 
 //utils.c
 void	clean_map(t_img *img);

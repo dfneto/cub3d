@@ -6,40 +6,30 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 18:07:08 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/09 13:32:48 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/12 13:42:02 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-//TODO: fazer o ceu e o solo
-void verLine(t_win *win, int x, int y_start, int y_end)
+void verLine(t_win *win, int x, int y_start, int y_end, int color)
 {
-    // printf("PixelX = %d, y1 = %d, y2=%d\n", x, y_start, y_end);
     int y = y_start;
-    while (y < y_end)
+    while (y <= y_end)
     {
-        my_mlx_pixel_put(win->img, x, y, BLUE);
+        my_mlx_pixel_put(win->img, x, y, color);
         y++;
     }
 }
 
-
 void    draw_everything_3d(t_win *win)
 {
+    printf(" Entrou aqui??? \n");
     clean_map(win->img);
-    int x;
     t_player *player = win->player;
-    t_map *map = win->map;
+    t_map *grid_map = win->map;
 
-    /* declaracoes iniciais */
-    //double dirX = -1, dirY = 0; //initial direction vector
-    // player.dir_x = -1;
-    // player.dir_y = 0;
-    // printf("dirX: %f, dirY=%f\n", player->dir_x, player->dir_y);
-    // player->planeX = 0;
-    // player->planeY = 0.66;
-    /* recalculado no loop */
+    int x;
     double rayDirX = 0.0;
     double rayDirY = 0.0;
     double cameraX = 0.0;
@@ -57,6 +47,7 @@ void    draw_everything_3d(t_win *win)
     int lineHeight;
     int drawStart;
     int drawEnd;
+    int color;
     
     x = 0;
     while (x < WIDTH)
@@ -87,12 +78,10 @@ void    draw_everything_3d(t_win *win)
         mapX = (int)player->pos_x;
         mapY = (int)player->pos_y;
 
-        
-        // deltaDistX = (rayDirX == 0) ? 1e30 : fabs(1 / rayDirX);
-        // deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1 / rayDirY);
-        deltaDistX = fabs(1 / rayDirX);
-        deltaDistY = fabs(1 / rayDirY);
-
+        deltaDistX = (rayDirX == 0) ? 1e30 : fabs(1 / rayDirX);
+        deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1 / rayDirY);
+        // deltaDistX = fabs(1 / rayDirX);
+        // deltaDistY = fabs(1 / rayDirY);
 
         if (rayDirX < 0)
         {
@@ -102,7 +91,7 @@ void    draw_everything_3d(t_win *win)
         else
         {
             stepX = 1;
-            sideDistX = (mapX + 1.0 - player->pos_x) * deltaDistX;
+            sideDistX = (mapX + 1.0 - player->pos_x) * deltaDistX; 
         }
         if (rayDirY < 0)
         {
@@ -129,8 +118,16 @@ void    draw_everything_3d(t_win *win)
                 mapY += stepY;
                 side = 1;
             }
-            if (map->grid[mapY][mapX] == '1')
+            if (grid_map->grid[mapY][mapX] == '1')
+            {
+                hit = 1;
+                color = BLUE;
+            }
+            if (grid_map->grid[mapY][mapX] == '2')
+            {
                 hit = 1; 
+                color = RED;
+            }
         }
         if (side == 0) //acho que entao bateu no lado do quadrado (W O)
             perpWallDist = (sideDistX - deltaDistX);
@@ -147,7 +144,7 @@ void    draw_everything_3d(t_win *win)
         if (drawEnd >= HEIGHT) //quer dizer que terminaria de desenhar fora da tela
             drawEnd = HEIGHT - 1;
 
-        verLine(win, x, drawStart, drawEnd);
+        verLine(win, x, drawStart, drawEnd, color);
         x++;
     }
 }

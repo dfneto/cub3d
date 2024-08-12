@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 09:43:59 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/09 13:34:40 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/12 13:48:38 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,40 +28,39 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 //TODO: colocar um break no inner while e um flag de player_set para nao ficar no loop mesmo depois de ter setado o jogador
 t_player	create_player(t_map *map)
 {
-	int i = 0;
-	int j = 0;
+	int y = 0;
+	int x = 0;
 	
 	t_player    player; //TODO: devo criar um malloc? Pq sim ou pq não?
 
-	while (i < ROWS) //y
+	while (y < ROWS) //y < 5
 	{
-		while (j < COLS) //x
+		while (x < COLS) //x < 6
 		{
-			if (map->grid[i][j] == 'N') // [0 1]
+			if (map->grid[y][x] == 'N') // [0 1]
 			{
-				player.pos_x = j + 0.5; //0.5 para que a posicao x seja no centro e nao na esquina
-				player.pos_y = row_inverter(i) + 0.5;
+				player.pos_x = x + 0.5; //0.5 para que a posicao x seja no centro e nao na esquina
+				player.pos_y = y + 0.5;
 				player.dir_x = 0.0;
 				player.dir_y = 1.0;
 				player.planeX = 0.66;
 				player.planeY = 0.0;
 			}
-			if (map->grid[j][i] == 'S') // [0 -1]
+			if (map->grid[y][x] == 'S') // [0 -1]
 			{
-				player.pos_x = j + 0.5;
-				player.pos_y = row_inverter(i) + 0.5;
+				player.pos_x = x + 0.5;
+				player.pos_y = y + 0.5;
 				player.dir_x = 0.0;
 				player.dir_y = -1.0;
 				player.planeX = -0.66;
 				player.planeY = 0;
 			}		
-			j++;
+			x++;
 		}
-		j = 0;
-		i++;
+		x = 0;
+		y++;
 	}
-	player.size = 20;
-    player.direction_line_size = 200;
+	player.size = PLAYER_SIZE;
 	return player;
 }
 
@@ -72,17 +71,16 @@ void	clean_map(t_img *img)
 	int j;
 	
 	i = 0;
-	while (i < ROWS * WALL_SIZE)
+	while (i < HEIGHT)
 	{
 		j = 0;
-		while (j < COLS * WALL_SIZE)
+		while (j < WIDTH)
 		{
-			// draw_the_wall(img, j + 1, i + 1, BLACK);
-			my_mlx_pixel_put(img, row_inverter(i), j, BLACK);
+			my_mlx_pixel_put(img, i, j, BLACK);
 			j++;
 		}
 		i++;
 	}
 	mlx_put_image_to_window(img->win->mlx_ptr,
-		img->win->win_ptr, img->win->img->img_ptr, 0, 0);
+		img->win->win_ptr, img->img_ptr, 0, 0);
 }
