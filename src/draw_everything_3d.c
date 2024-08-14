@@ -6,13 +6,13 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 18:07:08 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/12 13:49:25 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/14 20:08:28 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void verLine(t_win *win, int x, int y_start, int y_end, int color)
+void print_vertical_line(t_win *win, int x, int y_start, int y_end, int color)
 {
     int y = y_start;
     while (y <= y_end)
@@ -25,6 +25,7 @@ void verLine(t_win *win, int x, int y_start, int y_end, int color)
 void    draw_everything_3d(t_win *win)
 {
     clean_map(win->img);
+    t_line line;
     t_player *player = win->player;
     t_map *grid_map = win->map;
 
@@ -42,7 +43,7 @@ void    draw_everything_3d(t_win *win)
     int mapY = 0;
     int stepX = 0;
     int stepY = 0;
-    int side = 0;
+    int side = 0; //was a NS or a EW wall hit?
     int lineHeight;
     int drawStart;
     int drawEnd;
@@ -143,7 +144,7 @@ void    draw_everything_3d(t_win *win)
         if (drawEnd >= HEIGHT) //quer dizer que terminaria de desenhar fora da tela
             drawEnd = HEIGHT - 1;
 
-        verLine(win, x, drawStart, drawEnd, color);
+        print_vertical_line(win, x, drawStart, drawEnd, color);
         x++;
     }
 }

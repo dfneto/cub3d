@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:04:23 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/12 13:49:44 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/13 09:54:42 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int main()
     player.win = &win;
     
     set_hooks(&win);
-    draw_everything_3d(&win);
+    draw_everything_3d_texture(&win);
     draw_minimap(&win);
     mlx_put_image_to_window(win.mlx_ptr,
 		win.win_ptr, win.img->img_ptr, 0, 0);

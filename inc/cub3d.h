@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/12 13:45:42 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/14 11:08:18 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,17 @@
 
 # define WIDTH		768
 # define HEIGHT		768
-# define ESC		65307 //53
+# define texWidth 	64 
+# define texHeight 	64
+# define ESC		53 //65307 //53
 # define LEFT_CLICK 1
-# define KEY_A		97 //0
-# define KEY_D		100 //2
-# define KEY_W		119 //13
-# define KEY_S		115 //1
+# define KEY_A		0 //97 //0
+# define KEY_D		2 //100 //2
+# define KEY_W		13 //119 //13
+# define KEY_S		1 //115 //1
 # define KEY_C		8
-# define KEY_LEFT	65361 //123
-# define KEY_RIGTH	65363 //124
+# define KEY_LEFT	123 //65361 //123
+# define KEY_RIGTH	124 //65363 //124
 
 #define ROWS 			24
 #define COLS 			24
@@ -39,7 +41,20 @@
 #define PLAYER_SPEED	0.5
 #define PLAYER_SIZE		2
 
-extern int         dimension_2d; //1 para 2d, 0 para 3d
+
+
+
+typedef  struct  s_line
+{
+	int  x; //the x coordinate of line relative to screen
+	int  y; //the current pixel index of the line (along y axis)
+	int  y0; //y start index of drawing texture
+	int  y1; //y end index of drawing texture
+	int  tex_x; //x coordinate of texture to draw
+	int  tex_y; //y coordinate of texture to draw
+} t_line;
+
+
 
 typedef struct s_win
 {
@@ -120,6 +135,7 @@ int	has_wall(t_player *player);
 
 //draw_everything_3d.c
 void	draw_everything_3d(t_win *win);
+void    draw_everything_3d_texture(t_win *win);
 
 //utils2.c
 void    print_map_grid(t_map *map);

@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 19:37:30 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/12 13:48:01 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/13 09:34:57 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	choose_event(int keycode, t_player *player)
 		player->planeX = player->planeX * cos(ROT_SPEED) - player->planeY * sin(ROT_SPEED);
 		player->planeY = oldPlaneX * sin(ROT_SPEED) + player->planeY * cos(ROT_SPEED);
 	}
-	draw_everything_3d(player->win);
+	draw_everything_3d_texture(player->win);
 	draw_minimap(player->win);
 	mlx_put_image_to_window(player->win->mlx_ptr,
 			player->win->win_ptr, player->win->img->img_ptr, 0, 0);
