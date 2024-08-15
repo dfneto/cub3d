@@ -1,8 +1,8 @@
-[] Mudar o wall_size par 64? 
 [] Fazer a textura
-[] Fazer o céu e o chão
+[] Fazer o céu e o chão (usar cores rgb: https://harm-smits.github.io/42docs/libs/minilibx/colors.html)
 [] Fazer a colisão
 [] Como poderia chegar pela minha conta que o problema era o planoX e planoY invertidos? Acho que somente revendo a teoria/algoritmo/matemática e comparando com o meu
+[] Mudar o wall_size par 64? -> acho que não tem nada ver porque nem uso isso para o raycasting. Somente para desenhar as paredes no mapa 2d
 [x] Ler de um array as paredes e printar no mapa
 [x] Como é possível fazer uma reta inclinada numa tela de pixels?
 [x] Criar um vetor de direcao usando x e y com valores float segundo um quadrante 

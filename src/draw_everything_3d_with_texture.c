@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 18:07:08 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/15 11:32:31 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/15 13:00:55 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void drawBuffer(t_win *win, uint32_t buffer[HEIGHT][WIDTH])
         x = 0;
         y++;
     }
+    
 }
 
 void *loadTexture(void *mlx, char *file_path, int *width, int *height)
@@ -175,17 +176,15 @@ void    draw_everything_3d_texture(t_win *win)
 
 
         //TEXTURE --------------------------------------------------------------------------------------------
-        int pitch = 100;
-
+        int pitch = 0; //This value is an offset added to the vertical position of the drawn wall. By adding pitch, you can move the entire view up or down.
+        //TODO: esse pitch tava em 100
+        
         //calculate lowest and highest pixel to fill in current stripe
         int drawStart = -lineHeight / 2 + HEIGHT / 2 + pitch;
         if(drawStart < 0) 
             drawStart = 0;
         int drawEnd = lineHeight / 2 + HEIGHT / 2 + pitch;
         if(drawEnd >= HEIGHT) drawEnd = HEIGHT - 1;
-
-        //texturing calculations (-48 para transformar de char para int)
-        int texNum = grid_map->grid[mapY][mapX] -48 - 1; //1 subtracted from it so that texture 0 can be used!
 
         //calculate value of wallX
         double wallX; //where exactly the wall was hit
@@ -198,6 +197,9 @@ void    draw_everything_3d_texture(t_win *win)
         if(side == 0 && rayDirX > 0) texX = texWidth - texX - 1;
         if(side == 1 && rayDirY < 0) texX = texWidth - texX - 1;
 
+        //texturing calculations (-48 para transformar de char para int)
+        int texNum = grid_map->grid[mapY][mapX] -48 - 1; //1 subtracted from it so that texture 0 can be used!
+        
         // TODO: an integer-only bresenham or DDA like algorithm could make the texture coordinate stepping faster
         // How much to increase the texture coordinate per screen pixel
         double step = 1.0 * texHeight / lineHeight;

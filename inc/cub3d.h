@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/15 05:09:15 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/15 12:52:50 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 # define WIDTH		768
 # define HEIGHT		768
-# define texWidth 	64 
+# define texWidth 	64 //tamanho da textura: uma imagem xpm de tamanho 64x64 pixels
 # define texHeight 	64
 # define ESC		53 //65307 //53
 # define LEFT_CLICK 1

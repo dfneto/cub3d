@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:04:23 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/15 11:20:32 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/15 12:28:21 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ int main()
 		win.win_ptr, win.img->img_ptr, 0, 0);
 
     mlx_loop(win.mlx_ptr);
+    mlx_destroy_image(win.mlx_ptr, win.img->img_ptr); //TODO: necessário?
     return (0);
 }
 //TODO:     1 (48 bytes) ROOT LEAK: <CFString 0x7fbf53730590> [48]  length: 26  "Copyright Apple Inc., 2019"
