@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/14 11:08:18 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/15 05:09:15 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,6 @@
 #define ROT_SPEED		0.09
 #define PLAYER_SPEED	0.5
 #define PLAYER_SIZE		2
-
-
-
-
-typedef  struct  s_line
-{
-	int  x; //the x coordinate of line relative to screen
-	int  y; //the current pixel index of the line (along y axis)
-	int  y0; //y start index of drawing texture
-	int  y1; //y end index of drawing texture
-	int  tex_x; //x coordinate of texture to draw
-	int  tex_y; //y coordinate of texture to draw
-} t_line;
 
 
 
@@ -107,8 +94,6 @@ typedef struct s_map
 	char	grid[ROWS][COLS]; //ROWS=y, COLS=x
 }	t_map;
 
-
-void    temp(t_win *win);
 
 // draw_elements.c
 void	draw_minimap(t_win *win);

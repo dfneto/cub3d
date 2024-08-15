@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 18:07:08 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/14 20:08:28 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/15 05:09:46 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void print_vertical_line(t_win *win, int x, int y_start, int y_end, int color)
 void    draw_everything_3d(t_win *win)
 {
     clean_map(win->img);
-    t_line line;
     t_player *player = win->player;
     t_map *grid_map = win->map;
 

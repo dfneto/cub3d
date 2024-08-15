@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 18:07:08 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/13 15:01:08 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/15 06:01:39 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,24 +28,28 @@ void drawBuffer(t_win *win, uint32_t buffer[HEIGHT][WIDTH])
     }
 }
 
-void generate_textures(uint32_t *texture[8]) {
-    for(int x = 0; x < texWidth; x++) {
-        for(int y = 0; y < texHeight; y++) {
-            int xorcolor = (x * 256 / texWidth) ^ (y * 256 / texHeight);
-            // int xcolor = x * 256 / texWidth;
-            int ycolor = y * 256 / texHeight;
-            int xycolor = y * 128 / texHeight + x * 128 / texWidth;
-            
-            texture[0][texWidth * y + x] = 65536 * 254 * (x != y && x != texWidth - y); // flat red texture with black cross
-            texture[1][texWidth * y + x] = xycolor + 256 * xycolor + 65536 * xycolor; // sloped greyscale
-            texture[2][texWidth * y + x] = 256 * xycolor + 65536 * xycolor; // sloped yellow gradient
-            texture[3][texWidth * y + x] = xorcolor + 256 * xorcolor + 65536 * xorcolor; // xor greyscale
-            texture[4][texWidth * y + x] = 256 * xorcolor; // xor green
-            texture[5][texWidth * y + x] = 65536 * 192 * (x % 16 && y % 16); // red bricks
-            texture[6][texWidth * y + x] = 65536 * ycolor; // red gradient
-            texture[7][texWidth * y + x] = 128 + 256 * 128 + 65536 * 128; // flat grey texture
-        }
+void *loadTexture(void *mlx, char *file_path, int *width, int *height)
+{
+    void *img = mlx_xpm_file_to_image(mlx, file_path, width, height);
+    if (!img)
+    {
+        printf("Failed to load texture: %s\n", file_path);
+        exit(1);
     }
+    return img;
+}
+
+void generate_textures(void *mlx, uint32_t *texture[8]) {
+    int width, height;
+    
+    texture[0] = loadTexture(mlx, "textures/south.xpm", &width, &height);
+    texture[1] = loadTexture(mlx, "textures/west.xpm", &width, &height);
+    texture[2] = loadTexture(mlx, "textures/south.xpm", &width, &height);
+    texture[3] = loadTexture(mlx, "textures/south.xpm", &width, &height);
+    texture[4] = loadTexture(mlx, "textures/south.xpm", &width, &height);
+    texture[5] = loadTexture(mlx, "textures/south.xpm", &width, &height);
+    texture[6] = loadTexture(mlx, "textures/south.xpm", &width, &height);
+    texture[7] = loadTexture(mlx, "textures/south.xpm", &width, &height);
 }
 
 void    draw_everything_3d_texture(t_win *win)
@@ -63,9 +67,10 @@ void    draw_everything_3d_texture(t_win *win)
         // }
     }
 
-    generate_textures(texture);
+    generate_textures(win->mlx_ptr, texture);
+    mlx_put_image_to_window(win->mlx_ptr, win->win_ptr, texture[1], 100, 100);
 
-    clean_map(win->img);
+    // clean_map(win->img);
     t_player *player = win->player;
     t_map *grid_map = win->map;
 
@@ -87,7 +92,7 @@ void    draw_everything_3d_texture(t_win *win)
     int lineHeight;
     // int drawStart;
     // int drawEnd;
-    // int color;
+    int color;
     
     x = 0;
     while (x < WIDTH)
@@ -161,12 +166,12 @@ void    draw_everything_3d_texture(t_win *win)
             if (grid_map->grid[mapY][mapX] == '1')
             {
                 hit = 1;
-                // color = BLUE;
+                color = BLUE;
             }
             if (grid_map->grid[mapY][mapX] == '2')
             {
                 hit = 1; 
-                // color = RED;
+                color = RED;
             }
         }
         if (side == 0) //acho que entao bateu no lado do quadrado (W O)
@@ -177,19 +182,24 @@ void    draw_everything_3d_texture(t_win *win)
         //height of the vertical line that should be drawn            
         lineHeight = (int)(HEIGHT / perpWallDist); //You can of course also multiply it with another value, for example 2*screenHeight, if you want to walls to be higher or lower
 
-        
+
         //TEXTURE --------------------------------------------------------------------------------------------
         int pitch = 100;
 
         //calculate lowest and highest pixel to fill in current stripe
-        int drawStart_ = -lineHeight / 2 + HEIGHT / 2 + pitch;
-        if(drawStart_ < 0) 
-            drawStart_ = 0;
+        int drawStart = -lineHeight / 2 + HEIGHT / 2 + pitch;
+        if(drawStart < 0) 
+            drawStart = 0;
         int drawEnd = lineHeight / 2 + HEIGHT / 2 + pitch;
         if(drawEnd >= HEIGHT) drawEnd = HEIGHT - 1;
 
         //texturing calculations (-48 para transformar de char para int)
         int texNum = grid_map->grid[mapY][mapX] -48 - 1; //1 subtracted from it so that texture 0 can be used!
+        (void)color;
+        (void)lineHeight;
+        (void)buffer;
+        (void)texNum;
+    
 
         //calculate value of wallX
         double wallX; //where exactly the wall was hit
@@ -206,8 +216,8 @@ void    draw_everything_3d_texture(t_win *win)
         // How much to increase the texture coordinate per screen pixel
         double step = 1.0 * texHeight / lineHeight;
         // Starting texture coordinate
-        double texPos = (drawStart_ - pitch - HEIGHT / 2 + lineHeight / 2) * step;
-        for(int y = drawStart_; y < drawEnd; y++)
+        double texPos = (drawStart - pitch - HEIGHT / 2 + lineHeight / 2) * step;
+        for(int y = drawStart; y < drawEnd; y++)
         {
             // Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
             int texY = (int)texPos & (texHeight - 1);
@@ -217,11 +227,10 @@ void    draw_everything_3d_texture(t_win *win)
             if(side == 1) color = (color >> 1) & 8355711;
             buffer[y][x] = color;
         }
-
         x++;
     }
 
-    drawBuffer(win, buffer);
-    for(int y = 0; y < HEIGHT; y++) for(int x = 0; x < WIDTH; x++) 
-        buffer[y][x] = 0; //clear the buffer instead of cls()
+    // drawBuffer(win, buffer);
+    // for(int y = 0; y < HEIGHT; y++) for(int x = 0; x < WIDTH; x++) 
+    //     buffer[y][x] = 0; //clear the buffer instead of cls()
 }
