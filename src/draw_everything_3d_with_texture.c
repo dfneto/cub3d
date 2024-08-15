@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 18:07:08 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/15 06:07:13 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/15 11:32:31 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ void *loadTexture(void *mlx, char *file_path, int *width, int *height)
 void generate_textures(void *mlx, uint32_t *texture[8]) {
     int width, height;
     
-    texture[0] = loadTexture(mlx, "textures/south.xpm", &width, &height);
-    texture[1] = loadTexture(mlx, "textures/west.xpm", &width, &height);
+    texture[0] = loadTexture(mlx, "textures/north.xpm", &width, &height);
+    texture[1] = loadTexture(mlx, "textures/east.xpm", &width, &height);
     texture[2] = loadTexture(mlx, "textures/south.xpm", &width, &height);
-    texture[3] = loadTexture(mlx, "textures/south.xpm", &width, &height);
+    texture[3] = loadTexture(mlx, "textures/west.xpm", &width, &height);
     texture[4] = loadTexture(mlx, "textures/south.xpm", &width, &height);
     texture[5] = loadTexture(mlx, "textures/south.xpm", &width, &height);
     texture[6] = loadTexture(mlx, "textures/south.xpm", &width, &height);
@@ -92,7 +92,6 @@ void    draw_everything_3d_texture(t_win *win)
     int lineHeight;
     // int drawStart;
     // int drawEnd;
-    int color;
     
     x = 0;
     while (x < WIDTH)
@@ -163,16 +162,8 @@ void    draw_everything_3d_texture(t_win *win)
                 mapY += stepY;
                 side = 1;
             }
-            if (grid_map->grid[mapY][mapX] == '1')
-            {
+            if (grid_map->grid[mapY][mapX] >= '1')
                 hit = 1;
-                color = BLUE;
-            }
-            if (grid_map->grid[mapY][mapX] == '2')
-            {
-                hit = 1; 
-                color = RED;
-            }
         }
         if (side == 0) //acho que entao bateu no lado do quadrado (W O)
             perpWallDist = (sideDistX - deltaDistX);
@@ -195,11 +186,6 @@ void    draw_everything_3d_texture(t_win *win)
 
         //texturing calculations (-48 para transformar de char para int)
         int texNum = grid_map->grid[mapY][mapX] -48 - 1; //1 subtracted from it so that texture 0 can be used!
-        (void)color;
-        (void)lineHeight;
-        (void)buffer;
-        (void)texNum;
-    
 
         //calculate value of wallX
         double wallX; //where exactly the wall was hit
@@ -231,6 +217,14 @@ void    draw_everything_3d_texture(t_win *win)
     }
 
     drawBuffer(win, buffer);
+    for(int y = 0; y < HEIGHT; y++)
+    {
+        for(int x = 0; x < WIDTH; x++)
+        {
+            buffer[y][x] = 0;
+        }
+    } 
+        
     // for(int y = 0; y < HEIGHT; y++) for(int x = 0; x < WIDTH; x++) 
     //     buffer[y][x] = 0; //clear the buffer instead of cls()
 }
