@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 18:07:08 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/15 06:01:39 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/15 06:07:13 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void drawBuffer(t_win *win, uint32_t buffer[HEIGHT][WIDTH])
 { //buffer[HEIGHT][WIDTH]
     int y = 0;
     int x = 0;
-    while (y <= HEIGHT)
+    while (y < HEIGHT)
     {
-        while (x <= WIDTH)
+        while (x < WIDTH)
         {
             my_mlx_pixel_put(win->img, x, y, buffer[y][x]);
             x++;
@@ -68,7 +68,7 @@ void    draw_everything_3d_texture(t_win *win)
     }
 
     generate_textures(win->mlx_ptr, texture);
-    mlx_put_image_to_window(win->mlx_ptr, win->win_ptr, texture[1], 100, 100);
+    // mlx_put_image_to_window(win->mlx_ptr, win->win_ptr, texture[1], 100, 100);
 
     // clean_map(win->img);
     t_player *player = win->player;
@@ -230,7 +230,7 @@ void    draw_everything_3d_texture(t_win *win)
         x++;
     }
 
-    // drawBuffer(win, buffer);
+    drawBuffer(win, buffer);
     // for(int y = 0; y < HEIGHT; y++) for(int x = 0; x < WIDTH; x++) 
     //     buffer[y][x] = 0; //clear the buffer instead of cls()
 }
