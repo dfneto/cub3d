@@ -6,21 +6,28 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 18:07:08 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/15 13:00:55 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/16 10:11:05 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void drawBuffer(t_win *win, uint32_t buffer[HEIGHT][WIDTH])
+void drawBuffer(uint32_t buffer[HEIGHT][WIDTH], void *mlx)
 { //buffer[HEIGHT][WIDTH]
+    t_img   texture_img;
+    int width, height;
+    texture_img.img_ptr = mlx_xpm_file_to_image(mlx, "textures/north.xpm", &width, &height);
+    texture_img.addr = mlx_get_data_addr(texture_img.img_ptr, &texture_img.bpp, &texture_img.line_len, &texture_img.endian);
+
+
+
     int y = 0;
     int x = 0;
     while (y < HEIGHT)
     {
         while (x < WIDTH)
         {
-            my_mlx_pixel_put(win->img, x, y, buffer[y][x]);
+            my_mlx_pixel_put(texture_img.img_ptr, x, y, buffer[y][x]);
             x++;
         }
         x = 0;
@@ -32,6 +39,7 @@ void drawBuffer(t_win *win, uint32_t buffer[HEIGHT][WIDTH])
 void *loadTexture(void *mlx, char *file_path, int *width, int *height)
 {
     void *img = mlx_xpm_file_to_image(mlx, file_path, width, height);
+    
     if (!img)
     {
         printf("Failed to load texture: %s\n", file_path);
@@ -40,35 +48,34 @@ void *loadTexture(void *mlx, char *file_path, int *width, int *height)
     return img;
 }
 
-void generate_textures(void *mlx, uint32_t *texture[8]) {
+void generate_textures(void *mlx, int **texture) {
     int width, height;
     
     texture[0] = loadTexture(mlx, "textures/north.xpm", &width, &height);
     texture[1] = loadTexture(mlx, "textures/east.xpm", &width, &height);
     texture[2] = loadTexture(mlx, "textures/south.xpm", &width, &height);
     texture[3] = loadTexture(mlx, "textures/west.xpm", &width, &height);
-    texture[4] = loadTexture(mlx, "textures/south.xpm", &width, &height);
-    texture[5] = loadTexture(mlx, "textures/south.xpm", &width, &height);
-    texture[6] = loadTexture(mlx, "textures/south.xpm", &width, &height);
-    texture[7] = loadTexture(mlx, "textures/south.xpm", &width, &height);
 }
 
 void    draw_everything_3d_texture(t_win *win)
 {
     //declarados pelo lodev fora do main
     uint32_t buffer[HEIGHT][WIDTH]; // y-coordinate first because it works per scanline
-    uint32_t* texture[8]; //8 porque ele tem de 0 a 7 números no mapa, assim quer representar 8 texturas
+    // uint32_t* texture[8]; //8 porque ele tem de 0 a 7 números no mapa, assim quer representar 8 texturas
+    int **textures = calloc(5, sizeof(int**));
+    
+
 
     //declarados no main
-    for(int i = 0; i < 8; i++) {
-        texture[i] = (uint32_t*)malloc(texWidth * texHeight * sizeof(uint32_t)); //acho que deveria somar mais texWidth
+    for(int i = 0; i < 5; i++) {
+        textures[i] = (int *)malloc(texWidth * texHeight * sizeof(int *)); //acho que deveria somar mais texWidth
         // if (texture[i] == NULL) {
         //     // Handle memory allocation failure
         //     return 1;
         // }
     }
 
-    generate_textures(win->mlx_ptr, texture);
+    generate_textures(win->mlx_ptr, textures);
     // mlx_put_image_to_window(win->mlx_ptr, win->win_ptr, texture[1], 100, 100);
 
     // clean_map(win->img);
@@ -192,17 +199,21 @@ void    draw_everything_3d_texture(t_win *win)
         else          wallX = player->pos_x + perpWallDist * rayDirX;
         wallX -= floor((wallX));
 
-        //x coordinate on the texture
-        int texX = (int)(wallX * (double)texWidth);
-        if(side == 0 && rayDirX > 0) texX = texWidth - texX - 1;
-        if(side == 1 && rayDirY < 0) texX = texWidth - texX - 1;
-
         //texturing calculations (-48 para transformar de char para int)
         int texNum = grid_map->grid[mapY][mapX] -48 - 1; //1 subtracted from it so that texture 0 can be used!
+
+        //x coordinate on the texture
+        int texX = (int)(wallX * (double)texWidth); //texX eh o x da textura equivalente a onde bateu o raio na parede.
+        if(side == 0 && rayDirX > 0) texX = texWidth - texX - 1;
+        if(side == 1 && rayDirY < 0) texX = texWidth - texX - 1;
         
         // TODO: an integer-only bresenham or DDA like algorithm could make the texture coordinate stepping faster
-        // How much to increase the texture coordinate per screen pixel
-        double step = 1.0 * texHeight / lineHeight;
+        // How much to increase the texture coordinate per screen pixel: porque veja, eu tenho uma textura de
+        // texHeight (64px no caso) de altura e tenho que desenhar uma linha vertical na tela (que vai ser o 3D do raycasting)
+        // que pode ser maior ou menor do que esses 64px. Não basta copiar uma coluna da textura e colocar na tela.
+        // Agora o que não entendo eh porque o texY não vai de 0 a 64. Acho que deveria pegar toda a linha vertical da textura e 
+        // desenhar na tela, aumentando/diminuindo de acordo com o tamanho que essa linha deve ter na tela
+        double step = 1.0 * texHeight / lineHeight; //lineHeight eh um valor grande, porque dividi o HEIGHT da tela pelo perpWallDist. Então o step será um valor pequeno
         // Starting texture coordinate
         double texPos = (drawStart - pitch - HEIGHT / 2 + lineHeight / 2) * step;
         for(int y = drawStart; y < drawEnd; y++)
@@ -210,7 +221,7 @@ void    draw_everything_3d_texture(t_win *win)
             // Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
             int texY = (int)texPos & (texHeight - 1);
             texPos += step;
-            uint32_t color = texture[texNum][texHeight * texY + texX];
+            uint32_t color = textures[texNum][texHeight * texY + texX]; //tenho que somar texX porque texture[texNum] eh um array e não uma matriz, entao essa eh a forma de pegar o pixel y,x (linha,coluna) da textura
             //make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
             if(side == 1) color = (color >> 1) & 8355711;
             buffer[y][x] = color;
@@ -218,7 +229,7 @@ void    draw_everything_3d_texture(t_win *win)
         x++;
     }
 
-    drawBuffer(win, buffer);
+    drawBuffer(buffer,  win->mlx_ptr);
     for(int y = 0; y < HEIGHT; y++)
     {
         for(int x = 0; x < WIDTH; x++)

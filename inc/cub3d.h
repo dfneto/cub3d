@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/15 12:52:50 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/16 10:01:46 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,17 @@ typedef struct s_img
 	int		endian;
 	int		line_len;
 }		t_img;
+
+typedef struct s_texture
+{
+	t_win	*win;
+	void		*img_ptr;
+	char *addr;
+	int	bpp;
+	int			endian;
+	int			line_len;
+}	t_texture;
+
 
 //x e y sao as coordenadas do jogador no map grid (mapa de 0s e 1s) e sao float
 //porque depois serao convertidas em pixels no mapa e assim tenham mais possibilidades
