@@ -6,49 +6,67 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 18:07:08 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/16 10:11:05 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/19 15:09:16 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void drawBuffer(uint32_t buffer[HEIGHT][WIDTH], void *mlx)
+//Returns the pixel of the texture image.
+//To get or set the value of the pixel (5, 100) in an image size of (500, 500),
+//we would need to locate the position as follows:
+// int pos = (y * size_line + x * (bits_per_pixel / 8));
+//Here we multiply size_line by y as we need to skip y lines (and yes, line size 
+//is not equal to the amount of pixels in a line). We then add the remaining x 
+//units multiplied by bits_per_pixel / 8 to align with the final location.
+//Entendo da seguinte forma: eu localizo a posição do pixel na imagem, mas essa posição
+//é relativa, tipo linha 4, coluna 5 (4,5). Então com o endereço de memória da imagem
+//eu posso ir na linha4, coluna 5 e para isso somo essa posição pos ao endereço adr.
+//É uma aritmética de ponteiro
+unsigned int	get_texture_pixel(t_img *texture, int pixel_x, int pixel_y)
+{
+    pixel_y = 64 - pixel_y;
+    int pos = (pixel_y * texture->line_len + pixel_x * (texture->bpp / 8));
+    /*
+        (unsigned int *)ptr casts the char * to an unsigned int *, meaning that it treats the memory at ptr as if it were storing an unsigned int.
+        *(unsigned int *)ptr dereferences the pointer, giving you the unsigned int value stored at that memory location.
+    */
+	return (*(unsigned int *)((texture->addr + pos)));
+}
+
+void drawBuffer(uint32_t buffer[HEIGHT][WIDTH], t_win *win)
 { //buffer[HEIGHT][WIDTH]
-    t_img   texture_img;
-    int width, height;
-    texture_img.img_ptr = mlx_xpm_file_to_image(mlx, "textures/north.xpm", &width, &height);
-    texture_img.addr = mlx_get_data_addr(texture_img.img_ptr, &texture_img.bpp, &texture_img.line_len, &texture_img.endian);
-
-
-
     int y = 0;
     int x = 0;
     while (y < HEIGHT)
     {
         while (x < WIDTH)
-        {
-            my_mlx_pixel_put(texture_img.img_ptr, x, y, buffer[y][x]);
+        {//acho que aqui eh a imagem da tela
+            my_mlx_pixel_put(win->img, x, y, buffer[y][x]);
             x++;
         }
         x = 0;
         y++;
     }
-    
 }
 
-void *loadTexture(void *mlx, char *file_path, int *width, int *height)
+t_img *loadTexture(void *mlx, char *file_path, int *width, int *height)
 {
-    void *img = mlx_xpm_file_to_image(mlx, file_path, width, height);
+    t_img *img = (t_img *)malloc(sizeof(t_img));
+    img->img_ptr = mlx_xpm_file_to_image(mlx, file_path, width, height);
     
     if (!img)
     {
         printf("Failed to load texture: %s\n", file_path);
         exit(1);
     }
+
+    img->addr = mlx_get_data_addr(img->img_ptr, &(img->bpp),
+			&(img->line_len), &(img->endian));
     return img;
 }
 
-void generate_textures(void *mlx, int **texture) {
+void generate_textures(void *mlx, t_img **texture) {
     int width, height;
     
     texture[0] = loadTexture(mlx, "textures/north.xpm", &width, &height);
@@ -62,20 +80,21 @@ void    draw_everything_3d_texture(t_win *win)
     //declarados pelo lodev fora do main
     uint32_t buffer[HEIGHT][WIDTH]; // y-coordinate first because it works per scanline
     // uint32_t* texture[8]; //8 porque ele tem de 0 a 7 números no mapa, assim quer representar 8 texturas
-    int **textures = calloc(5, sizeof(int**));
+    // t_img **textures = calloc(5, sizeof(t_img**));
+    int width, height;
+    t_img   *textura = loadTexture(win->mlx_ptr, "textures/north.xpm", &width, &height);
     
 
-
     //declarados no main
-    for(int i = 0; i < 5; i++) {
-        textures[i] = (int *)malloc(texWidth * texHeight * sizeof(int *)); //acho que deveria somar mais texWidth
-        // if (texture[i] == NULL) {
-        //     // Handle memory allocation failure
-        //     return 1;
-        // }
-    }
+    // for(int i = 0; i < 5; i++) {
+    //     textures[i] = (int *)malloc(texWidth * texHeight * sizeof(int *)); //acho que deveria somar mais texWidth
+    //     // if (texture[i] == NULL) {
+    //     //     // Handle memory allocation failure
+    //     //     return 1;
+    //     // }
+    // }
 
-    generate_textures(win->mlx_ptr, textures);
+    // generate_textures(win->mlx_ptr, textures);
     // mlx_put_image_to_window(win->mlx_ptr, win->win_ptr, texture[1], 100, 100);
 
     // clean_map(win->img);
@@ -200,7 +219,7 @@ void    draw_everything_3d_texture(t_win *win)
         wallX -= floor((wallX));
 
         //texturing calculations (-48 para transformar de char para int)
-        int texNum = grid_map->grid[mapY][mapX] -48 - 1; //1 subtracted from it so that texture 0 can be used!
+        // int texNum = grid_map->grid[mapY][mapX] -48 - 1; //1 subtracted from it so that texture 0 can be used!
 
         //x coordinate on the texture
         int texX = (int)(wallX * (double)texWidth); //texX eh o x da textura equivalente a onde bateu o raio na parede.
@@ -221,15 +240,17 @@ void    draw_everything_3d_texture(t_win *win)
             // Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
             int texY = (int)texPos & (texHeight - 1);
             texPos += step;
-            uint32_t color = textures[texNum][texHeight * texY + texX]; //tenho que somar texX porque texture[texNum] eh um array e não uma matriz, entao essa eh a forma de pegar o pixel y,x (linha,coluna) da textura
+            //acho que aqui tenho que pegar o pixel da imagem da textura
+
+            uint32_t texture_pixel = get_texture_pixel(textura, texX, texY); //textures[texNum][texHeight * texY + texX]; //tenho que somar texX porque texture[texNum] eh um array e não uma matriz, entao essa eh a forma de pegar o pixel y,x (linha,coluna) da textura
             //make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
-            if(side == 1) color = (color >> 1) & 8355711;
-            buffer[y][x] = color;
+            if(side == 1) texture_pixel = (texture_pixel >> 1) & 8355711;
+            buffer[y][x] = texture_pixel;
         }
         x++;
     }
 
-    drawBuffer(buffer,  win->mlx_ptr);
+    drawBuffer(buffer,  win);
     for(int y = 0; y < HEIGHT; y++)
     {
         for(int x = 0; x < WIDTH; x++)
