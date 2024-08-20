@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 12:23:50 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/07 12:24:37 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/20 08:04:09 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,9 @@ void    print_map_grid(t_map *map)
         i++;
         printf("\n");
     }
+}
+
+int	get_rgb(int r, int g, int b)
+{
+	return (r << 16 | g << 8 | b);
 }

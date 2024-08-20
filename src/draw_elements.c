@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:29:30 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/15 11:31:14 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/20 07:35:31 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ void	draw_map_walls(t_img *img, t_map *map)
 				draw_the_wall(img, i, j, RED);
 			else if (map->grid[i][j] == '3')
 				draw_the_wall(img, i, j, BLUE);
+			else if (map->grid[i][j] == '4')
+				draw_the_wall(img, i, j, WHITE);
 			else
 				draw_the_wall(img, i, j, BLACK);
 			j++;

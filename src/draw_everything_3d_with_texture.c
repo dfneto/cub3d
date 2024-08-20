@@ -6,13 +6,13 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 18:07:08 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/19 15:09:16 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/20 08:05:05 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-//Returns the pixel of the texture image.
+//Returns the pixel from the texture image loaded.
 //To get or set the value of the pixel (5, 100) in an image size of (500, 500),
 //we would need to locate the position as follows:
 // int pos = (y * size_line + x * (bits_per_pixel / 8));
@@ -80,9 +80,9 @@ void    draw_everything_3d_texture(t_win *win)
     //declarados pelo lodev fora do main
     uint32_t buffer[HEIGHT][WIDTH]; // y-coordinate first because it works per scanline
     // uint32_t* texture[8]; //8 porque ele tem de 0 a 7 números no mapa, assim quer representar 8 texturas
-    // t_img **textures = calloc(5, sizeof(t_img**));
-    int width, height;
-    t_img   *textura = loadTexture(win->mlx_ptr, "textures/north.xpm", &width, &height);
+    t_img **textures = calloc(5, sizeof(t_img**));
+    // int width, height;
+    // textura = loadTexture(win->mlx_ptr, "textures/north.xpm", &width, &height);
     
 
     //declarados no main
@@ -94,7 +94,7 @@ void    draw_everything_3d_texture(t_win *win)
     //     // }
     // }
 
-    // generate_textures(win->mlx_ptr, textures);
+    generate_textures(win->mlx_ptr, textures);
     // mlx_put_image_to_window(win->mlx_ptr, win->win_ptr, texture[1], 100, 100);
 
     // clean_map(win->img);
@@ -219,7 +219,7 @@ void    draw_everything_3d_texture(t_win *win)
         wallX -= floor((wallX));
 
         //texturing calculations (-48 para transformar de char para int)
-        // int texNum = grid_map->grid[mapY][mapX] -48 - 1; //1 subtracted from it so that texture 0 can be used!
+        int texNum = grid_map->grid[mapY][mapX] -48 - 1; //1 subtracted from it so that texture 0 can be used!
 
         //x coordinate on the texture
         int texX = (int)(wallX * (double)texWidth); //texX eh o x da textura equivalente a onde bateu o raio na parede.
@@ -242,10 +242,19 @@ void    draw_everything_3d_texture(t_win *win)
             texPos += step;
             //acho que aqui tenho que pegar o pixel da imagem da textura
 
-            uint32_t texture_pixel = get_texture_pixel(textura, texX, texY); //textures[texNum][texHeight * texY + texX]; //tenho que somar texX porque texture[texNum] eh um array e não uma matriz, entao essa eh a forma de pegar o pixel y,x (linha,coluna) da textura
+            uint32_t texture_pixel = get_texture_pixel(textures[texNum], texX, texY); //textures[texNum][texHeight * texY + texX]; //tenho que somar texX porque texture[texNum] eh um array e não uma matriz, entao essa eh a forma de pegar o pixel y,x (linha,coluna) da textura
             //make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
             if(side == 1) texture_pixel = (texture_pixel >> 1) & 8355711;
             buffer[y][x] = texture_pixel;
+        }
+        int cor = get_rgb(225,30,0);
+        for(int y = 0; y < drawStart; y++)
+        {
+            buffer[y][x] = cor;
+        }
+        for(int y = drawEnd; y < HEIGHT; y++)
+        {
+            buffer[y][x] = cor;
         }
         x++;
     }

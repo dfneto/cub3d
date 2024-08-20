@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/16 10:01:46 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/20 08:02:07 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,5 +135,6 @@ void    draw_everything_3d_texture(t_win *win);
 
 //utils2.c
 void    print_map_grid(t_map *map);
+int	get_rgb(int r, int g, int b);
 
 #endif
