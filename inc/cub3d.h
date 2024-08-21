@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/20 08:02:07 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/21 20:04:09 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,40 +23,28 @@
 # define HEIGHT		768
 # define texWidth 	64 //tamanho da textura: uma imagem xpm de tamanho 64x64 pixels
 # define texHeight 	64
-# define ESC		53 //65307 //53
+# define ESC		65307 //53
 # define LEFT_CLICK 1
-# define KEY_A		0 //97 //0
-# define KEY_D		2 //100 //2
-# define KEY_W		13 //119 //13
-# define KEY_S		1 //115 //1
+# define KEY_A		97 //0
+# define KEY_D		100 //2
+# define KEY_W		119 //13
+# define KEY_S		115 //1
 # define KEY_C		8
-# define KEY_LEFT	123 //65361 //123
-# define KEY_RIGTH	124 //65363 //124
+# define KEY_LEFT	65361 //123
+# define KEY_RIGTH	65363 //124
 
 #define ROWS 			24
 #define COLS 			24
 #define WALL_SIZE		32
 #define MINI_WALL_SIZE	8
 #define ROT_SPEED		0.09
-#define PLAYER_SPEED	0.5
+#define PLAYER_SPEED	0.2
 #define PLAYER_SIZE		2
 
-
-
-typedef struct s_win
-{
-	int				height;
-	int				width;
-	void			*mlx_ptr;
-	void			*win_ptr;
-	struct s_img	*img;
-	struct s_player	*player;
-	struct s_map	*map;
-}		t_win;
-
+//img_ptr is a pixel vector that will be plot. 
+//It represents the image in the window
 typedef struct s_img
 {
-	t_win	*win;
 	void	*img_ptr;
 	char	*addr;
 	int		bpp;
@@ -66,10 +54,9 @@ typedef struct s_img
 
 typedef struct s_texture
 {
-	t_win	*win;
 	void		*img_ptr;
-	char *addr;
-	int	bpp;
+	char 		*addr;
+	int			bpp;
 	int			endian;
 	int			line_len;
 }	t_texture;
@@ -80,7 +67,6 @@ typedef struct s_texture
 //de valores do que inteiros
 typedef struct s_player
 {
-	t_win		*win;
 	double		pos_x;
 	double		pos_y;
 	double		dir_x;
@@ -105,9 +91,25 @@ typedef struct s_map
 	char	grid[ROWS][COLS]; //ROWS=y, COLS=x
 }	t_map;
 
+typedef struct s_data
+{
+	t_img		*img;
+	t_player	*player;
+	t_map		*map;
+	void		*mlx_ptr;
+	void		*win_ptr;
+}	t_data;
+
+//inits.c
+void    init_window_and_image(t_data *data);
+void    init_map(t_data *data);
+void	init_player(t_data *data);
+
+//errors.c
+void clean_exit(t_data *data, char *msg);
 
 // draw_elements.c
-void	draw_minimap(t_win *win);
+void	draw_minimap(t_data *data);
 void	draw_player(t_img *img, t_player *player);
 void	draw_map_walls(t_img *img, t_map *map);
 void	draw_the_wall(t_img *img, int row, int column, int color);
@@ -120,18 +122,18 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 t_player	create_player(t_map *map);
 
 //hooks.c
-void	set_hooks(t_win *window);
+void	set_hooks(t_data *data);
 
 //bresenham
-void	draw_grid_lines(t_win *win);
+void	draw_grid_lines(t_data *data);
 
 //dda
 t_point_distance	dda_collision_detection_lodev(t_player *player, t_map *map);
 int	has_wall(t_player *player);
 
 //draw_everything_3d.c
-void	draw_everything_3d(t_win *win);
-void    draw_everything_3d_texture(t_win *win);
+void	draw_everything_3d(t_data *data);
+void    draw_everything_3d_texture(t_data *data);
 
 //utils2.c
 void    print_map_grid(t_map *map);

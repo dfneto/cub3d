@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 09:43:59 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/15 12:26:15 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/21 19:55:44 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,25 +66,4 @@ t_player	create_player(t_map *map)
 	}
 	player.size = PLAYER_SIZE;
 	return player;
-}
-
-// fill all the pixels with black
-void	clean_map(t_img *img)
-{
-	int i;
-	int j;
-	
-	i = 0;
-	while (i < HEIGHT)
-	{
-		j = 0;
-		while (j < WIDTH)
-		{
-			my_mlx_pixel_put(img, i, j, BLACK);
-			j++;
-		}
-		i++;
-	}
-	mlx_put_image_to_window(img->win->mlx_ptr,
-		img->win->win_ptr, img->img_ptr, 0, 0);
 }

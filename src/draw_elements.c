@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:29:30 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/20 07:35:31 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/21 19:52:39 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,9 +127,9 @@ int draw_player_direction_line(t_img *img, t_player *player, int beginX, int beg
 	return 0;
 }
 
-void	draw_minimap(t_win *win)
+void	draw_minimap(t_data *data)
 {
-	draw_map_walls(win->img, win->map);
-	draw_player(win->img, win->player);
-	draw_player_direction_line(win->img, win->player, win->player->pos_x, win->player->pos_y, BLUE);
+	draw_map_walls(data->img, data->map);
+	draw_player(data->img, data->player);
+	draw_player_direction_line(data->img, data->player, data->player->pos_x, data->player->pos_y, BLUE);
 }

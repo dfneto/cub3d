@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 19:37:30 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/13 09:34:57 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/21 20:01:41 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,21 @@
 */
 #include "cub3d.h"
 
-int	close_window(t_win *win)
+int	close_window(t_data *data)
 {
-	mlx_destroy_window(win->mlx_ptr, win->win_ptr);
+	if (data->mlx_ptr && data->win_ptr)
+		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 	exit(0);
+	return (0);
 }
 
-int	choose_event(int keycode, t_player *player)
+int	choose_event(int keycode, t_data *data)
 {
-	if (!player->win)
-		return (1);
+	t_player	*player;
+
+	player = data->player;
 	if (keycode == ESC)
-		close_window(player->win);
+		close_window(data);
 	if (keycode == KEY_W)
 	{	
 		player->pos_x += player->dir_x * PLAYER_SPEED; //lodev: if (worldMap[(int)(posX + dirX * moveSpeed)][(int)posY] == 0) posX += dirX * moveSpeed;
@@ -70,18 +73,11 @@ int	choose_event(int keycode, t_player *player)
 		player->planeX = player->planeX * cos(ROT_SPEED) - player->planeY * sin(ROT_SPEED);
 		player->planeY = oldPlaneX * sin(ROT_SPEED) + player->planeY * cos(ROT_SPEED);
 	}
-	draw_everything_3d_texture(player->win);
-	draw_minimap(player->win);
-	mlx_put_image_to_window(player->win->mlx_ptr,
-			player->win->win_ptr, player->win->img->img_ptr, 0, 0);
-	
-	return (0);
-}
-
-int	close_window_mouse(t_win *win)
-{
-	if (win)
-		close_window(win);
+	// Adicionar o desenho do map 3d
+	// draw_everything_3d_texture(player->win);
+	draw_minimap(data);
+	mlx_put_image_to_window(data->mlx_ptr,
+			data->win_ptr, data->img->img_ptr, 0, 0);
 	return (0);
 }
 
@@ -89,9 +85,10 @@ int	close_window_mouse(t_win *win)
 Entendo que ao pressionarmos uma tecla lançamos o evento int 2 e ao 
 clicarmos no x da janela com o mouse o evento 17
 */
-void	set_hooks(t_win *win)
+void	set_hooks(t_data *data)
 {
-	mlx_hook(win->win_ptr, 33, 0, close_window_mouse, win);
+	//TODO: ver como eh possivel pressionar a direcao junto com os movimentos
+	mlx_hook(data->win_ptr, 33, 0, close_window, data);
 	//mlx_hook(win->win_ptr, 2, 0, choose_event, win); //equivalente a mlx_key_hook(win->win_ptr, choose_event, win); //mac
-	mlx_hook(win->win_ptr, 2, 1L << 0, choose_event, win->player); //linux
+	mlx_hook(data->win_ptr, 2, 1L << 0, choose_event, data); //linux
 }

@@ -6,11 +6,34 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 18:07:08 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/20 08:05:05 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/21 19:55:13 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+
+// fill all the pixels with black
+void	clean_map(t_img *img)
+{
+	int i;
+	int j;
+	
+	i = 0;
+	while (i < HEIGHT)
+	{
+		j = 0;
+		while (j < WIDTH)
+		{
+			my_mlx_pixel_put(img, i, j, BLACK);
+			j++;
+		}
+		i++;
+	}
+    //TODO: era necessario antes, talvez o seja:
+	// mlx_put_image_to_window(img->win->mlx_ptr,
+	// 	img->win->win_ptr, img->img_ptr, 0, 0);
+}
 
 //Returns the pixel from the texture image loaded.
 //To get or set the value of the pixel (5, 100) in an image size of (500, 500),
@@ -34,7 +57,7 @@ unsigned int	get_texture_pixel(t_img *texture, int pixel_x, int pixel_y)
 	return (*(unsigned int *)((texture->addr + pos)));
 }
 
-void drawBuffer(uint32_t buffer[HEIGHT][WIDTH], t_win *win)
+void drawBuffer(unsigned int buffer[HEIGHT][WIDTH], t_win *win)
 { //buffer[HEIGHT][WIDTH]
     int y = 0;
     int x = 0;
@@ -78,7 +101,7 @@ void generate_textures(void *mlx, t_img **texture) {
 void    draw_everything_3d_texture(t_win *win)
 {
     //declarados pelo lodev fora do main
-    uint32_t buffer[HEIGHT][WIDTH]; // y-coordinate first because it works per scanline
+    unsigned int buffer[HEIGHT][WIDTH]; // y-coordinate first because it works per scanline
     // uint32_t* texture[8]; //8 porque ele tem de 0 a 7 números no mapa, assim quer representar 8 texturas
     t_img **textures = calloc(5, sizeof(t_img**));
     // int width, height;
@@ -200,7 +223,6 @@ void    draw_everything_3d_texture(t_win *win)
         //height of the vertical line that should be drawn            
         lineHeight = (int)(HEIGHT / perpWallDist); //You can of course also multiply it with another value, for example 2*screenHeight, if you want to walls to be higher or lower
 
-
         //TEXTURE --------------------------------------------------------------------------------------------
         int pitch = 0; //This value is an offset added to the vertical position of the drawn wall. By adding pitch, you can move the entire view up or down.
         //TODO: esse pitch tava em 100
@@ -242,7 +264,7 @@ void    draw_everything_3d_texture(t_win *win)
             texPos += step;
             //acho que aqui tenho que pegar o pixel da imagem da textura
 
-            uint32_t texture_pixel = get_texture_pixel(textures[texNum], texX, texY); //textures[texNum][texHeight * texY + texX]; //tenho que somar texX porque texture[texNum] eh um array e não uma matriz, entao essa eh a forma de pegar o pixel y,x (linha,coluna) da textura
+            unsigned int texture_pixel = get_texture_pixel(textures[texNum], texX, texY); //textures[texNum][texHeight * texY + texX]; //tenho que somar texX porque texture[texNum] eh um array e não uma matriz, entao essa eh a forma de pegar o pixel y,x (linha,coluna) da textura
             //make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
             if(side == 1) texture_pixel = (texture_pixel >> 1) & 8355711;
             buffer[y][x] = texture_pixel;
