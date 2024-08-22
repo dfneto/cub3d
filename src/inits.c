@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 19:23:03 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/22 13:13:06 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/22 16:12:02 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,22 @@ void    init_player(t_data *data)
     player = (t_player *)malloc(sizeof(t_player));
     *player = create_player(data->map); 
     data->player = player;
+}
+
+void    init_ray(t_ray *ray)
+{
+    ray->rayDirX = 0.0;
+    ray->rayDirY = 0.0;
+    ray->cameraX = 0.0;
+    ray->deltaDistX = 0.0;
+    ray->deltaDistY = 0.0;
+    ray->sideDistX = 0.0;
+    ray->sideDistY = 0.0;
+    ray->wall_distance = 0.0;
+    ray->hit = 0;
+    ray->mapX = 0;
+    ray->mapY = 0;
+    ray->stepX = 0;
+    ray->stepY = 0;
+    ray->side = 0;
 }

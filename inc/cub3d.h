@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/22 13:24:13 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/22 16:12:02 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,25 @@ typedef struct s_img
 	int		endian;
 	int		line_len;
 }		t_img;
+
+typedef struct s_ray
+{
+    int		hit;
+    int		mapX;
+    int		mapY;
+    int		stepX;
+    int		stepY;
+    int		side;
+    int		lineHeight;
+	double	rayDirX;
+    double	rayDirY;
+    double	cameraX;
+    double	deltaDistX;
+    double	deltaDistY;
+    double	sideDistX;
+    double	sideDistY;
+    double	wall_distance;
+}	t_ray;
 
 typedef struct s_texture
 {
@@ -95,6 +114,7 @@ typedef struct s_data
 	t_img		*img;
 	t_player	*player;
 	t_map		*map;
+	t_ray		*ray;
 	void		*mlx_ptr;
 	void		*win_ptr;
 }	t_data;
@@ -103,6 +123,7 @@ typedef struct s_data
 void    init_window_and_image(t_data *data);
 void    init_map(t_data *data);
 void	init_player(t_data *data);
+void    init_ray(t_ray *ray);
 
 //render.c
 void    render(t_data *data);
@@ -135,10 +156,19 @@ int	has_wall(t_player *player);
 
 //draw_everything_3d.c
 void	draw_everything_3d(t_data *data);
-void    draw_everything_3d_texture(t_data *data);
+void draw_everything_3d_texture(t_data *data);
 
-//utils2.c
-void    print_map_grid(t_map *map);
-int	get_rgb(int r, int g, int b);
+void calculate_wall_distance(t_ray *ray);
+
+void calculate_wall_distance(t_ray *ray);
+
+void calculate_ray_direction_and_delta(t_ray *ray, t_player *player);
+
+void calculate_side_dist_wall_position_and_side(t_ray *ray, t_map *grid_map);
+void calculate_side_dist_and_step(t_ray *ray, t_player *player);
+
+// utils2.c
+void print_map_grid(t_map *map);
+int get_rgb(int r, int g, int b);
 
 #endif
