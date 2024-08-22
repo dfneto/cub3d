@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 18:07:08 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/21 19:55:13 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/22 13:16:34 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ unsigned int	get_texture_pixel(t_img *texture, int pixel_x, int pixel_y)
 	return (*(unsigned int *)((texture->addr + pos)));
 }
 
-void drawBuffer(unsigned int buffer[HEIGHT][WIDTH], t_win *win)
+void drawBuffer(unsigned int buffer[HEIGHT][WIDTH], t_img *img)
 { //buffer[HEIGHT][WIDTH]
     int y = 0;
     int x = 0;
@@ -65,7 +65,7 @@ void drawBuffer(unsigned int buffer[HEIGHT][WIDTH], t_win *win)
     {
         while (x < WIDTH)
         {//acho que aqui eh a imagem da tela
-            my_mlx_pixel_put(win->img, x, y, buffer[y][x]);
+            my_mlx_pixel_put(img, x, y, buffer[y][x]);
             x++;
         }
         x = 0;
@@ -98,7 +98,7 @@ void generate_textures(void *mlx, t_img **texture) {
     texture[3] = loadTexture(mlx, "textures/west.xpm", &width, &height);
 }
 
-void    draw_everything_3d_texture(t_win *win)
+void    draw_everything_3d_texture(t_data *data)
 {
     //declarados pelo lodev fora do main
     unsigned int buffer[HEIGHT][WIDTH]; // y-coordinate first because it works per scanline
@@ -117,12 +117,12 @@ void    draw_everything_3d_texture(t_win *win)
     //     // }
     // }
 
-    generate_textures(win->mlx_ptr, textures);
+    generate_textures(data->mlx_ptr, textures);
     // mlx_put_image_to_window(win->mlx_ptr, win->win_ptr, texture[1], 100, 100);
 
     // clean_map(win->img);
-    t_player *player = win->player;
-    t_map *grid_map = win->map;
+    t_player *player = data->player;
+    t_map *grid_map = data->map;
 
     int x;
     double rayDirX = 0.0;
@@ -281,7 +281,7 @@ void    draw_everything_3d_texture(t_win *win)
         x++;
     }
 
-    drawBuffer(buffer,  win);
+    drawBuffer(buffer,  data->img);
     for(int y = 0; y < HEIGHT; y++)
     {
         for(int x = 0; x < WIDTH; x++)

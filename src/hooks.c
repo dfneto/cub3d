@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 19:37:30 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/21 20:01:41 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/22 13:22:09 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,7 @@ int	choose_event(int keycode, t_data *data)
 		player->planeX = player->planeX * cos(ROT_SPEED) - player->planeY * sin(ROT_SPEED);
 		player->planeY = oldPlaneX * sin(ROT_SPEED) + player->planeY * cos(ROT_SPEED);
 	}
-	// Adicionar o desenho do map 3d
-	// draw_everything_3d_texture(player->win);
-	draw_minimap(data);
-	mlx_put_image_to_window(data->mlx_ptr,
-			data->win_ptr, data->img->img_ptr, 0, 0);
+	render(data);
 	return (0);
 }
 

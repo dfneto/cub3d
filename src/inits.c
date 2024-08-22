@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 19:23:03 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/21 20:39:50 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/22 13:13:06 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // Swap the map grid rows: the last will be the first,
 // the penultimate the second and so on
-void invert_grid(t_map *map) {
+void    invert_grid(t_map *map) {
     for (int i = 0; i < ROWS / 2; i++) {
         for (int j = 0; j < COLS; j++) {
             char temp = map->grid[i][j];
@@ -69,8 +69,6 @@ void    init_window_and_image(t_data *data)
 	data->win_ptr = mlx_new_window(data->mlx_ptr, WIDTH, HEIGHT, "CUB3D");
 	if (!data->win_ptr)
 		clean_exit(data, "Fail to create the window\n");
-
-    //pq preciso de malloc para img e nao para mlx ou win ptr?
     img = malloc(sizeof(t_img));
     img->img_ptr = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
     if (!img->img_ptr)
@@ -84,19 +82,21 @@ void    init_window_and_image(t_data *data)
 
 void    init_map(t_data *data)
 {
-    t_map   map;
+    t_map   *map;
     
-    if (parse_map(&map))
+    map = (t_map *)malloc(sizeof(t_map));
+    if (parse_map(map))
         clean_exit(data, ERROR_PARSING);
-    print_map_grid(&map);
-    invert_grid(&map);
-    data->map = &map;
+    print_map_grid(map);
+    invert_grid(map);
+    data->map = map;
 }
 
 void    init_player(t_data *data)
 {
-    t_player player;
+    t_player *player;
     
-    player = create_player(data->map); 
-    data->player = &player;
+    player = (t_player *)malloc(sizeof(t_player));
+    *player = create_player(data->map); 
+    data->player = player;
 }

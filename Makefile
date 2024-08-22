@@ -16,14 +16,14 @@ NAME = cub3d
 MAKE = make --no-print-directory
 HEADER = inc/cub3d.h
 SRC = src/main.c src/inits.c src/errors.c src/draw_elements.c src/utils.c src/hooks.c \
-		src/bresenham.c src/utils2.c  \
-		src/texture_test.c  \
-		#src/dda.c src/draw_everything_3d.c src/draw_everything_3d_with_texture.c
+		src/bresenham.c src/utils2.c  src/render.c \
+		src/texture_test.c  src/draw_everything_3d_with_texture.c \
+		#src/dda.c src/draw_everything_3d.c 
 OBJ_DIR = obj
 DEP_DIR = dep
-DIR_MLX = mlx_linux
+DIR_MLX = mlx
 CC = gcc
-CFLAGS += -Wextra -Werror -Wall -g  -I/usr/include -Imlx_linux -Iinc -O3
+CFLAGS += -Wextra -Werror -Wall -MMD -g -I mlx -I inc
 
 # This line itself doesn't actually generate the object files; it just sets up the 
 # names that will be used when the object files are generated
@@ -33,7 +33,7 @@ DEPS = $(SRC:src/%.c=$(DEP_DIR)/%.d)
 ################################# RULES ####################################### 
 # -C <path> option. This changes the current path to the path '<path>', -s silent
 all: 
-	$(MAKE) -sC mlx_linux
+	$(MAKE) -sC mlx
 	$(MAKE) $(NAME)
 
 # This is a pattern rule that specifies to make how to build an object file (.o) from a 
@@ -46,13 +46,14 @@ $(OBJ_DIR)/%.o: src/%.c $(HEADER) Makefile | $(OBJ_DIR) $(DEP_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@ -MMD -MP -MF $(DEP_DIR)/$*.d
 
 $(NAME): $(OBJS) $(HEADER) Makefile
-	$(CC) $(OBJS) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+	$(CC) $(OBJS) -O3 -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
 $(DEP_DIR):
 	mkdir -p $(DEP_DIR)
-	
+
 clean:
 	rm -f $(OBJ_DIR)/*.o $(DEP_DIR)/*.d
 	rm cub3d

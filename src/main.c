@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:04:23 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/21 20:10:15 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/22 13:21:06 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,7 @@ int main()
     
     init_data(&data);
     set_hooks(&data);
-    // draw_everything_3d_texture(&data);
-    draw_minimap(&data);
-    mlx_put_image_to_window(data.mlx_ptr,
-		  data.win_ptr, data.img->img_ptr, 0, 0);
+    render(&data);
     mlx_loop(data.mlx_ptr);
     mlx_destroy_image(data.mlx_ptr, data.img->img_ptr); //TODO: necessário?
     return (0);

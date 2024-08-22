@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/21 20:04:09 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/22 13:24:13 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,18 @@
 # define HEIGHT		768
 # define texWidth 	64 //tamanho da textura: uma imagem xpm de tamanho 64x64 pixels
 # define texHeight 	64
-# define ESC		65307 //53
+# define ESC		53 //65307 //53
 # define LEFT_CLICK 1
-# define KEY_A		97 //0
-# define KEY_D		100 //2
-# define KEY_W		119 //13
-# define KEY_S		115 //1
+# define KEY_A		0 //97 //0
+# define KEY_D		2 //100 //2
+# define KEY_W		13 //119 //13
+# define KEY_S		1 //115 //1
 # define KEY_C		8
-# define KEY_LEFT	65361 //123
-# define KEY_RIGTH	65363 //124
+# define KEY_LEFT	123 //65361 //123
+# define KEY_RIGTH	124 //65363 //124
 
 #define ROWS 			24
 #define COLS 			24
-#define WALL_SIZE		32
 #define MINI_WALL_SIZE	8
 #define ROT_SPEED		0.09
 #define PLAYER_SPEED	0.2
@@ -104,6 +103,9 @@ typedef struct s_data
 void    init_window_and_image(t_data *data);
 void    init_map(t_data *data);
 void	init_player(t_data *data);
+
+//render.c
+void    render(t_data *data);
 
 //errors.c
 void clean_exit(t_data *data, char *msg);
