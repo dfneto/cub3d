@@ -12,19 +12,29 @@
 
 #include "cub3d.h"
 
-void	init_data(t_data *data)
+void	init_data(t_data *data, char *argv)
 {
 	init_window_and_image(data);
-	init_map(data);
+	parse_input(argv, data);
+/* 	print_map_grid(data);
+	invert_grid(data);
+	print_map_grid(data); */
+	//init_map(data, argv);
 	init_player(data);
-	init_texture(data);
+	//init_texture(data);
 }
 
-int	main()
+int	main(int argc, char *argv[])
 {
 	t_data	data;
 
-	init_data(&data);
+	//VER COMO FAZER PARA INICIAR AS ESTRUTURAS
+	ft_bzero(&data, sizeof(t_data));
+	data.textures = (t_texture *)safe_calloc(1, sizeof(t_texture));
+	data.ray = (t_ray *)safe_calloc(1, sizeof(t_ray));
+	if (argc != 2)
+		ft_perror(EINVAL, "./cub3d [MAP.cub]");
+	init_data(&data, argv[1]);
 	set_hooks(&data);
 	render(&data);
 	mlx_loop(data.mlx_ptr);

@@ -33,7 +33,7 @@ void    color_floor(t_data *data, unsigned int buffer[HEIGHT][WIDTH], int drawSt
     int y = 0;
     while (y < drawStart)
     {
-        buffer[y][x] = data->textures->floor;
+        buffer[y][x] = *data->textures->floor;
         y++;
     }
 }
@@ -43,7 +43,7 @@ void    color_ceiling(t_data *data, unsigned int buffer[HEIGHT][WIDTH], int draw
     int y = drawEnd;
     while (y < HEIGHT)
     {
-        buffer[y][x] = data->textures->ceiling;
+        buffer[y][x] = *data->textures->ceiling;
         y++;
     }
 }

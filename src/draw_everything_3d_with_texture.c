@@ -75,7 +75,7 @@ void    draw_everything_3d_texture(t_data *data)
     int lineHeight;
     int pitch;
     unsigned int buffer[HEIGHT][WIDTH];
-    t_map *grid_map;
+    char **grid_map;
     t_ray   *ray;
     t_player *player;
     
@@ -184,7 +184,7 @@ map_x and map_y: are the ray position and get incremented with step_x and step_y
 side: 1 if the ray intersects a NS grid line (y-side), 
 0 if the ray intersects a EW grid line (x-side)
 */
-void calculate_side_dist_wall_position_and_side(t_ray * ray, t_map * grid_map)
+void calculate_side_dist_wall_position_and_side(t_ray * ray, char **grid_map)
 {
     if (ray->sideDistX < ray->sideDistY)
     {
@@ -198,7 +198,7 @@ void calculate_side_dist_wall_position_and_side(t_ray * ray, t_map * grid_map)
         ray->mapY += ray->stepY;
         ray->side = 1;
     }
-    if (grid_map->grid[ray->mapY][ray->mapX] >= '1')
+    if (grid_map[ray->mapY][ray->mapX] >= '1')
         ray->hit = 1;
 }
 

@@ -15,7 +15,7 @@
 //Looks when there is a wall in the player's direction (not in their sides)
 //and returns the coordinates of the end point (it means, the coordinates
 //where the ray direction hits the wall) and their distance
-t_point_distance dda_collision_detection_lodev(t_player *player, t_map *map)
+t_point_distance dda_collision_detection_lodev(t_player *player, t_data *data)
 {
     t_point_distance end_point;
     
@@ -72,7 +72,7 @@ t_point_distance dda_collision_detection_lodev(t_player *player, t_map *map)
 			mapY += stepY;
 			side = 1;
 		}
-		if (map->grid[mapY][mapX] == '1') //TODO: por que no do lodev eh mapX, mapY?
+		if (data->map[mapY][mapX] == '1') //TODO: por que no do lodev eh mapX, mapY?
             break; 
 		// We won't know exactly where the wall was hit however, but that's not needed in this case because we won't use textured walls for now.
 	}
