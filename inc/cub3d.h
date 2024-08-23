@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/22 16:12:02 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/23 13:31:32 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,13 @@ typedef struct s_ray
 
 typedef struct s_texture
 {
-	void		*img_ptr;
-	char 		*addr;
-	int			bpp;
-	int			endian;
-	int			line_len;
+	t_img	*north;
+	t_img	*south;
+	t_img	*west;
+	t_img	*east;
+	int		floor;
+	int		ceiling;
 }	t_texture;
-
 
 //x e y sao as coordenadas do jogador no map grid (mapa de 0s e 1s) e sao float
 //porque depois serao convertidas em pixels no mapa e assim tenham mais possibilidades
@@ -114,6 +114,7 @@ typedef struct s_data
 	t_img		*img;
 	t_player	*player;
 	t_map		*map;
+	t_texture	*textures;
 	t_ray		*ray;
 	void		*mlx_ptr;
 	void		*win_ptr;
@@ -124,9 +125,15 @@ void    init_window_and_image(t_data *data);
 void    init_map(t_data *data);
 void	init_player(t_data *data);
 void    init_ray(t_ray *ray);
+void    init_texture(t_data *data);
 
 //render.c
 void    render(t_data *data);
+
+//textures.c
+t_img *loadTexture(void *mlx, char *file_path, int *width, int *height);
+void    color_floor(t_data *data, unsigned int buffer[HEIGHT][WIDTH], int drawStart, int x);
+void    color_ceiling(t_data *data, unsigned int buffer[HEIGHT][WIDTH], int drawEnd, int x);
 
 //errors.c
 void clean_exit(t_data *data, char *msg);
@@ -140,7 +147,6 @@ int	is_player_inside_the_borders_map(t_player *player);
 int draw_player_direction_line(t_img *img, t_player *player, int beginX, int beginY, int color);
 
 //utils.c
-void	clean_map(t_img *img);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 t_player	create_player(t_map *map);
 

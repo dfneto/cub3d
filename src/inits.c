@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 19:23:03 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/22 16:12:02 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/23 13:33:01 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void    init_map(t_data *data)
     data->map = map;
 }
 
+//TODO: acho que não é necessário malloc se eu colocar o data->player no lugar
 void    init_player(t_data *data)
 {
     t_player *player;
@@ -117,4 +118,19 @@ void    init_ray(t_ray *ray)
     ray->stepX = 0;
     ray->stepY = 0;
     ray->side = 0;
+}
+
+void    init_texture(t_data *data)
+{
+    int width, height;
+    t_texture   *textures;
+
+    textures = (t_texture *)malloc(sizeof(t_texture));
+    textures->north = loadTexture(data->mlx_ptr, "textures/north.xpm", &width, &height);
+    textures->south = loadTexture(data->mlx_ptr, "textures/south.xpm", &width, &height);
+    textures->east = loadTexture(data->mlx_ptr, "textures/east.xpm", &width, &height);
+    textures->west = loadTexture(data->mlx_ptr, "textures/west.xpm", &width, &height);
+    textures->floor = get_rgb(0,30,222);
+    textures->ceiling = get_rgb(255,30,24);
+    data->textures = textures;
 }

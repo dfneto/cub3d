@@ -6,34 +6,11 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 18:07:08 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/22 16:19:55 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/23 13:47:11 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-
-// fill all the pixels with black
-void	clean_map(t_img *img)
-{
-	int i;
-	int j;
-	
-	i = 0;
-	while (i < HEIGHT)
-	{
-		j = 0;
-		while (j < WIDTH)
-		{
-			my_mlx_pixel_put(img, i, j, BLACK);
-			j++;
-		}
-		i++;
-	}
-    //TODO: era necessario antes, talvez o seja:
-	// mlx_put_image_to_window(img->win->mlx_ptr,
-	// 	img->win->win_ptr, img->img_ptr, 0, 0);
-}
 
 //Returns the pixel from the texture image loaded.
 //To get or set the value of the pixel (5, 100) in an image size of (500, 500),
@@ -73,29 +50,19 @@ void drawBuffer(unsigned int buffer[HEIGHT][WIDTH], t_img *img)
     }
 }
 
-t_img *loadTexture(void *mlx, char *file_path, int *width, int *height)
+void    clean_buffer(unsigned int buffer[HEIGHT][WIDTH])
 {
-    t_img *img = (t_img *)malloc(sizeof(t_img));
-    img->img_ptr = mlx_xpm_file_to_image(mlx, file_path, width, height);
+    int y;
+    int x;
     
-    if (!img)
+    y = 0;
+    while (y < HEIGHT)
     {
-        printf("Failed to load texture: %s\n", file_path);
-        exit(1);
+        x = 0;
+        while (x < WIDTH)
+            buffer[y][x++] = 0;
+        y++;
     }
-
-    img->addr = mlx_get_data_addr(img->img_ptr, &(img->bpp),
-			&(img->line_len), &(img->endian));
-    return img;
-}
-
-void generate_textures(void *mlx, t_img **texture) {
-    int width, height;
-    
-    texture[0] = loadTexture(mlx, "textures/north.xpm", &width, &height);
-    texture[1] = loadTexture(mlx, "textures/east.xpm", &width, &height);
-    texture[2] = loadTexture(mlx, "textures/south.xpm", &width, &height);
-    texture[3] = loadTexture(mlx, "textures/west.xpm", &width, &height);
 }
 
 /*
@@ -110,14 +77,11 @@ void    draw_everything_3d_texture(t_data *data)
     unsigned int buffer[HEIGHT][WIDTH];
     t_map *grid_map;
     t_ray   *ray;
-    t_img **textures;
     t_player *player;
     
     player = data->player;
     grid_map = data->map;
     ray = data->ray;
-    textures = calloc(4, sizeof(t_img**));
-    generate_textures(data->mlx_ptr, textures);
     x = 0;
     while (x < WIDTH)
     {
@@ -150,7 +114,7 @@ void    draw_everything_3d_texture(t_data *data)
         wallX -= floor((wallX));
 
         //texturing calculations (-48 para transformar de char para int)
-        int texNum = grid_map->grid[ray->mapY][ray->mapX] -48 - 1; //1 subtracted from it so that texture 0 can be used!
+        // int texNum = grid_map->grid[ray->mapY][ray->mapX] -48 - 1; //1 subtracted from it so that texture 0 can be used!
 
         //x coordinate on the texture
         int texX = (int)(wallX * (double)texWidth); //texX eh o x da textura equivalente a onde bateu o raio na parede.
@@ -173,34 +137,17 @@ void    draw_everything_3d_texture(t_data *data)
             texPos += step;
             //acho que aqui tenho que pegar o pixel da imagem da textura
 
-            unsigned int texture_pixel = get_texture_pixel(textures[texNum], texX, texY); //textures[texNum][texHeight * texY + texX]; //tenho que somar texX porque texture[texNum] eh um array e não uma matriz, entao essa eh a forma de pegar o pixel y,x (linha,coluna) da textura
+            unsigned int texture_pixel = get_texture_pixel(data->textures->north, texX, texY); //textures[texNum][texHeight * texY + texX]; //tenho que somar texX porque texture[texNum] eh um array e não uma matriz, entao essa eh a forma de pegar o pixel y,x (linha,coluna) da textura
             //make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
             if(ray->side == 1) texture_pixel = (texture_pixel >> 1) & 8355711;
             buffer[y][x] = texture_pixel;
         }
-        int cor = get_rgb(225,30,0);
-        for(int y = 0; y < drawStart; y++)
-        {
-            buffer[y][x] = cor;
-        }
-        for(int y = drawEnd; y < HEIGHT; y++)
-        {
-            buffer[y][x] = cor;
-        }
+        color_floor(data, buffer, drawStart, x);
+        color_ceiling(data, buffer, drawEnd, x);
         x++;
     }
-
-    drawBuffer(buffer,  data->img);
-    for(int y = 0; y < HEIGHT; y++)
-    {
-        for(int x = 0; x < WIDTH; x++)
-        {
-            buffer[y][x] = 0;
-        }
-    }
-
-    // for(int y = 0; y < HEIGHT; y++) for(int x = 0; x < WIDTH; x++) 
-    //     buffer[y][x] = 0; //clear the buffer instead of cls()
+    drawBuffer(buffer, data->img);
+    clean_buffer(buffer); //TODO: não sei se é necessário
 }
 
 /*

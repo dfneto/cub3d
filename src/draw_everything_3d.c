@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 18:07:08 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/15 05:09:46 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/23 13:28:03 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,28 @@ void print_vertical_line(t_win *win, int x, int y_start, int y_end, int color)
         my_mlx_pixel_put(win->img, x, y, color);
         y++;
     }
+}
+
+// fill all the pixels with black
+void	clean_map(t_img *img)
+{
+	int i;
+	int j;
+	
+	i = 0;
+	while (i < HEIGHT)
+	{
+		j = 0;
+		while (j < WIDTH)
+		{
+			my_mlx_pixel_put(img, i, j, BLACK);
+			j++;
+		}
+		i++;
+	}
+    //TODO: era necessario antes, talvez o seja:
+	// mlx_put_image_to_window(img->win->mlx_ptr,
+	// 	img->win->win_ptr, img->img_ptr, 0, 0);
 }
 
 void    draw_everything_3d(t_win *win)
