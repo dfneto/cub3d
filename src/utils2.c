@@ -12,15 +12,15 @@
 
 #include "cub3d.h"
 
-void    print_map_grid(t_map *map)
+void    print_map_grid(t_data *data)
 {
     int i = 0;
     int j = 0;
-    while (i < ROWS)
+    while (i < data->map_h)
     {
-        while (j < COLS)
+        while (j < data->map_w)
         {
-            printf("%c ", map->grid[i][j]);
+            printf("%c ", data->map[i][j]);
             j++;
         }
         j = 0;

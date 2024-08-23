@@ -70,24 +70,24 @@ void	draw_the_wall(t_img *img, int row, int column, int color)
 }
 
 // if it's one fill the pixel with some color else with black
-void	draw_map_walls(t_img *img, t_map *map)
+void	draw_map_walls(t_img *img, t_data *data)
 {
 	int i;
 	int j;
 	
 	i = 0;
-	while (i < ROWS) //i: 0-23
+	while (i < data->map_h) //i: 0-23
 	{
 		j = 0;
-		while (j < COLS) //j: 0-23
+		while (j < data->map_w) //j: 0-23
 		{
-			if (map->grid[i][j] == '1')
+			if (data->map[i][j] == '1')
 				draw_the_wall(img, i, j, YELLOW); //23, 0 -> 0, 0
-			else if (map->grid[i][j] == '2')
+			else if (data->map[i][j] == '2')
 				draw_the_wall(img, i, j, RED);
-			else if (map->grid[i][j] == '3')
+			else if (data->map[i][j] == '3')
 				draw_the_wall(img, i, j, BLUE);
-			else if (map->grid[i][j] == '4')
+			else if (data->map[i][j] == '4')
 				draw_the_wall(img, i, j, WHITE);
 			else
 				draw_the_wall(img, i, j, BLACK);
@@ -129,7 +129,7 @@ int draw_player_direction_line(t_img *img, t_player *player, int beginX, int beg
 
 void	draw_minimap(t_data *data)
 {
-	draw_map_walls(data->img, data->map);
+	draw_map_walls(data->img, data);
 	draw_player(data->img, data->player);
 	draw_player_direction_line(data->img, data->player, data->player->pos_x, data->player->pos_y, BLUE);
 }

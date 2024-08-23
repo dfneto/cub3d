@@ -30,7 +30,7 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 //O vetor posição x e y são colunas e linhas e não coordenadas cartesianas
 //cria o player com base nas coordenadas do grid
 //TODO: colocar um break no inner while e um flag de player_set para nao ficar no loop mesmo depois de ter setado o jogador
-t_player	create_player(t_map *map)
+/* t_player	create_player(t_map *map)
 {
 	int y = 0;
 	int x = 0;
@@ -66,4 +66,4 @@ t_player	create_player(t_map *map)
 	}
 	player.size = PLAYER_SIZE;
 	return player;
-}
+} */
