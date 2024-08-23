@@ -28,34 +28,34 @@ int	choose_event(int keycode, t_data *data)
 	t_player	*player;
 
 	player = data->player;
-	if (keycode == ESC)
+	if (keycode == ESC_M || keycode == ESC_L)
 		close_window(data);
-	if (keycode == KEY_W)
+	if (keycode == KEY_W_M || keycode == KEY_W_L)
 	{	
 		player->pos_x += player->dir_x * PLAYER_SPEED; //lodev: if (worldMap[(int)(posX + dirX * moveSpeed)][(int)posY] == 0) posX += dirX * moveSpeed;
 		player->pos_y += player->dir_y * PLAYER_SPEED;
 		// se eu mudo somente o y entao o player nao pode mover-se na diagonal
 		// o y no alto da tela vale 0 e no fim o HEIGTH
 	}
-	if (keycode == KEY_S)
+	if (keycode == KEY_S_M || keycode == KEY_S_L)
 	{
 		// posicion = posicion - vetor_dir * speed
 		player->pos_x -= player->dir_x * PLAYER_SPEED;
 		player->pos_y -= player->dir_y * PLAYER_SPEED;
 	}
-	if (keycode == KEY_D)
+	if (keycode == KEY_D_M || keycode == KEY_D_L)
 	{
 		player->pos_x = player->pos_x + player->dir_y * PLAYER_SPEED;
 		player->pos_y = player->pos_y - player->dir_x * PLAYER_SPEED;
 	}
-	if (keycode == KEY_A)
+	if (keycode == KEY_A_M || keycode == KEY_A_L)
 	{
 		player->pos_x = player->pos_x - player->dir_y * PLAYER_SPEED;
 		player->pos_y = player->pos_y + player->dir_x * PLAYER_SPEED;
 	}
 	// x = x * cs(ang) - y * sn(ang); // ang eh o angulo que quero rotacionar
 	// y = x * sn(ang) + y * cs(ang);
-	if (keycode == KEY_RIGTH)
+	if (keycode == KEY_RIGHT_M || keycode == KEY_RIGHT_L)
 	{
 		double oldDirX = player->dir_x;
 		player->dir_x = player->dir_x * cos(-ROT_SPEED) - player->dir_y * sin(-ROT_SPEED);
@@ -64,7 +64,7 @@ int	choose_event(int keycode, t_data *data)
 		player->planeX = player->planeX * cos(-ROT_SPEED) - player->planeY * sin(-ROT_SPEED);
 		player->planeY = oldPlaneX * sin(-ROT_SPEED) + player->planeY * cos(-ROT_SPEED);
 	}
-	if (keycode == KEY_LEFT)
+	if (keycode == KEY_LEFT_M || keycode == KEY_LEFT_L)
 	{
 		double oldDirX = player->dir_x;
 		player->dir_x = player->dir_x * cos(ROT_SPEED) - player->dir_y * sin(ROT_SPEED);

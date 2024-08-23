@@ -23,15 +23,22 @@
 # define HEIGHT		768
 # define texWidth 	64 //tamanho da textura: uma imagem xpm de tamanho 64x64 pixels
 # define texHeight 	64
-# define ESC		53 //65307 //53
+# define ESC_M		53 //65307 //53
+# define ESC_L		65307
 # define LEFT_CLICK 1
-# define KEY_A		0 //97 //0
-# define KEY_D		2 //100 //2
-# define KEY_W		13 //119 //13
-# define KEY_S		1 //115 //1
+# define KEY_A_M	0 //97 //0
+# define KEY_A_L	97
+# define KEY_D_M	2 //100 //2
+# define KEY_D_L	100
+# define KEY_W_M	13 //119 //13
+# define KEY_W_L	119
+# define KEY_S_M	1 //115 //1
+# define KEY_S_L	115
 # define KEY_C		8
-# define KEY_LEFT	123 //65361 //123
-# define KEY_RIGTH	124 //65363 //124
+# define KEY_LEFT_M	123 //65361 //123
+# define KEY_LEFT_L	65361
+# define KEY_RIGHT_M	124 //65363 //124
+# define KEY_RIGHT_L	65363
 
 #define ROWS 			24
 #define COLS 			24
