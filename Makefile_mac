@@ -1,13 +1,12 @@
-# //TODO: remover o -MMD e ver a diferença de com e sem ele (sei que ele gera uns .d)
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
+#    Makefile_mac                                       :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: davifern <davifern@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/05 11:46:48 by davifern          #+#    #+#              #
-#    Updated: 2024/07/05 13:01:56 by davifern         ###   ########.fr        #
+#    Updated: 2024/08/27 09:41:09 by davifern         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,15 +14,24 @@
 NAME = cub3d
 MAKE = make --no-print-directory
 HEADER = inc/cub3d.h
+SRC_PARSER = src/parser/check_closed.c
 SRC = src/main.c src/inits.c src/errors.c src/draw_elements.c src/utils.c src/hooks.c \
-		src/bresenham.c src/utils2.c  \
-		src/texture_test.c  \
-		#src/dda.c src/draw_everything_3d.c src/draw_everything_3d_with_texture.c
+		src/bresenham.c src/utils2.c src/render.c src/textures.c \
+		src/texture_test.c  src/draw_everything_3d_with_texture.c \
+		src/check_map.c \
+        src/clean_utils.c src/ft_perror.c src/ft_strtok.c \
+        src/image_utils.c src/open_utils.c src/parse_input.c \
+        src/parse_textures.c src/read_utils.c src/safe_allocation.c \
+        src/safe_allocation2.c src/fake_split.c src/invert_image.c \
+		$(SRC_PARSER)
+# src/dda.c src/draw_everything_3d.c 
 OBJ_DIR = obj
+OBJ_DIR_PARSER = obj/parser
 DEP_DIR = dep
-DIR_MLX = mlx_linux
+DEP_DIR_PARSER = dep/parser
+DIR_MLX = mlx
 CC = gcc
-CFLAGS += -Wextra -Werror -Wall -g  -I/usr/include -Imlx_linux -Iinc -O3
+CFLAGS += -Wextra -Werror -Wall -MMD -g -I mlx -I inc -I libft
 
 # This line itself doesn't actually generate the object files; it just sets up the 
 # names that will be used when the object files are generated
@@ -33,8 +41,12 @@ DEPS = $(SRC:src/%.c=$(DEP_DIR)/%.d)
 ################################# RULES ####################################### 
 # -C <path> option. This changes the current path to the path '<path>', -s silent
 all: 
-	$(MAKE) -sC mlx_linux
+	$(MAKE) -C libft
+	$(MAKE) -sC mlx
 	$(MAKE) $(NAME)
+
+$(NAME): $(OBJS) $(HEADER) Makefile
+	$(CC) $(OBJS) -O3 -Lmlx -Llibft -lft -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 # This is a pattern rule that specifies to make how to build an object file (.o) from a 
 # corresponding source file (.c). It also depends on the $(HEADER) file and Makefile, meaning the
@@ -42,26 +54,28 @@ all:
 # $(CC) $(CFLAGS) -c $< -o $@: This is the command that actually compiles each .c 
 # file into an .o file. $< is the first dependency (the .c file in this case) and $@ 
 # is the target (the .o file).
-$(OBJ_DIR)/%.o: src/%.c $(HEADER) Makefile | $(OBJ_DIR) $(DEP_DIR)
+$(OBJ_DIR)/%.o: src/%.c $(HEADER) Makefile | $(OBJ_DIR) $(DEP_DIR) $(OBJ_DIR_PARSER) $(DEP_DIR_PARSER)
 	$(CC) $(CFLAGS) -c $< -o $@ -MMD -MP -MF $(DEP_DIR)/$*.d
 
-$(NAME): $(OBJS) $(HEADER) Makefile
-	$(CC) $(OBJS) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
-$(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
+$(OBJ_DIR_PARSER)/%.o: src/parser/%.c $(HEADER) Makefile | $(OBJ_DIR_PARSER) $(DEP_DIR_PARSER)
+	$(CC) $(CFLAGS) -c $< -o $@ -MMD -MP -MF $(DEP_DIR_PARSER)/$*.d
 
-$(DEP_DIR):
-	mkdir -p $(DEP_DIR)
-	
+# Ensure that obj and dep directories are created
+$(OBJ_DIR) $(DEP_DIR):
+	mkdir -p $@
+
+# Ensure that parser subdirectories are created
+$(OBJ_DIR_PARSER) $(DEP_DIR_PARSER): | $(OBJ_DIR) $(DEP_DIR)
+	mkdir -p $@
+
 clean:
-	rm -f $(OBJ_DIR)/*.o $(DEP_DIR)/*.d
-	rm cub3d
-	rm -rf *.dSYM
-	@$(MAKE) clean -sC $(DIR_MLX)
+	rm -f $(OBJS) $(DEPS)
+	rm -f $(NAME)
 
 fclean: clean
-	rm -f $(NAME)
-	rm -f *.gch
+	$(MAKE) fclean -sC libft
+	$(MAKE) clean -sC $(DIR_MLX)
+	rm -rf $(OBJ_DIR) $(DEP_DIR)
 
 re: fclean all
 
