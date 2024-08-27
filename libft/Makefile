@@ -20,7 +20,7 @@ all: 	$(NAME)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ) $(HEADER)
-	@ar -rcs $(NAME) $(OBJ) $(HEADER)
+	@ar -rcs $(NAME) $(OBJ)
 	@echo "Mandatory part compiled"
 
 re: fclean all
