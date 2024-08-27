@@ -6,7 +6,7 @@
 #    By: davifern <davifern@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/05 11:46:48 by davifern          #+#    #+#              #
-#    Updated: 2024/08/27 09:40:05 by davifern         ###   ########.fr        #
+#    Updated: 2024/08/27 09:51:40 by davifern         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,15 +14,13 @@
 NAME = cub3d
 MAKE = make --no-print-directory
 HEADER = inc/cub3d.h
-SRC_PARSER = src/parser/check_closed.c
+SRC_PARSER = src/parser/check_closed.c src/parser/check_map.c src/parser/clean_utils.c src/parser/ft_perror.c src/parser/ft_strtok.c \
+			src/parser/image_utils.c src/parser/open_utils.c src/parser/parse_input.c \
+			src/parser/parse_textures.c src/parser/read_utils.c src/parser/safe_allocation.c \
+			src/parser/safe_allocation2.c src/parser/fake_split.c src/parser/invert_image.c
 SRC = src/main.c src/inits.c src/errors.c src/draw_elements.c src/utils.c src/hooks.c \
 		src/bresenham.c src/utils2.c src/render.c src/textures.c \
 		src/texture_test.c  src/draw_everything_3d_with_texture.c \
-		src/check_map.c \
-        src/clean_utils.c src/ft_perror.c src/ft_strtok.c \
-        src/image_utils.c src/open_utils.c src/parse_input.c \
-        src/parse_textures.c src/read_utils.c src/safe_allocation.c \
-        src/safe_allocation2.c src/fake_split.c src/invert_image.c \
 		$(SRC_PARSER)
 # src/dda.c src/draw_everything_3d.c 
 OBJ_DIR = obj
