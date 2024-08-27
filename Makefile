@@ -6,7 +6,7 @@
 #    By: davifern <davifern@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/05 11:46:48 by davifern          #+#    #+#              #
-#    Updated: 2024/08/27 09:36:23 by davifern         ###   ########.fr        #
+#    Updated: 2024/08/27 09:40:05 by davifern         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRC = src/main.c src/inits.c src/errors.c src/draw_elements.c src/utils.c src/ho
         src/parse_textures.c src/read_utils.c src/safe_allocation.c \
         src/safe_allocation2.c src/fake_split.c src/invert_image.c \
 		$(SRC_PARSER)
+# src/dda.c src/draw_everything_3d.c 
 OBJ_DIR = obj
 OBJ_DIR_PARSER = obj/parser
 DEP_DIR = dep
@@ -32,10 +33,13 @@ DIR_MLX = mlx
 CC = gcc
 CFLAGS += -Wextra -Werror -Wall -MMD -g -I mlx -I inc -I libft
 
+# This line itself doesn't actually generate the object files; it just sets up the 
+# names that will be used when the object files are generated
 OBJS = $(SRC:src/%.c=$(OBJ_DIR)/%.o)
 DEPS = $(SRC:src/%.c=$(DEP_DIR)/%.d)
 
 ################################# RULES ####################################### 
+# -C <path> option. This changes the current path to the path '<path>', -s silent
 all: 
 	$(MAKE) -C libft
 	$(MAKE) -sC mlx
@@ -44,11 +48,15 @@ all:
 $(NAME): $(OBJS) $(HEADER) Makefile
 	$(CC) $(OBJS) -O3 -Lmlx -Llibft -lft -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
-# Rule for object files in the main src directory
+# This is a pattern rule that specifies to make how to build an object file (.o) from a 
+# corresponding source file (.c). It also depends on the $(HEADER) file and Makefile, meaning the
+# object files will be recompiled if the header file or the Makefile changes.
+# $(CC) $(CFLAGS) -c $< -o $@: This is the command that actually compiles each .c 
+# file into an .o file. $< is the first dependency (the .c file in this case) and $@ 
+# is the target (the .o file).
 $(OBJ_DIR)/%.o: src/%.c $(HEADER) Makefile | $(OBJ_DIR) $(DEP_DIR) $(OBJ_DIR_PARSER) $(DEP_DIR_PARSER)
 	$(CC) $(CFLAGS) -c $< -o $@ -MMD -MP -MF $(DEP_DIR)/$*.d
 
-# Rule for object files in the parser directory
 $(OBJ_DIR_PARSER)/%.o: src/parser/%.c $(HEADER) Makefile | $(OBJ_DIR_PARSER) $(DEP_DIR_PARSER)
 	$(CC) $(CFLAGS) -c $< -o $@ -MMD -MP -MF $(DEP_DIR_PARSER)/$*.d
 
