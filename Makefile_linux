@@ -16,7 +16,7 @@ NAME = cub3d
 MAKE = make --no-print-directory
 HEADER = inc/cub3d.h
 SRC = src/main.c src/inits.c src/errors.c src/draw_elements.c src/utils.c src/hooks.c \
-		src/bresenham.c src/utils2.c  src/render.c \
+		src/bresenham.c src/utils2.c  src/render.c src/textures.c \
 		src/texture_test.c  src/draw_everything_3d_with_texture.c \
 		#src/dda.c src/draw_everything_3d.c 
 OBJ_DIR = obj
