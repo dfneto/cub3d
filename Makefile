@@ -1,3 +1,4 @@
+# //TODO: remover o -MMD e ver a diferença de com e sem ele (sei que ele gera uns .d)
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
@@ -6,7 +7,7 @@
 #    By: davifern <davifern@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/05 11:46:48 by davifern          #+#    #+#              #
-#    Updated: 2024/08/27 09:51:40 by davifern         ###   ########.fr        #
+#    Updated: 2024/07/05 13:01:56 by davifern         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,9 +28,9 @@ OBJ_DIR = obj
 OBJ_DIR_PARSER = obj/parser
 DEP_DIR = dep
 DEP_DIR_PARSER = dep/parser
-DIR_MLX = mlx
+DIR_MLX = mlx_linux
 CC = gcc
-CFLAGS += -Wextra -Werror -Wall -MMD -g -I mlx -I inc -I libft
+CFLAGS += -Wextra -Werror -Wall -g  -I/usr/include -Imlx_linux -Iinc -Ilibft -O3
 
 # This line itself doesn't actually generate the object files; it just sets up the 
 # names that will be used when the object files are generated
@@ -38,13 +39,14 @@ DEPS = $(SRC:src/%.c=$(DEP_DIR)/%.d)
 
 ################################# RULES ####################################### 
 # -C <path> option. This changes the current path to the path '<path>', -s silent
-all: 
+all:
 	$(MAKE) -C libft
-	$(MAKE) -sC mlx
+	$(MAKE) -sC mlx_linux
 	$(MAKE) $(NAME)
-
+	
 $(NAME): $(OBJS) $(HEADER) Makefile
-	$(CC) $(OBJS) -O3 -Lmlx -Llibft -lft -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) $(OBJS) -Lmlx_linux -lmlx_Linux -L/usr/lib -Llibft -lft -lXext -lX11 -lm -lz -o $(NAME) #-Ilibft -Imlx_linux (acho que posso retirar esse -Ilibft e o mlx)
+
 
 # This is a pattern rule that specifies to make how to build an object file (.o) from a 
 # corresponding source file (.c). It also depends on the $(HEADER) file and Makefile, meaning the
@@ -65,7 +67,7 @@ $(OBJ_DIR) $(DEP_DIR):
 # Ensure that parser subdirectories are created
 $(OBJ_DIR_PARSER) $(DEP_DIR_PARSER): | $(OBJ_DIR) $(DEP_DIR)
 	mkdir -p $@
-
+	
 clean:
 	rm -f $(OBJS) $(DEPS)
 	rm -f $(NAME)
