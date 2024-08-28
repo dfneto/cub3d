@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 11:47:14 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/23 13:33:53 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/28 15:35:49 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,23 +27,3 @@ t_img *loadTexture(void *mlx, char *file_path, int *width, int *height)
 			&(img->line_len), &(img->endian));
     return img;
 } 
-
-void    color_floor(t_data *data, unsigned int buffer[HEIGHT][WIDTH], int drawStart, int x)
-{
-    int y = 0;
-    while (y < drawStart)
-    {
-        buffer[y][x] = *data->textures->floor;
-        y++;
-    }
-}
-
-void    color_ceiling(t_data *data, unsigned int buffer[HEIGHT][WIDTH], int drawEnd, int x)
-{
-    int y = drawEnd;
-    while (y < HEIGHT)
-    {
-        buffer[y][x] = *data->textures->ceiling;
-        y++;
-    }
-}

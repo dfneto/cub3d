@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 09:43:59 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/28 10:41:12 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/28 15:35:43 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,43 +26,22 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	// img->addr[pixel] = color;
 }
 
-
-//cria o player com base nas coordenadas do grid
-//TODO: colocar um break no inner while e um flag de player_set para nao ficar no loop mesmo depois de ter setado o jogador
-/* t_player	create_player(t_map *map)
+void    color_floor(t_data *data, unsigned int buffer[HEIGHT][WIDTH], int drawStart, int x)
 {
-	int y = 0;
-	int x = 0;
-	
-	t_player    player; //TODO: devo criar um malloc? Pq sim ou pq não?
+    int y = 0;
+    while (y < drawStart)
+    {
+        buffer[y][x] = *data->textures->floor;
+        y++;
+    }
+}
 
-	while (y < ROWS) //y < 5
-	{
-		while (x < COLS) //x < 6
-		{
-			if (map->grid[y][x] == 'N') // [0 1]
-			{
-				player.pos_x = x + 0.5; //0.5 para que a posicao x seja no centro e nao na esquina
-				player.pos_y = y + 0.5;
-				player.dir_x = 0.0;
-				player.dir_y = 1.0;
-				player.planeX = 0.66;
-				player.planeY = 0.0;
-			}
-			if (map->grid[y][x] == 'S') // [0 -1]
-			{
-				player.pos_x = x + 0.5;
-				player.pos_y = y + 0.5;
-				player.dir_x = 0.0;
-				player.dir_y = -1.0;
-				player.planeX = -0.66;
-				player.planeY = 0;
-			}		
-			x++;
-		}
-		x = 0;
-		y++;
-	}
-	player.size = PLAYER_SIZE;
-	return player;
-} */
+void    color_ceiling(t_data *data, unsigned int buffer[HEIGHT][WIDTH], int drawEnd, int x)
+{
+    int y = drawEnd;
+    while (y < HEIGHT)
+    {
+        buffer[y][x] = *data->textures->ceiling;
+        y++;
+    }
+}

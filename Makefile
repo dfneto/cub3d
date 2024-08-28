@@ -20,7 +20,7 @@ SRC_PARSER = src/parser/check_closed.c src/parser/check_map.c src/parser/clean_u
 			src/parser/parse_textures.c src/parser/read_utils.c src/parser/safe_allocation.c \
 			src/parser/safe_allocation2.c src/parser/fake_split.c src/parser/invert_image.c
 SRC = src/main.c src/inits.c src/errors.c src/draw_elements.c src/utils.c src/hooks.c \
-		src/bresenham.c src/utils2.c src/render.c src/textures.c \
+		src/bresenham.c src/render.c src/textures.c \
 		src/texture_test.c  src/draw_everything_3d_with_texture.c \
 		$(SRC_PARSER)
 # src/dda.c src/draw_everything_3d.c 

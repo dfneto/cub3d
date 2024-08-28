@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/28 15:32:31 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/28 15:36:09 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,10 +138,8 @@ typedef struct s_data
 
 //inits.c
 void    init_window_and_image(t_data *data);
-//void    init_map(t_data *data);
 void	init_player(t_data *data);
 void    init_ray(t_ray *ray);
-//void    init_texture(t_data *data);
 
 
 
@@ -216,8 +214,6 @@ void    render(t_data *data);
 
 //textures.c
 t_img *loadTexture(void *mlx, char *file_path, int *width, int *height);
-void    color_floor(t_data *data, unsigned int buffer[HEIGHT][WIDTH], int drawStart, int x);
-void    color_ceiling(t_data *data, unsigned int buffer[HEIGHT][WIDTH], int drawEnd, int x);
 
 //errors.c
 void clean_exit(t_data *data, char *msg);
@@ -232,8 +228,8 @@ int draw_player_direction_line(t_img *img, t_player *player, int beginX, int beg
 
 //utils.c
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
-//t_player	create_player(t_map *map);
-
+void    color_floor(t_data *data, unsigned int buffer[HEIGHT][WIDTH], int drawStart, int x);
+void    color_ceiling(t_data *data, unsigned int buffer[HEIGHT][WIDTH], int drawEnd, int x);
 
 //hooks.c
 void	set_hooks(t_data *data);
@@ -257,9 +253,5 @@ void calculate_ray_direction_and_delta(t_ray *ray, t_player *player);
 
 void calculate_side_dist_wall_position_and_side(t_ray *ray, char **grid_map);
 void calculate_side_dist_and_step(t_ray *ray, t_player *player);
-
-// utils2.c
-void print_map_grid(t_data *data);
-int get_rgb(int r, int g, int b);
 
 #endif
