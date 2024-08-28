@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/28 10:42:18 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/28 15:32:31 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,11 +130,10 @@ typedef struct s_data
 	void		*mlx_ptr;
 	void		*win_ptr;
 	int			*tile; //adicionei para saber o tamanho do tile (textura)
-	//TODO: passar para dentro do player e colocar como char
-	int			player_angle; //transformar em char. representa a direcao do player: N, S, W, E. Mudar o nome para player_grid_direction
-	int			player_x; //x do player no map
-	int			player_y; //y do player no map
-	int			player_n; //a quantidade de jogadores no mapa (se mais ou menos de 1 erro)
+	int			player_grid_direction; //transformar em char. representa a direcao do player: N, S, W, E. Mudar o nome para player_grid_direction
+	int			player_grid_x; //x do player no map
+	int			player_grid_y; //y do player no map
+	int			number_of_players; //a quantidade de jogadores no mapa (se mais ou menos de 1 erro)
 }	t_data;
 
 //inits.c

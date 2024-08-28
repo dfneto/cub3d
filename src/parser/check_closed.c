@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_closed.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsulzbac <lsulzbac@student.42barcel>       +#+  +:+       +#+        */
+/*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:44:12 by lsulzbac          #+#    #+#             */
-/*   Updated: 2023/09/18 10:25:21 by lsulzbac         ###   ########.fr       */
+/*   Updated: 2024/08/28 15:29:26 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	check_closed(t_data *data)
 
 	invert_grid(data);
 	tmp_map = copy_map(data);
-	if (is_map_closed(data, data->player_x, data->player_y))
+	if (is_map_closed(data, data->player_grid_x, data->player_grid_y))
 		ft_perror(EINVAL, "Map not closed");
 	clean_array(data->map);
 	data->map = tmp_map;

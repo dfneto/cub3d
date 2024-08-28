@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsulzbac <lsulzbac@student.42barcel>       +#+  +:+       +#+        */
+/*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 10:24:24 by lsulzbac          #+#    #+#             */
-/*   Updated: 2023/08/15 10:24:27 by lsulzbac         ###   ########.fr       */
+/*   Updated: 2024/08/28 15:32:53 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,13 @@ void	create_square_map(char **tmp, t_data *data)
 
 void	add_to_count(t_data *data, int i, int j)
 {
-	if (data->map[i][j] == 'N')
-		data->player_angle = 0;
-	else if (data->map[i][j] == 'S')
-		data->player_angle = 2;
-	else if (data->map[i][j] == 'W')
-		data->player_angle = 3;
-	else if (data->map[i][j] == 'E')
-		data->player_angle = 1;
-	else
+	if (data->map[i][j] != 'N' && data->map[i][j] != 'S'
+		&& data->map[i][j] != 'W' && data->map[i][j] != 'E')
 		return ;
-	data->player_x = j;
-	data->player_y = i;
-	data->player_n += 1;
+	data->player_grid_direction = data->map[i][j];
+	data->player_grid_x = j;
+	data->player_grid_y = i;
+	data->number_of_players += 1;
 	data->map[i][j] = '0';
 }
 
@@ -86,9 +80,9 @@ void	check_valid_char(t_data *data)
 		}
 		i++;
 	}
-	if (data->player_n > 1)
+	if (data->number_of_players > 1)
 		ft_perror(EINVAL, "More than one player found");
-	if (data->player_n < 1)
+	if (data->number_of_players < 1)
 		ft_perror(EINVAL, "No player found");
 }
 
