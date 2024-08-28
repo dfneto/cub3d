@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 19:23:03 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/23 13:33:01 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/28 10:44:15 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,9 @@ void    init_window_and_image(t_data *data)
     data->map = map;
 } */
 
-
-void    set_player_angle(t_player *player, int dir)
+//N: [0 1], W: [-1 0], S: [0 -1], O: [1  0]
+//TODO: alterar o nome para set_player_direction_and_plane
+void    set_player_direction_and_plane(t_player *player, int dir)
 {
     if (dir == 0)
     {
@@ -128,15 +129,14 @@ void    set_player_angle(t_player *player, int dir)
 }
 
 //TODO: acho que não é necessário malloc se eu colocar o data->player no lugar
+//O vetor posição x e y são as colunas e linhas do grid  e não coordenadas cartesianas. +0.5 pra ficar no meio de um quadrado
 void    init_player(t_data *data)
 {
     data->player = (t_player *)safe_calloc(1, sizeof(t_player)); //Troquei malloc por safe_malloc, ai nao precisa testar para null
     data->player->pos_x = data->player_x + 0.5;
     data->player->pos_y = data->player_y + 0.5;
     data->player->size = PLAYER_SIZE;
-    set_player_angle(data->player, data->player_angle);
-
-
+    set_player_direction_and_plane(data->player, data->player_angle);
 }
 
 void    init_ray(t_ray *ray)
