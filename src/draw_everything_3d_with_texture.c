@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 18:07:08 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/23 13:47:11 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/28 15:54:08 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,25 +23,25 @@
 //é relativa, tipo linha 4, coluna 5 (4,5). Então com o endereço de memória da imagem
 //eu posso ir na linha4, coluna 5 e para isso somo essa posição pos ao endereço adr.
 //É uma aritmética de ponteiro
+//(unsigned int *)ptr casts the char * to an unsigned int *, 
+//meaning that it treats the memory at ptr as if it were storing an unsigned int.
+//(unsigned int *)ptr dereferences the pointer, giving you 
+//the unsigned int value stored at that memory location.
 unsigned int	get_texture_pixel(t_img *texture, int pixel_x, int pixel_y)
 {
     pixel_y = 64 - pixel_y;
     int pos = (pixel_y * texture->line_len + pixel_x * (texture->bpp / 8));
-    /*
-        (unsigned int *)ptr casts the char * to an unsigned int *, meaning that it treats the memory at ptr as if it were storing an unsigned int.
-        *(unsigned int *)ptr dereferences the pointer, giving you the unsigned int value stored at that memory location.
-    */
 	return (*(unsigned int *)((texture->addr + pos)));
 }
 
 void drawBuffer(unsigned int buffer[HEIGHT][WIDTH], t_img *img)
-{ //buffer[HEIGHT][WIDTH]
+{
     int y = 0;
     int x = 0;
     while (y < HEIGHT)
     {
         while (x < WIDTH)
-        {//acho que aqui eh a imagem da tela
+        {
             my_mlx_pixel_put(img, x, y, buffer[y][x]);
             x++;
         }
@@ -66,8 +66,11 @@ void    clean_buffer(unsigned int buffer[HEIGHT][WIDTH])
 }
 
 /*
-pitch is an offset added to the vertical position of the drawn wall. By adding pitch, you can move the entire view up or down.
-line_height is the height of the vertical line that should be drawn. You can of course also multiply it with another value if you want to walls to be higher or lower
+pitch is an offset added to the vertical position of the drawn wall. 
+By adding pitch, you can move the entire view up or down.
+line_height is the height of the vertical line that should be drawn. 
+You can of course also multiply it with another value if you want 
+to walls to be higher or lower
 */
 void    draw_everything_3d_texture(t_data *data)
 {
@@ -139,7 +142,8 @@ void    draw_everything_3d_texture(t_data *data)
 
             unsigned int texture_pixel = get_texture_pixel(data->textures->north, texX, texY); //textures[texNum][texHeight * texY + texX]; //tenho que somar texX porque texture[texNum] eh um array e não uma matriz, entao essa eh a forma de pegar o pixel y,x (linha,coluna) da textura
             //make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
-            if(ray->side == 1) texture_pixel = (texture_pixel >> 1) & 8355711;
+            if(ray->side == 1) 
+                texture_pixel = (texture_pixel >> 1) & 8355711;
             buffer[y][x] = texture_pixel;
         }
         color_floor(data, buffer, drawStart, x);

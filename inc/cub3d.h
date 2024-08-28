@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/28 15:36:09 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/28 15:47:10 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,13 +110,6 @@ typedef struct s_player
 	int 		map_y;
 	float		speed;
 }	t_player;
-
-typedef struct s_point_distance
-{
-	float		x;
-	float		y;
-	float		distance;
-}	t_point_distance;
 
 typedef struct s_data
 {
@@ -234,15 +227,7 @@ void    color_ceiling(t_data *data, unsigned int buffer[HEIGHT][WIDTH], int draw
 //hooks.c
 void	set_hooks(t_data *data);
 
-//bresenham
-void	draw_grid_lines(t_data *data);
-
-//dda
-t_point_distance	dda_collision_detection_lodev(t_player *player, t_data *data);
-int	has_wall(t_player *player);
-
 //draw_everything_3d.c
-void	draw_everything_3d(t_data *data);
 void draw_everything_3d_texture(t_data *data);
 
 void calculate_wall_distance(t_ray *ray);

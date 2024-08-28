@@ -1,9 +1,19 @@
+[] Ao iniciar, dddd e dá segfault
+[] Ao cruzar uma parede da segfault
 [] Carregar texturas diferentes para NSEW
 [] Fazer a colisão
+
+[] draw_elements.c
+[] hooks.c
+[] draw_everything_3d_with_texture.c
+
+
+[] Na textura tem um pixel a mais pra baixo, assim fica uma linha preta, mas nao sempre
 [] Carregar no 2d as texturas
 [] Fazer o movimento de andar com as setas junto
-[] Na textura tem um pixel a mais pra baixo, assim fica uma linha preta, mas nao sempre
-[] Ao iniciar, dddd e dá segfault
+Lucas:
+como ver se tem leaks
+ft_bzero(&data, sizeof(t_data)); //TODO: necessario?? Lucas
 [x] Usar cores rgb: https://harm-smits.github.io/42docs/libs/minilibx/colors.html)
 [x] Fazer o céu e o chão 
 [x] Fazer a textura
