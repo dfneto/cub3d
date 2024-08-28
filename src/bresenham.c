@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 12:09:37 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/21 20:04:45 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/28 10:55:18 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ void	draw_grid_lines(t_data *data)
 	int	y;
 
 	y = 0;
-	while (y < ROWS)
+	while (y < data->map_h)
 	{
 		x = 0;
-		while (x < COLS)
+		while (x < data->map_w)
 		{
 			draw_line_bresenham(x, y, x + 1, y, data);//[0 0] [1 0]
 			draw_line_bresenham(x, y, x, y + 1, data); //[0 0] [0 1]

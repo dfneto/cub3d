@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:04:23 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/23 13:14:57 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/28 10:44:47 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(int argc, char *argv[])
 	t_data	data;
 
 	//VER COMO FAZER PARA INICIAR AS ESTRUTURAS
-	ft_bzero(&data, sizeof(t_data));
+	ft_bzero(&data, sizeof(t_data)); //TODO: necessario??
 	data.textures = (t_texture *)safe_calloc(1, sizeof(t_texture));
 	data.ray = (t_ray *)safe_calloc(1, sizeof(t_ray));
 	if (argc != 2)

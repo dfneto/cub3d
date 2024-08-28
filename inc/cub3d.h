@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/23 13:31:32 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/28 10:42:18 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@
 # define KEY_RIGHT_M	124 //65363 //124
 # define KEY_RIGHT_L	65363
 
-#define ROWS 			24
-#define COLS 			24
 #define MINI_WALL_SIZE	8
 #define ROT_SPEED		0.09
 #define PLAYER_SPEED	0.2
@@ -132,10 +130,11 @@ typedef struct s_data
 	void		*mlx_ptr;
 	void		*win_ptr;
 	int			*tile; //adicionei para saber o tamanho do tile (textura)
-	int			player_angle; //adicionei essas 4 variaveis para guardar a infos do jogador
-	int			player_x;
-	int			player_y;
-	int			player_n;
+	//TODO: passar para dentro do player e colocar como char
+	int			player_angle; //transformar em char. representa a direcao do player: N, S, W, E. Mudar o nome para player_grid_direction
+	int			player_x; //x do player no map
+	int			player_y; //y do player no map
+	int			player_n; //a quantidade de jogadores no mapa (se mais ou menos de 1 erro)
 }	t_data;
 
 //inits.c

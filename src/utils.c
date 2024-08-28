@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 09:43:59 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/21 19:55:44 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/28 10:41:12 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	// img->addr[pixel] = color;
 }
 
-//N: [0 1], W: [-1 0], S: [0 -1], O: [1  0]
-//O vetor posição x e y são colunas e linhas e não coordenadas cartesianas
+
 //cria o player com base nas coordenadas do grid
 //TODO: colocar um break no inner while e um flag de player_set para nao ficar no loop mesmo depois de ter setado o jogador
 /* t_player	create_player(t_map *map)
