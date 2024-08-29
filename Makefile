@@ -2,12 +2,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
+#    Makefile_mac                                       :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: davifern <davifern@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/05 11:46:48 by davifern          #+#    #+#              #
-#    Updated: 2024/07/05 13:01:56 by davifern         ###   ########.fr        #
+#    Updated: 2024/08/28 10:53:22 by davifern         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,17 +19,17 @@ SRC_PARSER = src/parser/check_closed.c src/parser/check_map.c src/parser/clean_u
 			src/parser/image_utils.c src/parser/open_utils.c src/parser/parse_input.c \
 			src/parser/parse_textures.c src/parser/read_utils.c src/parser/safe_allocation.c \
 			src/parser/safe_allocation2.c src/parser/fake_split.c src/parser/invert_image.c
-SRC = src/main.c src/inits.c src/errors.c src/draw_elements.c src/utils.c src/hooks.c \
-		src/render.c \
-		src/draw_everything_3d_with_texture.c \
+SRC = src/main.c src/dda.c src/inits.c src/errors.c src/draw_elements.c src/utils.c src/hooks.c \
+		src/render.c src/draw_everything_3d_with_texture.c src/raycasting_utils.c \
+		src/set_texture_pixels.c \
 		$(SRC_PARSER)
 OBJ_DIR = obj
 OBJ_DIR_PARSER = obj/parser
 DEP_DIR = dep
 DEP_DIR_PARSER = dep/parser
-DIR_MLX = mlx_linux
+DIR_MLX = mlx
 CC = gcc
-CFLAGS += -Wextra -Werror -Wall -g  -I/usr/include -Imlx_linux -Iinc -Ilibft -O3
+CFLAGS += -Wextra -Werror -Wall -MMD -g -I mlx -I inc -I libft
 
 # This line itself doesn't actually generate the object files; it just sets up the 
 # names that will be used when the object files are generated
@@ -38,14 +38,13 @@ DEPS = $(SRC:src/%.c=$(DEP_DIR)/%.d)
 
 ################################# RULES ####################################### 
 # -C <path> option. This changes the current path to the path '<path>', -s silent
-all:
+all: 
 	$(MAKE) -C libft
-	$(MAKE) -sC mlx_linux
+	$(MAKE) -sC mlx
 	$(MAKE) $(NAME)
-	
-$(NAME): $(OBJS) $(HEADER) Makefile
-	$(CC) $(OBJS) -Lmlx_linux -lmlx_Linux -L/usr/lib -Llibft -lft -lXext -lX11 -lm -lz -o $(NAME) #-Ilibft -Imlx_linux (acho que posso retirar esse -Ilibft e o mlx)
 
+$(NAME): $(OBJS) $(HEADER) Makefile
+	$(CC) $(OBJS) -O3 -Lmlx -Llibft -lft -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 # This is a pattern rule that specifies to make how to build an object file (.o) from a 
 # corresponding source file (.c). It also depends on the $(HEADER) file and Makefile, meaning the
@@ -66,7 +65,7 @@ $(OBJ_DIR) $(DEP_DIR):
 # Ensure that parser subdirectories are created
 $(OBJ_DIR_PARSER) $(DEP_DIR_PARSER): | $(OBJ_DIR) $(DEP_DIR)
 	mkdir -p $@
-	
+
 clean:
 	rm -f $(OBJS) $(DEPS)
 	rm -f $(NAME)

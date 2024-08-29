@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parse_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsulzbac <lsulzbac@student.42barcel>       +#+  +:+       +#+        */
+/*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 10:19:30 by lsulzbac          #+#    #+#             */
-/*   Updated: 2024/03/16 10:19:31 by lsulzbac         ###   ########.fr       */
+/*   Updated: 2024/08/29 15:00:50 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	is_textures_ok(t_texture *tex)
+int	is_textures_ok(t_textures *tex)
 {
 	return (tex->ceiling && tex->floor && tex->north && tex->south && tex->west
 		&& tex->east);

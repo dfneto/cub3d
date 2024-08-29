@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/28 15:47:10 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/29 15:02:33 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,15 @@ typedef struct s_img
 
 typedef struct s_ray
 {
-    int		hit;
     int		mapX;
     int		mapY;
     int		stepX;
     int		stepY;
     int		side;
-    int		lineHeight;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+	double	wall_x;
 	double	rayDirX;
     double	rayDirY;
     double	cameraX;
@@ -92,7 +94,7 @@ typedef struct s_texture
 	t_img	*east;
 	int		*floor;
 	int		*ceiling;
-}	t_texture;
+}	t_textures;
 
 //x e y sao as coordenadas do jogador no map grid (mapa de 0s e 1s) e sao float
 //porque depois serao convertidas em pixels no mapa e assim tenham mais possibilidades
@@ -116,9 +118,10 @@ typedef struct s_data
 	t_img		*img;
 	t_player	*player;
 	char		**map; //deletei o t_map e substitui por o char**
+	int			**buffer;
 	int			map_w; //adicionei para saber o tamanho do mapa
 	int			map_h; //adicionei para saber o tamanho do mapa
-	t_texture	*textures;
+	t_textures	*textures;
 	t_ray		*ray;
 	void		*mlx_ptr;
 	void		*win_ptr;
@@ -133,6 +136,10 @@ typedef struct s_data
 void    init_window_and_image(t_data *data);
 void	init_player(t_data *data);
 void    init_ray(t_ray *ray);
+
+//dda.c
+void	execute_dda(t_ray *ray, char **grid_map);
+void	set_dda(t_ray *ray, t_player * player);
 
 
 
@@ -155,7 +162,7 @@ char	*ft_strcat(char *s1, char *s2, int clean_it);
 char	**ft_read(int fd);
 
 //parse_texture.c
-int	is_textures_ok(t_texture *tex);
+int	is_textures_ok(t_textures *tex);
 void	check_texture_input(char *line, t_data *data);
 
 //image_utils.c
@@ -200,10 +207,14 @@ char	**fake_split(char const *s, char c);
 
 /* LUKITA ENDS */
 
-
+//raycasting_utils.c
+t_img	*define_wall_texture(t_ray *ray, t_textures *textures);
+void	calculate_line_height(t_ray *ray);
+void	calculate_wall_x(t_ray *ray, t_player *player);
 
 //render.c
 void    render(t_data *data);
+void	draw_with_raycasting(t_data *data);
 
 //textures.c
 t_img *loadTexture(void *mlx, char *file_path, int *width, int *height);
@@ -221,22 +232,17 @@ int draw_player_direction_line(t_img *img, t_player *player, int beginX, int beg
 
 //utils.c
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
-void    color_floor(t_data *data, unsigned int buffer[HEIGHT][WIDTH], int drawStart, int x);
-void    color_ceiling(t_data *data, unsigned int buffer[HEIGHT][WIDTH], int drawEnd, int x);
+void    color_floor(t_data *data, int **buffer, int drawStart, int x);
+void    color_ceiling(t_data *data, int **buffer, int drawEnd, int x);
 
 //hooks.c
 void	set_hooks(t_data *data);
 
 //draw_everything_3d.c
-void draw_everything_3d_texture(t_data *data);
-
-void calculate_wall_distance(t_ray *ray);
-
-void calculate_wall_distance(t_ray *ray);
-
 void calculate_ray_direction_and_delta(t_ray *ray, t_player *player);
+void calculate_wall_distance(t_ray *ray);
 
-void calculate_side_dist_wall_position_and_side(t_ray *ray, char **grid_map);
-void calculate_side_dist_and_step(t_ray *ray, t_player *player);
+//set_texture_pixels.c
+void	set_wall_texture_pixels(t_ray *ray, int **buffer, int x, t_textures *textures);
 
 #endif

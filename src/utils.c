@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 09:43:59 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/28 15:35:43 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/29 11:35:06 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	// img->addr[pixel] = color;
 }
 
-void    color_floor(t_data *data, unsigned int buffer[HEIGHT][WIDTH], int drawStart, int x)
+void    color_floor(t_data *data, int **buffer, int drawStart, int x)
 {
     int y = 0;
     while (y < drawStart)
@@ -36,7 +36,7 @@ void    color_floor(t_data *data, unsigned int buffer[HEIGHT][WIDTH], int drawSt
     }
 }
 
-void    color_ceiling(t_data *data, unsigned int buffer[HEIGHT][WIDTH], int drawEnd, int x)
+void    color_ceiling(t_data *data, int **buffer, int drawEnd, int x)
 {
     int y = drawEnd;
     while (y < HEIGHT)
