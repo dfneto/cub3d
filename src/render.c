@@ -6,16 +6,46 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 13:18:57 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/30 06:47:46 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/30 15:06:44 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+void update_player_position(t_player *p, t_data *data)
+{
+    double next_x = p->pos_x;
+    double next_y = p->pos_y;
+
+    if (data->w)
+    {
+        next_x += p->dir_x * PLAYER_SPEED;
+        next_y += p->dir_y * PLAYER_SPEED;
+    }
+    if (data->r)
+    {
+        double		old_dir_x;
+		double		old_plane_x;
+
+		old_dir_x = p->dir_x;
+		p->dir_x = p->dir_x * cos(-ROT_SPEED) - p->dir_y * sin(-ROT_SPEED);
+		p->dir_y = old_dir_x * sin(-ROT_SPEED) + p->dir_y * cos(-ROT_SPEED);
+		old_plane_x = p->planeX;
+		p->planeX = p->planeX * cos(-ROT_SPEED) - p->planeY * sin(-ROT_SPEED);
+		p->planeY = old_plane_x * sin(-ROT_SPEED) + p->planeY * cos(-ROT_SPEED);
+    }
+    if (is_next_position_valid(data, next_x, next_y))
+	{
+		p->pos_x = next_x;
+		p->pos_y = next_y;
+	}
+}
+
 void	render(t_data *data)
 {
 	draw_with_raycasting(data);
 	draw_minimap(data);
+	update_player_position(data->player, data);
 	mlx_put_image_to_window(data->mlx_ptr,
 		data->win_ptr, data->img->img_ptr, 0, 0);
 }

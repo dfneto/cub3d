@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/30 14:48:56 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/30 15:06:07 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,8 @@ typedef struct s_data
 	int			player_grid_x; //x do player no map
 	int			player_grid_y; //y do player no map
 	int			number_of_players; //a quantidade de jogadores no mapa (se mais ou menos de 1 erro)
+	int			w;
+	int			r;
 }	t_data;
 
 //inits.c
@@ -149,6 +151,10 @@ void	set_dda(t_ray *ray, t_player * player);
 void    rotate_right(t_player *player);
 void	rotate_left(t_player *player);
 void	make_move(int keycode, t_data *data);
+
+int	is_next_position_valid(t_data *data, double next_x, double next_y);
+
+
 
 
 /* LUKITA START */
