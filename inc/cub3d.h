@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/30 15:06:07 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/30 15:16:17 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,6 +225,8 @@ char	**fake_split(char const *s, char c);
 t_img	*define_wall_texture(t_ray *ray, t_textures *textures);
 void	calculate_line_height(t_ray *ray);
 void	calculate_wall_x(t_ray *ray, t_player *player);
+void	calculate_ray_direction_and_delta(t_ray *ray, t_player *player);
+void	calculate_wall_distance(t_ray *ray);
 
 //render.c
 void    render(t_data *data);
@@ -236,13 +238,12 @@ t_img *loadTexture(void *mlx, char *file_path, int *width, int *height);
 //errors.c
 void clean_exit(t_data *data, char *msg);
 
-// draw_elements.c
+// minimap.c
 void	draw_minimap(t_data *data);
 void	draw_player(t_img *img, t_player *player);
 void	draw_map_walls(t_img *img, t_data *data);
 void	draw_the_wall(t_img *img, int row, int column, int color);
-int	is_player_inside_the_borders_map(t_player *player);
-int draw_player_direction_line(t_img *img, t_player *player, int beginX, int beginY, int color);
+int		draw_player_direction_line(t_img *img, t_player *player, int beginX, int beginY, int color);
 
 //utils.c
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
@@ -251,10 +252,6 @@ void    color_ceiling(t_data *data, int **buffer, int drawEnd, int x);
 
 //hooks.c
 void	set_hooks(t_data *data);
-
-//draw_everything_3d.c
-void calculate_ray_direction_and_delta(t_ray *ray, t_player *player);
-void calculate_wall_distance(t_ray *ray);
 
 //set_texture_pixels.c
 void	set_wall_texture_pixels(t_ray *ray, int **buffer, int x, t_textures *textures);
