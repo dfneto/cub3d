@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:04:23 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/29 15:00:50 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/30 06:23:57 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,12 @@ void	init_data(t_data *data, char *argv)
 {
 	data->textures = (t_textures *)safe_calloc(1, sizeof(t_textures)); //TODO: necessario um safe calloc?
 	data->ray = (t_ray *)safe_calloc(1, sizeof(t_ray));
-	// buffer[HEIGHT][WIDTH]
-	// data->buffer = (unsigned int **)malloc(HEIGHT * sizeof(int));
 	data->buffer = (int **)malloc(HEIGHT * sizeof(int *));
 
 	int i = 0;
 	while (i < WIDTH)
 	{
-		// data->buffer[i] = (unsigned int *)malloc(WIDTH * sizeof(int));
 		data->buffer[i] = (int *)malloc(WIDTH * sizeof(int));
-
 		i++;
 	}
 	init_window_and_image(data);

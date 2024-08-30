@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:19:33 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/29 12:36:47 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/30 13:05:50 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 //get incremented with step_x and step_y respectively
 //side: 1 if the ray intersects a NS grid line (y-side), 
 //0 if the ray intersects a EW grid line (x-side)
-void	execute_dda(t_ray *ray, char **grid_map)
+void	execute_dda(t_ray *ray, char **grid_map, int height, int width)
 {
 	int	hit;
 
@@ -29,16 +29,21 @@ void	execute_dda(t_ray *ray, char **grid_map)
 		if (ray->sideDistX < ray->sideDistY)
 		{
 			ray->sideDistX += ray->deltaDistX;
-			ray->mapX += ray->stepX;
+			ray->map_x += ray->stepX;
 			ray->side = 0;
 		}
 		else
 		{
 			ray->sideDistY += ray->deltaDistY;
-			ray->mapY += ray->stepY;
+			ray->map_y += ray->stepY;
 			ray->side = 1;
 		}
-		if (grid_map[ray->mapY][ray->mapX] >= '1')
+		if (ray->map_y < 0.25
+			|| ray->map_x < 0.25
+			|| ray->map_y >= height
+			|| ray->map_x >= width)
+			break ;
+		else if (grid_map[ray->map_y][ray->map_x] >= '1')
 			hit = 1;
 	}
 }
@@ -55,21 +60,21 @@ void	set_dda(t_ray *ray, t_player *player)
 	if (ray->rayDirX < 0)
 	{
 		ray->stepX = -1;
-		ray->sideDistX = (player->pos_x - ray->mapX) * ray->deltaDistX;
+		ray->sideDistX = (player->pos_x - ray->map_x) * ray->deltaDistX;
 	}
 	else
 	{
 		ray->stepX = 1;
-		ray->sideDistX = (ray->mapX + 1.0 - player->pos_x) * ray->deltaDistX;
+		ray->sideDistX = (ray->map_x + 1.0 - player->pos_x) * ray->deltaDistX;
 	}
 	if (ray->rayDirY < 0)
 	{
 		ray->stepY = -1;
-		ray->sideDistY = (player->pos_y - ray->mapY) * ray->deltaDistY;
+		ray->sideDistY = (player->pos_y - ray->map_y) * ray->deltaDistY;
 	}
 	else
 	{
 		ray->stepY = 1;
-		ray->sideDistY = (ray->mapY + 1.0 - player->pos_y) * ray->deltaDistY;
+		ray->sideDistY = (ray->map_y + 1.0 - player->pos_y) * ray->deltaDistY;
 	}
 }

@@ -1,5 +1,6 @@
-[] Ao cruzar uma parede da segfault
 [] Fazer a colisão
+[] Fazer a linha de direção ir até a parede
+    [] Colocar várias linha de visão?
 
 [] draw_elements.c
 [] hooks.c
@@ -12,7 +13,7 @@
 Lucas:
 como ver se tem leaks
 ft_bzero(&data, sizeof(t_data)); //TODO: necessario?? Lucas
-
+por que ele precisou de invert_grid no check_closed?
 
 DONE
 [x] Usar cores rgb: https://harm-smits.github.io/42docs/libs/minilibx/colors.html)
@@ -34,6 +35,7 @@ DONE
 [X] Fazer o raycasting
 [X] Fazer o minimap
 [x] Carregar texturas diferentes para NSEW
+[x] Ao cruzar uma parede da segfault
 
 
 mlx_clear_window - clears the current window. This is not a recommended function 

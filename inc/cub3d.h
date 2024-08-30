@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/29 15:02:33 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:48:56 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,10 @@
 # define KEY_LEFT_L	65361
 # define KEY_RIGHT_M	124 //65363 //124
 # define KEY_RIGHT_L	65363
+#define KeyPress		2
+#define KeyRelease		3
+#define KeyPressMask			(1L<<0)
+#define KeyReleaseMask			(1L<<1)
 
 #define MINI_WALL_SIZE	8
 #define ROT_SPEED		0.09
@@ -67,8 +71,8 @@ typedef struct s_img
 
 typedef struct s_ray
 {
-    int		mapX;
-    int		mapY;
+    int		map_x;
+    int		map_y;
     int		stepX;
     int		stepY;
     int		side;
@@ -138,9 +142,13 @@ void	init_player(t_data *data);
 void    init_ray(t_ray *ray);
 
 //dda.c
-void	execute_dda(t_ray *ray, char **grid_map);
+void	execute_dda(t_ray *ray, char **grid_map, int height, int width);
 void	set_dda(t_ray *ray, t_player * player);
 
+//movement_and_rotation.c
+void    rotate_right(t_player *player);
+void	rotate_left(t_player *player);
+void	make_move(int keycode, t_data *data);
 
 
 /* LUKITA START */

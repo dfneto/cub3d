@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 19:23:03 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/29 12:07:20 by davifern         ###   ########.fr       */
+/*   Updated: 2024/08/30 06:46:13 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,8 @@ void    init_ray(t_ray *ray)
     ray->sideDistX = 0.0;
     ray->sideDistY = 0.0;
     ray->wall_distance = 0.0;
-    ray->mapX = 0;
-    ray->mapY = 0;
+    ray->map_x = 0;
+    ray->map_y = 0;
     ray->stepX = 0;
     ray->stepY = 0;
     ray->side = 0;
