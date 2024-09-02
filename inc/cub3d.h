@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/30 15:16:17 by davifern         ###   ########.fr       */
+/*   Updated: 2024/09/02 11:22:47 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,11 @@ typedef struct s_data
 	int			player_grid_y; //y do player no map
 	int			number_of_players; //a quantidade de jogadores no mapa (se mais ou menos de 1 erro)
 	int			w;
+	int			s;
+	int			a;
+	int			d;
 	int			r;
+	int			l;
 }	t_data;
 
 //inits.c
@@ -147,12 +151,15 @@ void    init_ray(t_ray *ray);
 void	execute_dda(t_ray *ray, char **grid_map, int height, int width);
 void	set_dda(t_ray *ray, t_player * player);
 
-//movement_and_rotation.c
-void    rotate_right(t_player *player);
-void	rotate_left(t_player *player);
-void	make_move(int keycode, t_data *data);
+//rotation.c
+void    rotate_left_right(t_player *player, double rot_speed);
 
-int	is_next_position_valid(t_data *data, double next_x, double next_y);
+//movements.c
+int		is_next_position_valid(t_data *data, double next_x, double next_y);
+void	calculate_position_forward(t_player *player, double *next_x, double *next_y);
+void	calculate_position_back(t_player *player, double *next_x, double *next_y);
+void	calculate_position_left(t_player *player, double *next_x, double *next_y);
+void	calculate_position_right(t_player *player, double *next_x, double *next_y);
 
 
 
@@ -231,6 +238,7 @@ void	calculate_wall_distance(t_ray *ray);
 //render.c
 void    render(t_data *data);
 void	draw_with_raycasting(t_data *data);
+void update_player_position(t_player *player, t_data *data);
 
 //textures.c
 t_img *loadTexture(void *mlx, char *file_path, int *width, int *height);

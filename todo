@@ -1,11 +1,9 @@
-[] Fazer o movimento de andar com as setas junto
-[] hooks.c norminette
-[] Fazer a linha de direção ir até a parede
-    [] Colocar várias linha de visão?
 [] Na textura tem um pixel a mais pra baixo, assim fica uma linha preta, mas nao sempre
+[] norminette
+[] Fazer o movimento de andar com as setas junto
+    quando aperto seta para e faz o movimento + seta
+    quando solto seta para e para
 
-[] Fazer a colisão?
-[] Carregar no 2d as texturas
 Lucas:
 como ver se tem leaks
 ft_bzero(&data, sizeof(t_data)); //TODO: necessario?? Lucas
@@ -34,6 +32,12 @@ DONE
 [x] Ao cruzar uma parede da segfault
 [x] draw_everything_3d_with_texture.c
 [x] draw_elements.c
+[] hooks.c norminette
+[] Fazer a linha de direção ir até a parede
+    [] Colocar várias linha de visão?
+
+[] Fazer a colisão?
+[] Carregar no 2d as texturas
 
 mlx_clear_window - clears the current window. This is not a recommended function 
 to use. Instead it is recommended to use the function 

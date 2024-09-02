@@ -20,8 +20,8 @@ SRC_PARSER = src/parser/check_closed.c src/parser/check_map.c src/parser/clean_u
 			src/parser/parse_textures.c src/parser/read_utils.c src/parser/safe_allocation.c \
 			src/parser/safe_allocation2.c src/parser/fake_split.c src/parser/invert_image.c
 SRC = src/main.c src/dda.c src/inits.c src/errors.c src/minimap.c src/utils.c src/hooks.c \
-		src/render.c src/raycasting_utils.c \
-		src/set_texture_pixels.c src/movement_and_rotation.c \
+		src/render.c src/raycasting_utils.c src/movements.c \
+		src/set_texture_pixels.c src/rotation.c \
 		$(SRC_PARSER)
 OBJ_DIR = obj
 OBJ_DIR_PARSER = obj/parser

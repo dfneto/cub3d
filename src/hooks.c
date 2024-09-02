@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 19:37:30 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/30 15:05:11 by davifern         ###   ########.fr       */
+/*   Updated: 2024/09/02 11:23:21 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,18 @@ int	key_press_handler(int keycode, t_data *data)
 {
 	if (keycode == ESC_M || keycode == ESC_L)
 		close_window(data);
-	// else if (keycode == KEY_RIGHT_M || keycode == KEY_RIGHT_L) 
-	// 	rotate_right(data->player);
-	// else if	(keycode == KEY_LEFT_M || keycode == KEY_LEFT_L)
-	// 	rotate_left(data->player);
 	if (keycode == KEY_W_M || keycode == KEY_W_L)
-	{	
 		data->w = 1;
-	}
-	if (keycode == KEY_RIGHT_M || keycode == KEY_RIGHT_L) 
-	{
+	else if (keycode == KEY_S_M || keycode == KEY_S_L)
+		data->s = 1;
+	else if (keycode == KEY_A_M || keycode == KEY_A_L)
+		data->a = 1;
+	else if (keycode == KEY_D_M || keycode == KEY_D_L) 
+		data->d = 1;
+	else if (keycode == KEY_RIGHT_M || keycode == KEY_RIGHT_L) 
 		data->r = 1;
-	}
-	// else 
-	// 	make_move(keycode, data);
+	else if (keycode == KEY_LEFT_M || keycode == KEY_LEFT_L)
+		data->l = 1;
 	render(data);
 	return (0);
 }
@@ -50,13 +48,18 @@ int	key_press_handler(int keycode, t_data *data)
 int	key_release_handler(int keycode, t_data *data)
 {
 	if (keycode == KEY_W_M || keycode == KEY_W_L)
-	{	
 		data->w = 0;
-	}
-	if (keycode == KEY_RIGHT_M || keycode == KEY_RIGHT_L) 
-	{
+	else if (keycode == KEY_S_M || keycode == KEY_S_L)
+		data->s = 0;
+	else if (keycode == KEY_A_M || keycode == KEY_A_L)
+		data->a = 0;
+	else if (keycode == KEY_D_M || keycode == KEY_D_L) 
+		data->d = 0;
+	else if (keycode == KEY_RIGHT_M || keycode == KEY_RIGHT_L) 
 		data->r = 0;
-	}
+	else if (keycode == KEY_LEFT_M || keycode == KEY_LEFT_L)
+		data->l = 0;
+	render(data);
 	return 0;
 }
 
