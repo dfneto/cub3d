@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:38:19 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/30 15:11:47 by davifern         ###   ########.fr       */
+/*   Updated: 2024/09/02 12:35:57 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 t_img	*define_wall_texture(t_ray *ray, t_textures *textures)
 {
-	if (ray->side == 0 && ray->rayDirX >= 0)
+	if (ray->side == 0 && ray->ray_dir_x >= 0)
 		return (textures->east);
-	if (ray->side == 0 && ray->rayDirX < 0)
+	if (ray->side == 0 && ray->ray_dir_x < 0)
 		return (textures->west);
-	if (ray->side == 1 && ray->rayDirY >= 0)
+	if (ray->side == 1 && ray->ray_dir_y >= 0)
 		return (textures->north);
 	return (textures->south);
 }
@@ -48,9 +48,9 @@ void	calculate_line_height(t_ray *ray)
 void	calculate_wall_x(t_ray *ray, t_player *player)
 {
 	if (ray->side == 0)
-		ray->wall_x = player->pos_y + ray->wall_distance * ray->rayDirY;
+		ray->wall_x = player->pos_y + ray->wall_distance * ray->ray_dir_y;
 	else
-		ray->wall_x = player->pos_x + ray->wall_distance * ray->rayDirX;
+		ray->wall_x = player->pos_x + ray->wall_distance * ray->ray_dir_x;
 	ray->wall_x -= floor((ray->wall_x));
 }
 
@@ -62,9 +62,9 @@ if it hits NS side
 void	calculate_wall_distance(t_ray *ray)
 {
 	if (ray->side == 0)
-		ray->wall_distance = (ray->sideDistX - ray->deltaDistX);
+		ray->wall_distance = (ray->side_dist_x - ray->delta_dist_x);
 	else
-		ray->wall_distance = (ray->sideDistY - ray->deltaDistY);
+		ray->wall_distance = (ray->side_dist_y - ray->delta_dist_y);
 }
 
 /*
@@ -75,8 +75,8 @@ to go from 1 x-side to the next x-side, or from 1 y-side to the next y-side.
 */
 void	calculate_ray_direction_and_delta(t_ray *ray, t_player *player)
 {
-	ray->rayDirX = player->dir_x + player->planeX * ray->cameraX;
-	ray->rayDirY = player->dir_y + player->planeY * ray->cameraX;
-	ray->deltaDistX = fabs(1 / ray->rayDirX);
-	ray->deltaDistY = fabs(1 / ray->rayDirY);
+	ray->ray_dir_x = player->dir_x + player->plane_x * ray->camera_x;
+	ray->ray_dir_y = player->dir_y + player->plane_y * ray->camera_x;
+	ray->delta_dist_x = fabs(1 / ray->ray_dir_x);
+	ray->delta_dist_y = fabs(1 / ray->ray_dir_y);
 }

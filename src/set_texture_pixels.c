@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:45:06 by davifern          #+#    #+#             */
-/*   Updated: 2024/08/29 15:01:55 by davifern         ###   ########.fr       */
+/*   Updated: 2024/09/02 12:15:36 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ unsigned int	get_texture_pixel(t_img *texture, int pixel_x, int pixel_y)
 int	invert_if_west_or_east(int tex_x, int side)
 {
 	if (side == 0)
-		return (texWidth - tex_x - 1);
+		return (TEXWIDTH - tex_x - 1);
 	return (tex_x);
 }
 
@@ -71,7 +71,8 @@ int	make_color_darker_for_y_sides(int side, int texture_pixel)
 //line_height eh um valor grande, porque dividi o HEIGHT da tela pelo 
 //perpWallDist. Então o step será um valor pequeno
 //tex_x: eh o x da textura de onde bateu o raio na parede.
-void	set_wall_texture_pixels(t_ray *ray, int **buffer, int x, t_textures *textures)
+void	set_wall_texture_pixels(t_ray *ray,
+	int **buffer, int x, t_textures *textures)
 {
 	int		tex_x;
 	int		tex_y;
@@ -79,17 +80,17 @@ void	set_wall_texture_pixels(t_ray *ray, int **buffer, int x, t_textures *textur
 	int		texture_pixel;
 	double	step;
 	double	tex_pos;
-	t_img		*texture;
+	t_img	*texture;
 
 	texture = define_wall_texture(ray, textures);
-	tex_x = (int)(ray->wall_x * (double)texWidth);
+	tex_x = (int)(ray->wall_x * (double)TEXWIDTH);
 	tex_x = invert_if_west_or_east(tex_x, ray->side);
-	step = 1.0 * texHeight / ray->line_height;
+	step = 1.0 * TEXHEIGHT / ray->line_height;
 	tex_pos = (ray->draw_start - HEIGHT / 2 + ray->line_height / 2) * step;
 	y = ray->draw_start;
 	while (y < ray->draw_end)
 	{
-		tex_y = (int)tex_pos & (texHeight - 1);
+		tex_y = (int)tex_pos & (TEXHEIGHT - 1);
 		tex_pos += step;
 		texture_pixel = get_texture_pixel(texture, tex_x, tex_y);
 		texture_pixel = make_color_darker_for_y_sides(ray->side, texture_pixel);

@@ -82,7 +82,7 @@ int main(int /*argc*/, char */*argv*/[])
   double oldTime = 0; //time of previous frame
 
   std::vector<Uint32> texture[8];
-  for(int i = 0; i < 8; i++) texture[i].resize(texWidth * texHeight);
+  for(int i = 0; i < 8; i++) texture[i].resize(TEXWIDTH * texHeight);
 
   screen(screenWidth,screenHeight, 0, "Raycaster");
 
@@ -214,9 +214,9 @@ int main(int /*argc*/, char */*argv*/[])
       wallX -= floor((wallX));
 
       //x coordinate on the texture
-      int texX = int(wallX * double(texWidth));
-      if(side == 0 && rayDirX > 0) texX = texWidth - texX - 1;
-      if(side == 1 && rayDirY < 0) texX = texWidth - texX - 1;
+      int texX = int(wallX * double(TEXWIDTH));
+      if(side == 0 && rayDirX > 0) texX = TEXWIDTH - texX - 1;
+      if(side == 1 && rayDirY < 0) texX = TEXWIDTH - texX - 1;
 
       // TODO: an integer-only bresenham or DDA like algorithm could make the texture coordinate stepping faster
       // How much to increase the texture coordinate per screen pixel

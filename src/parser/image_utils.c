@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jocorrea <jocorrea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 09:47:19 by anyela            #+#    #+#             */
-/*   Updated: 2024/03/23 17:22:05 by jocorrea         ###   ########.fr       */
+/*   Updated: 2024/09/02 12:02:22 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ t_img	*new_file_img(char *path, t_data *data)
 	if (!img->img_ptr)
 		ft_perror(EINVAL, "Cannot load image");
 	else
-		img->addr = mlx_get_data_addr(img->img_ptr, &(img->bpp), &(img->line_len),
-				&(img->endian));
+		img->addr = mlx_get_data_addr(img->img_ptr, &(img->bpp),
+				&(img->line_len), &(img->endian));
 	if (img->h != img->w)
 		ft_perror(EINVAL, "All textures must be squares");
 	if (!data->tile)

@@ -16,9 +16,9 @@ int	mlx_int_param_undef()
 
 int	mlx_int_param_KeyPress(t_xvar *xvar, XEvent *ev, t_win_list *win)
 {
-  win->hooks[KeyPress].hook(XkbKeycodeToKeysym(xvar->display,
+  win->hooks[KEYPRESS].hook(XkbKeycodeToKeysym(xvar->display,
 					       ev->xkey.keycode, 0, 0),
-			    win->hooks[KeyPress].param);
+			    win->hooks[KEYPRESS].param);
 }
 
 int	mlx_int_param_KeyRelease(t_xvar *xvar, XEvent *ev, t_win_list *win)

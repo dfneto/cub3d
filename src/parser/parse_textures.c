@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 10:19:30 by lsulzbac          #+#    #+#             */
-/*   Updated: 2024/08/29 15:00:50 by davifern         ###   ########.fr       */
+/*   Updated: 2024/09/02 12:01:30 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ void	add_texture(char *tok, char *info, t_data *data)
 	else if (!ft_strcmp(tok, "SO") && !data->textures->south)
 	{
 		data->textures->south = new_file_img(tmp, data);
-		invert_image_x(data->textures->south); //Talvez nao precise...
+		invert_image_x(data->textures->south);
 	}
 	else if (!ft_strcmp(tok, "WE") && !data->textures->west)
 	{
 		data->textures->west = new_file_img(tmp, data);
-		invert_image_x(data->textures->west); //Talvez nao precise...
+		invert_image_x(data->textures->west);
 	}
 	else if (!ft_strcmp(tok, "EA") && !data->textures->east)
 		data->textures->east = new_file_img(tmp, data);

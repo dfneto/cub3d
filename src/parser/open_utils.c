@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsulzbac <lsulzbac@student.42barcel>       +#+  +:+       +#+        */
+/*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 19:28:14 by lsulzbac          #+#    #+#             */
-/*   Updated: 2023/08/14 11:32:10 by lsulzbac         ###   ########.fr       */
+/*   Updated: 2024/09/02 12:03:34 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	ft_strcmp(char *s1, char *s2)
 		s1++;
 		s2++;
 	}
-
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/09/02 11:22:47 by davifern         ###   ########.fr       */
+/*   Updated: 2024/09/02 12:36:27 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 
 # define WIDTH		768
 # define HEIGHT		768
-# define texWidth 	64 //tamanho da textura: uma imagem xpm de tamanho 64x64 pixels
-# define texHeight 	64
+# define TEXWIDTH 	64 //tamanho da textura: uma imagem xpm de 64x64 pxl
+# define TEXHEIGHT 	64
 # define ESC_M		53 //65307 //53
 # define ESC_L		65307
 # define LEFT_CLICK 1
@@ -43,18 +43,16 @@
 # define KEY_LEFT_L	65361
 # define KEY_RIGHT_M	124 //65363 //124
 # define KEY_RIGHT_L	65363
-#define KeyPress		2
-#define KeyRelease		3
-#define KeyPressMask			(1L<<0)
-#define KeyReleaseMask			(1L<<1)
+# define KEYPRESS		2
+# define KEYRELEASE		3
 
-#define MINI_WALL_SIZE	8
-#define ROT_SPEED		0.09
-#define PLAYER_SPEED	0.2
-#define PLAYER_SIZE		2
+# define MINI_WALL_SIZE	8
+# define ROT_SPEED		0.09
+# define PLAYER_SPEED	0.2
+# define PLAYER_SIZE		2
 
-#define EXTENSION ".cub"
-#define VALID_CHAR	"01 NEWS"
+# define EXTENSION ".cub"
+# define VALID_CHAR	"01 NEWS"
 
 //img_ptr is a pixel vector that will be plot. 
 //It represents the image in the window
@@ -65,29 +63,29 @@ typedef struct s_img
 	int		bpp;
 	int		endian;
 	int		line_len;
-	int		w; //adicionei para saber o tamanho da textura
-	int		h; //adicionei para saber o tamanho da textura
+	int		w;
+	int		h;
 }		t_img;
 
 typedef struct s_ray
 {
-    int		map_x;
-    int		map_y;
-    int		stepX;
-    int		stepY;
-    int		side;
+	int		map_x;
+	int		map_y;
+	int		step_x;
+	int		step_y;
+	int		side;
 	int		line_height;
 	int		draw_start;
 	int		draw_end;
 	double	wall_x;
-	double	rayDirX;
-    double	rayDirY;
-    double	cameraX;
-    double	deltaDistX;
-    double	deltaDistY;
-    double	sideDistX;
-    double	sideDistY;
-    double	wall_distance;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	double	camera_x;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	wall_distance;
 }	t_ray;
 
 typedef struct s_texture
@@ -101,39 +99,42 @@ typedef struct s_texture
 }	t_textures;
 
 //x e y sao as coordenadas do jogador no map grid (mapa de 0s e 1s) e sao float
-//porque depois serao convertidas em pixels no mapa e assim tenham mais possibilidades
-//de valores do que inteiros
+//porque depois serao convertidas em pixels no mapa e 
+//assim tenham mais possibilidades de valores do que inteiros
 typedef struct s_player
 {
 	double		pos_x;
 	double		pos_y;
 	double		dir_x;
 	double		dir_y;
-	double		planeX;
-    double		planeY;
+	double		plane_x;
+	double		plane_y;
 	int			size;
 	int			map_x;
-	int 		map_y;
+	int			map_y;
 	float		speed;
 }	t_player;
 
+// int			player_grid_x; x do player no map
+// int			player_grid_y; y do player no map
+//player_grid_direction: representa a direcao do player: N, S, W, E
 typedef struct s_data
 {
 	t_img		*img;
 	t_player	*player;
-	char		**map; //deletei o t_map e substitui por o char**
+	char		**map;
 	int			**buffer;
-	int			map_w; //adicionei para saber o tamanho do mapa
-	int			map_h; //adicionei para saber o tamanho do mapa
+	int			map_w;
+	int			map_h;
 	t_textures	*textures;
 	t_ray		*ray;
 	void		*mlx_ptr;
 	void		*win_ptr;
-	int			*tile; //adicionei para saber o tamanho do tile (textura)
-	int			player_grid_direction; //transformar em char. representa a direcao do player: N, S, W, E. Mudar o nome para player_grid_direction
-	int			player_grid_x; //x do player no map
-	int			player_grid_y; //y do player no map
-	int			number_of_players; //a quantidade de jogadores no mapa (se mais ou menos de 1 erro)
+	int			*tile;
+	char		player_grid_direction;
+	int			player_grid_x;
+	int			player_grid_y;
+	int			number_of_players;
 	int			w;
 	int			s;
 	int			a;
@@ -143,52 +144,93 @@ typedef struct s_data
 }	t_data;
 
 //inits.c
-void    init_window_and_image(t_data *data);
+void	init_window_and_image(t_data *data);
 void	init_player(t_data *data);
-void    init_ray(t_ray *ray);
+void	init_ray(t_ray *ray);
+
+//inits_utils.c
+void	set_to_north_or_south(t_player *player, double dir);
+void	set_to_east_or_west(t_player *player, double dir);
 
 //dda.c
 void	execute_dda(t_ray *ray, char **grid_map, int height, int width);
-void	set_dda(t_ray *ray, t_player * player);
+void	set_dda(t_ray *ray, t_player *player);
 
 //rotation.c
-void    rotate_left_right(t_player *player, double rot_speed);
+void	rotate_left_right(t_player *player, double rot_speed);
 
 //movements.c
-int		is_next_position_valid(t_data *data, double next_x, double next_y);
-void	calculate_position_forward(t_player *player, double *next_x, double *next_y);
-void	calculate_position_back(t_player *player, double *next_x, double *next_y);
-void	calculate_position_left(t_player *player, double *next_x, double *next_y);
-void	calculate_position_right(t_player *player, double *next_x, double *next_y);
+int		is_next_position_valid(t_data *data,
+			double next_x, double next_y);
+void	calculate_position_forward(t_player *player,
+			double *next_x, double *next_y);
+void	calculate_position_back(t_player *player,
+			double *next_x, double *next_y);
+void	calculate_position_left(t_player *player,
+			double *next_x, double *next_y);
+void	calculate_position_right(t_player *player,
+			double *next_x, double *next_y);
 
+//raycasting_utils.c
+t_img	*define_wall_texture(t_ray *ray, t_textures *textures);
+void	calculate_line_height(t_ray *ray);
+void	calculate_wall_x(t_ray *ray, t_player *player);
+void	calculate_ray_direction_and_delta(t_ray *ray, t_player *player);
+void	calculate_wall_distance(t_ray *ray);
 
+//render.c
+void	render(t_data *data);
+void	draw_with_raycasting(t_data *data);
+void	update_player_position(t_player *player, t_data *data);
 
+// render_utils.c
+void	render_buffer(int **buffer, t_img *img);
+void	clean_buffer(int **buffer);
+void	apply_position(t_player *player, double next_x, double next_y);
+
+//errors.c
+void	clean_exit(t_data *data, char *msg);
+
+// minimap.c
+void	draw_minimap(t_data *data);
+void	draw_player(t_img *img, t_player *player);
+void	draw_map_walls(t_img *img, t_data *data);
+void	draw_the_wall(t_img *img, int row, int column, int color);
+
+//utils.c
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+void	color_floor(t_data *data, int **buffer, int drawStart, int x);
+void	color_ceiling(t_data *data, int **buffer, int drawEnd, int x);
+
+//hooks.c
+void	set_hooks(t_data *data);
+
+//set_texture_pixels.c
+void	set_wall_texture_pixels(t_ray *ray, int **buffer,
+			int x, t_textures *textures);
 
 /* LUKITA START */
-
 // era tua funçao mas adicionei ela aqui
-void    invert_grid(t_data *data);
-
-
+void	invert_grid(t_data *data);
 
 //parse_input.c
 void	parse_input(char *argv, t_data *data);
 
 //open_utils.c
-int	ft_open(char *filename);
-int	ft_strcmp(char *s1, char *s2);
+int		ft_open(char *filename);
+int		ft_strcmp(char *s1, char *s2);
 char	*ft_strcat(char *s1, char *s2, int clean_it);
 
 //read_utils.c
 char	**ft_read(int fd);
 
 //parse_texture.c
-int	is_textures_ok(t_textures *tex);
+int		is_textures_ok(t_textures *tex);
 void	check_texture_input(char *line, t_data *data);
 
 //image_utils.c
 t_img	*new_file_img(char *path, t_data *data);
-int	*create_new_color(char *path);
+int		*create_new_color(char *path);
 
 //safe_allocation.c && safe_allocation2.c
 void	*safe_malloc(size_t len);
@@ -223,45 +265,6 @@ void	invert_image_x(t_img *img);
 
 //fake_split.c
 char	**fake_split(char const *s, char c);
-
-
-
 /* LUKITA ENDS */
-
-//raycasting_utils.c
-t_img	*define_wall_texture(t_ray *ray, t_textures *textures);
-void	calculate_line_height(t_ray *ray);
-void	calculate_wall_x(t_ray *ray, t_player *player);
-void	calculate_ray_direction_and_delta(t_ray *ray, t_player *player);
-void	calculate_wall_distance(t_ray *ray);
-
-//render.c
-void    render(t_data *data);
-void	draw_with_raycasting(t_data *data);
-void update_player_position(t_player *player, t_data *data);
-
-//textures.c
-t_img *loadTexture(void *mlx, char *file_path, int *width, int *height);
-
-//errors.c
-void clean_exit(t_data *data, char *msg);
-
-// minimap.c
-void	draw_minimap(t_data *data);
-void	draw_player(t_img *img, t_player *player);
-void	draw_map_walls(t_img *img, t_data *data);
-void	draw_the_wall(t_img *img, int row, int column, int color);
-int		draw_player_direction_line(t_img *img, t_player *player, int beginX, int beginY, int color);
-
-//utils.c
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
-void    color_floor(t_data *data, int **buffer, int drawStart, int x);
-void    color_ceiling(t_data *data, int **buffer, int drawEnd, int x);
-
-//hooks.c
-void	set_hooks(t_data *data);
-
-//set_texture_pixels.c
-void	set_wall_texture_pixels(t_ray *ray, int **buffer, int x, t_textures *textures);
 
 #endif

@@ -1,28 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rotation.c                                         :+:      :+:    :+:   */
+/*   inits_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/30 13:50:18 by davifern          #+#    #+#             */
+/*   Created: 2024/09/02 11:33:57 by davifern          #+#    #+#             */
 /*   Updated: 2024/09/02 12:35:57 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// x = x * cs(ang) - y * sn(ang); ang eh o angulo que quero rotacionar
-// y = x * sn(ang) + y * cs(ang);
-void	rotate_left_right(t_player *p, double rot_speed)
+void	set_to_north_or_south(t_player *player, double dir)
 {
-	double		old_dir_x;
-	double		old_plane_x;
+	if (dir == 'N')
+	{
+		player->dir_x = 0.0;
+		player->dir_y = 1.0;
+		player->plane_x = 0.66;
+		player->plane_y = 0.0;
+	}
+	else
+	{
+		player->dir_x = 0.0;
+		player->dir_y = -1.0;
+		player->plane_x = -0.66;
+		player->plane_y = 0;
+	}
+}
 
-	old_dir_x = p->dir_x;
-	p->dir_x = p->dir_x * cos(rot_speed) - p->dir_y * sin(rot_speed);
-	p->dir_y = old_dir_x * sin(rot_speed) + p->dir_y * cos(rot_speed);
-	old_plane_x = p->plane_x;
-	p->plane_x = p->plane_x * cos(rot_speed) - p->plane_y * sin(rot_speed);
-	p->plane_y = old_plane_x * sin(rot_speed) + p->plane_y * cos(rot_speed);
+void	set_to_east_or_west(t_player *player, double dir)
+{
+	if (dir == 'E')
+	{
+		player->dir_x = 1.0;
+		player->dir_y = 0.0;
+		player->plane_x = 0;
+		player->plane_y = -0.66;
+	}
+	else
+	{
+		player->dir_x = -1.0;
+		player->dir_y = 0.0;
+		player->plane_x = 0;
+		player->plane_y = 0.66;
+	}
 }
