@@ -1,4 +1,3 @@
-[] norminette: minimap
 [] Fazer o movimento de andar com as setas junto
     quando aperto seta para e faz o movimento + seta
     quando solto seta para e para
@@ -38,6 +37,7 @@ DONE
 [] Fazer a linha de direção ir até a parede
     [] Colocar várias linha de visão?
 [x] Na textura tem um pixel a mais pra baixo, assim fica uma linha preta, mas nao sempre
+[x] norminette: minimap
 
 [] Fazer a colisão?
 [] Carregar no 2d as texturas
