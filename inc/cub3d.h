@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/09/03 17:11:53 by davifern         ###   ########.fr       */
+/*   Updated: 2024/09/03 20:11:58 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,8 @@ typedef struct s_player
 // int			player_grid_x; x do player no map
 // int			player_grid_y; y do player no map
 //player_grid_direction: representa a direcao do player: N, S, W, E
+//tex_x e tex_y são usadas para a textura e idealmente não 
+//deveriam estar aqui
 typedef struct s_data
 {
 	t_img		*img;
@@ -141,6 +143,8 @@ typedef struct s_data
 	int			d;
 	int			r;
 	int			l;
+	int			tex_x;
+	int			tex_y;
 }	t_data;
 
 //inits.c
@@ -207,7 +211,7 @@ void	set_hooks(t_data *data);
 
 //set_texture_pixels.c
 void	set_wall_texture_pixels(t_ray *ray, int **buffer,
-			int x, t_textures *textures);
+			int x, t_data *data);
 
 /* LUKITA START */
 // era tua funçao mas adicionei ela aqui

@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 13:18:57 by davifern          #+#    #+#             */
-/*   Updated: 2024/09/02 12:34:21 by davifern         ###   ########.fr       */
+/*   Updated: 2024/09/03 20:11:42 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	draw_with_raycasting(t_data *data)
 		calculate_wall_distance(ray);
 		calculate_line_height(ray);
 		calculate_wall_x(ray, player);
-		set_wall_texture_pixels(ray, data->buffer, x, data->textures);
+		set_wall_texture_pixels(ray, data->buffer, x, data);
 		color_floor(data, data->buffer, ray->draw_start, x);
 		color_ceiling(data, data->buffer, ray->draw_end, x);
 		x++;
