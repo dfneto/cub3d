@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/09/02 12:36:27 by davifern         ###   ########.fr       */
+/*   Updated: 2024/09/03 17:11:53 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,7 @@ void	update_player_position(t_player *player, t_data *data);
 void	render_buffer(int **buffer, t_img *img);
 void	clean_buffer(int **buffer);
 void	apply_position(t_player *player, double next_x, double next_y);
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 //errors.c
 void	clean_exit(t_data *data, char *msg);
@@ -197,8 +198,7 @@ void	draw_player(t_img *img, t_player *player);
 void	draw_map_walls(t_img *img, t_data *data);
 void	draw_the_wall(t_img *img, int row, int column, int color);
 
-//utils.c
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+//color_floor_ceiling.c
 void	color_floor(t_data *data, int **buffer, int drawStart, int x);
 void	color_ceiling(t_data *data, int **buffer, int drawEnd, int x);
 

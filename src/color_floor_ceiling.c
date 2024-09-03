@@ -1,32 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   color_floor_ceiling.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 09:43:59 by davifern          #+#    #+#             */
-/*   Updated: 2024/09/02 12:40:22 by davifern         ###   ########.fr       */
+/*   Updated: 2024/09/03 16:58:23 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-//Em algum momento isso foi válido
-// y = HEIGHT - y - 1; //mac
-// y = HEIGHT - y; //linux
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
-{
-	char	*dst;
-
-	y = HEIGHT - y - 1;
-	dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
-	*(unsigned int*)dst = color;
-	// int	pixel;s
-
-	// pixel = y * (img->line_len / 4) + x;
-	// img->addr[pixel] = color;
-}
 
 void	color_floor(t_data *data, int **buffer, int drawStart, int x)
 {
