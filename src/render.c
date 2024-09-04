@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 13:18:57 by davifern          #+#    #+#             */
-/*   Updated: 2024/09/03 20:11:42 by davifern         ###   ########.fr       */
+/*   Updated: 2024/09/04 20:01:04 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,15 @@ void	render(t_data *data)
 	update_player_position(data->player, data);
 	mlx_put_image_to_window(data->mlx_ptr,
 		data->win_ptr, data->img->img_ptr, 0, 0);
+}
+
+int	render_if_moved(t_data *data)
+{
+	if (!data->w && !data->s && !data->a && !data->d && !data->r && !data->l)
+		return (0);
+	data->i++;
+	render(data);
+	return (0);
 }
 
 /*
