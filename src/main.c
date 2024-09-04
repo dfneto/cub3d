@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:04:23 by davifern          #+#    #+#             */
-/*   Updated: 2024/09/02 11:44:33 by davifern         ###   ########.fr       */
+/*   Updated: 2024/09/04 19:37:51 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	main(int argc, char *argv[])
 	init_data(&data, argv[1]);
 	set_hooks(&data);
 	render(&data);
+	mlx_loop_hook(data.mlx_ptr, render, &data);
 	mlx_loop(data.mlx_ptr);
 	mlx_destroy_image(data.mlx_ptr, data.img->img_ptr);
 	return (0);

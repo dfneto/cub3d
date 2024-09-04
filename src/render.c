@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 13:18:57 by davifern          #+#    #+#             */
-/*   Updated: 2024/09/03 20:11:42 by davifern         ###   ########.fr       */
+/*   Updated: 2024/09/04 19:29:44 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,14 @@ void	update_player_position(t_player *player, t_data *data)
 		apply_position(player, next_x, next_y);
 }
 
-void	render(t_data *data)
+int	render(t_data *data)
 {
 	draw_with_raycasting(data);
 	draw_minimap(data);
 	update_player_position(data->player, data);
 	mlx_put_image_to_window(data->mlx_ptr,
 		data->win_ptr, data->img->img_ptr, 0, 0);
+	return (0);
 }
 
 /*

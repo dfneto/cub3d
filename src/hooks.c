@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 19:37:30 by davifern          #+#    #+#             */
-/*   Updated: 2024/09/02 12:14:52 by davifern         ###   ########.fr       */
+/*   Updated: 2024/09/04 19:38:37 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	close_window(t_data *data)
 // o y no alto da tela vale 0 e no fim o HEIGTH
 int	key_press_handler(int keycode, t_data *data)
 {
+	printf("Key: %d pressed\n", keycode);
+
 	if (keycode == ESC_M || keycode == ESC_L)
 		close_window(data);
 	if (keycode == KEY_W_M || keycode == KEY_W_L)
@@ -41,7 +43,6 @@ int	key_press_handler(int keycode, t_data *data)
 		data->r = 1;
 	else if (keycode == KEY_LEFT_M || keycode == KEY_LEFT_L)
 		data->l = 1;
-	render(data);
 	return (0);
 }
 
@@ -59,7 +60,6 @@ int	key_release_handler(int keycode, t_data *data)
 		data->r = 0;
 	else if (keycode == KEY_LEFT_M || keycode == KEY_LEFT_L)
 		data->l = 0;
-	render(data);
 	return (0);
 }
 
