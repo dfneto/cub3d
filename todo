@@ -1,14 +1,16 @@
-[] Fazer o movimento de andar com as setas junto
-    quando aperto seta para e faz o movimento + seta
-    quando solto seta para e para
-[] carregar texturas de diferentes tamanhos
 [] o bônus deve ser opcional?
+[] trocar os mallocs por safe_calloc
+[] fazer o clean_exit e o free_tab da combeau?
+[] mouse
 
 Lucas:
-como ver se tem leaks
-ft_bzero(&data, sizeof(t_data)); //TODO: necessario?? Lucas
-por que ele precisou de invert_grid no check_closed?
+[] pq a combou faz tantas operacoes com a mlx de destroy etc.
+[] Fazer o sprite de movimento?
+[] Fazer a colisão?
 
+[x] como ver se tem leaks
+[x] ft_bzero(&data, sizeof(t_data)); //TODO: necessario?? Lucas
+[x] por que ele precisou de invert_grid no check_closed?
 
 DONE
 [x] Usar cores rgb: https://harm-smits.github.io/42docs/libs/minilibx/colors.html)
@@ -38,8 +40,10 @@ DONE
     [] Colocar várias linha de visão?
 [x] Na textura tem um pixel a mais pra baixo, assim fica uma linha preta, mas nao sempre
 [x] norminette: minimap
-
-[] Fazer a colisão?
+[x] Fazer o movimento de andar com as setas junto
+    quando aperto seta para e faz o movimento + seta
+    quando solto seta para e para
+[] carregar texturas de diferentes tamanhos
 [] Carregar no 2d as texturas
 
 mlx_clear_window - clears the current window. This is not a recommended function 

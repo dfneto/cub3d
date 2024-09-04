@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 10:35:57 by davifern          #+#    #+#             */
-/*   Updated: 2024/09/02 11:45:50 by davifern         ###   ########.fr       */
+/*   Updated: 2024/09/04 21:20:40 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,16 @@ void	calculate_position_right(t_player *player,
 
 int	is_next_position_valid(t_data *data, double next_x, double next_y)
 {
-	if (next_x < 0.25 || next_y < 0.25
-		|| next_y >= data->map_h
-		|| next_x >= data->map_w)
-		return (0);
+	if (BONUS) //talvez seja melhor lancar um raio para ver se a parede esta na frente e assim evitar umm segfault que as vezes tomei
+	{
+		if (data->map[(int)next_y][(int)next_x] == '1')
+			return (0);
+	}
+	else {
+		if (next_x < 0.25 || next_y < 0.25
+			|| next_y >= data->map_h
+			|| next_x >= data->map_w)
+			return (0);
+	}
 	return (1);
 }

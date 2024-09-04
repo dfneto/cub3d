@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/09/04 19:36:25 by davifern         ###   ########.fr       */
+/*   Updated: 2024/09/04 21:21:03 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <unistd.h>
 # include "messages.h"
 
+# define BONUS		0
 # define WIDTH		768
 # define HEIGHT		768
 # define TEXWIDTH 	64 //tamanho da textura: uma imagem xpm de 64x64 pxl
@@ -143,6 +144,7 @@ typedef struct s_data
 	int			d;
 	int			r;
 	int			l;
+	int			i;
 	int			tex_x;
 	int			tex_y;
 }	t_data;
@@ -183,7 +185,8 @@ void	calculate_ray_direction_and_delta(t_ray *ray, t_player *player);
 void	calculate_wall_distance(t_ray *ray);
 
 //render.c
-int		render(t_data *data);
+void	render(t_data *data);
+int		render_if_moved(t_data *data);
 void	draw_with_raycasting(t_data *data);
 void	update_player_position(t_player *player, t_data *data);
 
