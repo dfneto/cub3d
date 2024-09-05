@@ -1,16 +1,28 @@
 [] o bônus deve ser opcional?
+[] norminette
+
+[] Lucas: VER COMO FAZER PARA INICIAR AS ESTRUTURAS do main
+
 [] trocar os mallocs por safe_calloc
-[] fazer o clean_exit e o free_tab da combeau?
-[] mouse
+[] remover o malloc do player, em init_player? ver init_data se preciso de algum outro malloc ou safecalloc
+[] clean exit e close_window:
+//tentar reduzir a memoria reachable
+//valgrind --leak-check=full ./cub3d maps/map_n.cub
+//still reachable: 2,468,290 bytes in 904 blocks
+//   in use at exit: 2,468,290 bytes in 904 blocks
+// ==3369753==   total heap usage: 22,777 allocs, 21,873 frees, 3,849,886 bytes allocated
 
-Lucas:
-[] pq a combou faz tantas operacoes com a mlx de destroy etc.
-[] Fazer o sprite de movimento?
-[] Fazer a colisão?
 
-[x] como ver se tem leaks
-[x] ft_bzero(&data, sizeof(t_data)); //TODO: necessario?? Lucas
-[x] por que ele precisou de invert_grid no check_closed?
+
+
+
+
+
+
+
+
+
+
 
 DONE
 [x] Usar cores rgb: https://harm-smits.github.io/42docs/libs/minilibx/colors.html)
@@ -45,6 +57,17 @@ DONE
     quando solto seta para e para
 [] carregar texturas de diferentes tamanhos
 [] Carregar no 2d as texturas
+[] Fazer a colisão? Ou o raio até a parede?
+[] fazer o clean_exit e o free_tab da combeau?
+[] mouse
+
+Lucas:
+[] pq a combou faz tantas operacoes com a mlx de destroy etc.
+[] Fazer o sprite de movimento? nao
+
+[x] como ver se tem leaks
+[x] ft_bzero(&data, sizeof(t_data)); necessario?? Lucas
+[x] por que ele precisou de invert_grid no check_closed?
 
 mlx_clear_window - clears the current window. This is not a recommended function 
 to use. Instead it is recommended to use the function 

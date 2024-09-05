@@ -6,13 +6,12 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 19:29:43 by davifern          #+#    #+#             */
-/*   Updated: 2024/09/02 11:27:48 by davifern         ###   ########.fr       */
+/*   Updated: 2024/09/05 16:40:36 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-//TODO: colocar isso?
 // if (data->mlx)
 // {
 // 	mlx_destroy_display(data->mlx);

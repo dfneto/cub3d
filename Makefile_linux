@@ -1,13 +1,12 @@
-# //TODO: remover o -MMD e ver a diferença de com e sem ele (sei que ele gera uns .d)
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
+#    Makefile_linux                                     :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: davifern <davifern@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/05 11:46:48 by davifern          #+#    #+#              #
-#    Updated: 2024/07/05 13:01:56 by davifern         ###   ########.fr        #
+#    Updated: 2024/09/05 16:39:48 by davifern         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

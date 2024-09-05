@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:04:23 by davifern          #+#    #+#             */
-/*   Updated: 2024/09/04 21:21:18 by davifern         ###   ########.fr       */
+/*   Updated: 2024/09/05 16:48:25 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	init_data(t_data *data, char *argv)
 }
 
 //VER COMO FAZER PARA INICIAR AS ESTRUTURAS. Pq?
-// ft_bzero(&data, sizeof(t_data)); //TODO: necessario??
-//mlx_destroy_image(data.mlx_ptr, data.img->img_ptr); //TODO: necessário?
+// ft_bzero(&data, sizeof(t_data));
+//mlx_destroy_image(data.mlx_ptr, data.img->img_ptr); //TODO: necessário? ver o da combeau
 int	main(int argc, char *argv[])
 {
 	t_data	data;

@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 19:23:03 by davifern          #+#    #+#             */
-/*   Updated: 2024/09/02 12:35:32 by davifern         ###   ########.fr       */
+/*   Updated: 2024/09/05 10:01:16 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,7 @@ void	init_ray(t_ray *ray)
 	ray->step_x = 0;
 	ray->step_y = 0;
 	ray->side = 0;
+	ray->line_height = 0;
+	ray->draw_end = 0;
+	ray->draw_start = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:29:30 by davifern          #+#    #+#             */
-/*   Updated: 2024/09/04 19:07:47 by davifern         ###   ########.fr       */
+/*   Updated: 2024/09/05 16:45:27 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,6 @@ void	draw_map_walls(t_img *img, t_data *data)
 	}
 }
 
-// t_point_distance end_point = 
-//dda_collision_detection_lodev(player, img->win->map);
-// int	endX = (end_point.x) * WALL_SIZE; //(player->x + 0 + 0.5) 
-//* WALL_SIZE; //1.5 é o tamanho da direction line
-// int	endY = (end_point.y) * WALL_SIZE; //(player->y - 8) *
-// WALL_SIZE; //TODO: pq + 0.5?
 //it draws a line
 //1.5 é o tamanho da direction line
 // int	draw_direction_line(t_img *img, t_player *player, int begin_x, int begin_y) - versao macos

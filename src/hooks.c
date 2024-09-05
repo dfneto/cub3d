@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 19:37:30 by davifern          #+#    #+#             */
-/*   Updated: 2024/09/04 20:24:52 by davifern         ###   ########.fr       */
+/*   Updated: 2024/09/05 16:41:13 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,6 @@
 */
 #include "cub3d.h"
 
-//TODO; tentar reduzir a memoria reachable
-//valgrind --leak-check=full ./cub3d maps/map_n.cub
-//still reachable: 2,468,290 bytes in 904 blocks
-//   in use at exit: 2,468,290 bytes in 904 blocks
-// ==3369753==   total heap usage: 22,777 allocs, 21,873 frees, 3,849,886 bytes allocated
 int	close_window(t_data *data)
 {
 	if (data->mlx_ptr && data->win_ptr)
