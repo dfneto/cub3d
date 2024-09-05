@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:38:19 by davifern          #+#    #+#             */
-/*   Updated: 2024/09/02 12:35:57 by davifern         ###   ########.fr       */
+/*   Updated: 2024/09/05 10:58:38 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void	calculate_wall_x(t_ray *ray, t_player *player)
 Calculates de perpendicular wall distance from the player to 
 the wall. Side = 0 if the ray hits EW in the wall and side = 1
 if it hits NS side
+Se por algum motivo (no mac quando a PLAYER_SPEED é abaixo de 0.11)
+o wall_distance for 0 dá segfault
 */
 void	calculate_wall_distance(t_ray *ray)
 {
@@ -65,6 +67,8 @@ void	calculate_wall_distance(t_ray *ray)
 		ray->wall_distance = (ray->side_dist_x - ray->delta_dist_x);
 	else
 		ray->wall_distance = (ray->side_dist_y - ray->delta_dist_y);
+	if (fabs(ray->wall_distance) < EPSILON)
+		ray->wall_distance = 0.0001;
 }
 
 /*
