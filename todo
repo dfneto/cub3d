@@ -1,7 +1,5 @@
-[] norminette
 [] Ver se da segfault nas parades com bonus porque a forma com faço para não cruzar as bordas nem a parede é falha (movements, line 43)
 [] Lucas: VER COMO FAZER PARA INICIAR AS ESTRUTURAS do main
-
 [] trocar os mallocs por safe_calloc
 [] remover o malloc do player, em init_player? ver init_data se preciso de algum outro malloc ou safecalloc
 [] clean exit e close_window:
@@ -11,17 +9,10 @@
 //   in use at exit: 2,468,290 bytes in 904 blocks
 // ==3369753==   total heap usage: 22,777 allocs, 21,873 frees, 3,849,886 bytes allocated
 
+[]dar uma repassada e entregar
 
 
-
-
-
-
-
-
-
-
-
+[x] norminette
 [x] o bônus deve ser opcional?
 
 DONE
