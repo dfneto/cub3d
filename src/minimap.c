@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:29:30 by davifern          #+#    #+#             */
-/*   Updated: 2024/09/05 16:45:27 by davifern         ###   ########.fr       */
+/*   Updated: 2024/09/06 18:25:08 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,59 +94,32 @@ void	draw_map_walls(t_img *img, t_data *data)
 
 //it draws a line
 //1.5 é o tamanho da direction line
-// int	draw_direction_line(t_img *img, t_player *player, int begin_x, int begin_y) - versao macos
-// {
-// 	double	delta_x;
-// 	double	delta_y;
-// 	int		end_x;
-// 	int		end_y;
-// 	int		pixels;
-
-// 	begin_x = (player->pos_x) * MINI_WALL_SIZE;
-// 	begin_y = (player->pos_y) * MINI_WALL_SIZE;
-// 	end_x = (player->pos_x + player->dir_x * 1.5) * MINI_WALL_SIZE;
-// 	end_y = (player->pos_y + player->dir_y * 1.5) * MINI_WALL_SIZE;
-// 	delta_x = end_x - begin_x;
-// 	delta_y = end_y - begin_y;
-// 	pixels = sqrt((delta_x * delta_x) + (delta_y * delta_y));
-// 	delta_x = delta_x / pixels;
-// 	delta_y = delta_y / pixels;
-// 	while (pixels)
-// 	{
-// 		my_mlx_pixel_put(img, begin_x, begin_y, BLUE);
-// 		begin_x += delta_x;
-// 		begin_y += delta_y;
-// 		pixels--;
-// 	}
-// 	return (0);
-// }
-
-int draw_direction_line(t_img *img, t_player *player, int beginX, int beginY)
+int	draw_direction_line(t_img *img, t_player *player,
+		double begin_x, double begin_y)
 {
-	int color = BLUE;
-	//Conversao de linhas/colunas do map grid em pixels
-	beginX = (player->pos_x) * MINI_WALL_SIZE; 
-	//0.5 para colocar o jogador no meio do quadrado (WALL_SIZE)
-	beginY = (player->pos_y) * MINI_WALL_SIZE;
-	
-	//1.5 é o tamanho da direction line
-	int	endX = (player->pos_x + player->dir_x * 1.5) * MINI_WALL_SIZE; 
-	int	endY = (player->pos_y + player->dir_y * 1.5) * MINI_WALL_SIZE;
-	double deltaX = endX - beginX; 
-	double deltaY = endY - beginY; 
-	int pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY));
-	deltaX = deltaX / pixels; 
-	deltaY = deltaY / pixels; 
-	double pixelX = beginX;
-	double pixelY = beginY;
+	double	delta_x;
+	double	delta_y;
+	int		end_x;
+	int		end_y;
+	int		pixels;
+
+	begin_x = (player->pos_x) * MINI_WALL_SIZE;
+	begin_y = (player->pos_y) * MINI_WALL_SIZE;
+	end_x = (player->pos_x + player->dir_x * 1.5) * MINI_WALL_SIZE;
+	end_y = (player->pos_y + player->dir_y * 1.5) * MINI_WALL_SIZE;
+	delta_x = end_x - begin_x;
+	delta_y = end_y - begin_y;
+	pixels = sqrt((delta_x * delta_x) + (delta_y * delta_y));
+	delta_x = delta_x / pixels;
+	delta_y = delta_y / pixels;
 	while (pixels)
 	{
-		my_mlx_pixel_put(img, pixelX, pixelY, color);
-		pixelX += deltaX;
-		pixelY += deltaY;
+		my_mlx_pixel_put(img, begin_x, begin_y, BLUE);
+		begin_x += delta_x;
+		begin_y += delta_y;
 		pixels--;
 	}
-	return 0;
+	return (0);
 }
 
 void	draw_minimap(t_data *data)
