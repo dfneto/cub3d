@@ -1,6 +1,5 @@
-[] o bônus deve ser opcional?
 [] norminette
-
+[] Ver se da segfault nas parades com bonus porque a forma com faço para não cruzar as bordas nem a parede é falha (movements, line 43)
 [] Lucas: VER COMO FAZER PARA INICIAR AS ESTRUTURAS do main
 
 [] trocar os mallocs por safe_calloc
@@ -23,6 +22,7 @@
 
 
 
+[x] o bônus deve ser opcional?
 
 DONE
 [x] Usar cores rgb: https://harm-smits.github.io/42docs/libs/minilibx/colors.html)
