@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/09/05 10:58:57 by davifern         ###   ########.fr       */
+/*   Updated: 2024/09/06 16:37:22 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include <unistd.h>
 # include "messages.h"
 
-# define BONUS		0
 # define WIDTH		768
 # define HEIGHT		768
 # define TEXWIDTH 	64 //tamanho da textura: uma imagem xpm de 64x64 pxl
@@ -54,6 +53,12 @@
 # define EPSILON 		1e-9
 # define EXTENSION ".cub"
 # define VALID_CHAR	"01 NEWS"
+
+//Bonus já foi definido no makefile, mas colocando aqui
+//garanto que não terei erro de compilação.
+# ifndef BONUS
+#  define BONUS 1
+# endif
 
 //img_ptr is a pixel vector that will be plot. 
 //It represents the image in the window

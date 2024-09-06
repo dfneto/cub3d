@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 13:18:57 by davifern          #+#    #+#             */
-/*   Updated: 2024/09/04 20:01:04 by davifern         ###   ########.fr       */
+/*   Updated: 2024/09/06 16:38:09 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ void	update_player_position(t_player *player, t_data *data)
 void	render(t_data *data)
 {
 	draw_with_raycasting(data);
-	draw_minimap(data);
+	if (BONUS)
+		draw_minimap(data);
 	update_player_position(data->player, data);
 	mlx_put_image_to_window(data->mlx_ptr,
 		data->win_ptr, data->img->img_ptr, 0, 0);
