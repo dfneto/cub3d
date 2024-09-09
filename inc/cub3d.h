@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:03:25 by davifern          #+#    #+#             */
-/*   Updated: 2024/09/06 16:37:22 by davifern         ###   ########.fr       */
+/*   Updated: 2024/09/09 17:22:32 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@
 # define KEYRELEASE		3
 
 # define MINI_WALL_SIZE	8
-# define ROT_SPEED		0.004
-# define PLAYER_SPEED	0.02
+# define ROT_SPEED		0.0009
+# define PLAYER_SPEED	0.002
 # define PLAYER_SIZE		2
 # define EPSILON 		1e-9
 # define EXTENSION ".cub"
