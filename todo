@@ -1,15 +1,12 @@
 []dar uma repassada, comentar e entregar
 
-Antes:
+Antes de fazer os frees em clean_exit:
 //tentar reduzir a memoria reachable
 //valgrind --leak-check=full ./cub3d maps/map_n.cub
 //still reachable: 2,468,290 bytes in 904 blocks
 //   in use at exit: 2,468,290 bytes in 904 blocks
 // ==3369753==   total heap usage: 22,777 allocs, 21,873 frees, 3,849,886 bytes allocated
-Agora:
-==1622392== HEAP SUMMARY:
-==1622392==     in use at exit: 1,682 bytes in 26 blocks
-==1622392==   total heap usage: 15,984 allocs, 15,958 frees, 3,687,403 bytes allocated
+
 
 [x] Ver se da segfault nas parades com bonus porque a forma com faço para não cruzar as bordas nem a parede é falha (movements, line 43)
 [x] Lucas: VER COMO FAZER PARA INICIAR AS ESTRUTURAS do main
