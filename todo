@@ -1,3 +1,5 @@
+[]dar uma repassada, comentar e entregar
+
 Antes:
 //tentar reduzir a memoria reachable
 //valgrind --leak-check=full ./cub3d maps/map_n.cub
@@ -8,10 +10,6 @@ Agora:
 ==1622392== HEAP SUMMARY:
 ==1622392==     in use at exit: 1,682 bytes in 26 blocks
 ==1622392==   total heap usage: 15,984 allocs, 15,958 frees, 3,687,403 bytes allocated
-
-[]dar uma repassada, comentar e entregar
-
-
 
 [x] Ver se da segfault nas parades com bonus porque a forma com faço para não cruzar as bordas nem a parede é falha (movements, line 43)
 [x] Lucas: VER COMO FAZER PARA INICIAR AS ESTRUTURAS do main
