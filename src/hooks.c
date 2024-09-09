@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 19:37:30 by davifern          #+#    #+#             */
-/*   Updated: 2024/09/05 16:41:13 by davifern         ###   ########.fr       */
+/*   Updated: 2024/09/09 16:27:06 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@
 
 int	close_window(t_data *data)
 {
-	if (data->mlx_ptr && data->win_ptr)
-		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-	exit(0);
+	clean_exit(data, "Exiting free and happy :)\n");
 	return (0);
 }
 

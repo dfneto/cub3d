@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 19:23:03 by davifern          #+#    #+#             */
-/*   Updated: 2024/09/05 10:01:16 by davifern         ###   ########.fr       */
+/*   Updated: 2024/09/09 16:56:05 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	init_window_and_image(t_data *data)
 	data->win_ptr = mlx_new_window(data->mlx_ptr, WIDTH, HEIGHT, "CUB3D");
 	if (!data->win_ptr)
 		clean_exit(data, "Fail to create the window\n");
-	img = malloc(sizeof(t_img));
+	img = safe_calloc(1, sizeof(t_img));
 	img->img_ptr = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
 	if (!img->img_ptr)
 		clean_exit(data, "Fail to create the image\n");
