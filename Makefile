@@ -1,18 +1,26 @@
-# //TODO: remover o -MMD e ver a diferença de com e sem ele (sei que ele gera uns .d)
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile_linux                                       :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: davifern <davifern@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/05 11:46:48 by davifern          #+#    #+#              #
-#    Updated: 2024/08/28 10:53:22 by davifern         ###   ########.fr        #
+#    Updated: 2024/09/09 17:10:45 by davifern         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ########################## VARIABLES DEFINITIONS ###############################
-NAME = cub3d
+# Mode
+BONUS = 0
+
+# Set NAME based on the BONUS flag
+ifeq ($(BONUS), 1)
+	NAME = cub3d_bonus
+else
+	NAME = cub3d
+endif
+
 MAKE = make --no-print-directory
 HEADER = inc/cub3d.h
 SRC_PARSER = src/parser/check_closed.c src/parser/check_map.c src/parser/clean_utils.c src/parser/ft_perror.c src/parser/ft_strtok.c \
@@ -56,10 +64,10 @@ $(NAME): $(OBJS) $(HEADER) Makefile
 # file into an .o file. $< is the first dependency (the .c file in this case) and $@ 
 # is the target (the .o file).
 $(OBJ_DIR)/%.o: src/%.c $(HEADER) Makefile | $(OBJ_DIR) $(DEP_DIR) $(OBJ_DIR_PARSER) $(DEP_DIR_PARSER)
-	$(CC) $(CFLAGS) -c $< -o $@ -MMD -MP -MF $(DEP_DIR)/$*.d
+	$(CC) $(CFLAGS) -DBONUS=$(BONUS) -c $< -o $@ -MMD -MP -MF $(DEP_DIR)/$*.d
 
 $(OBJ_DIR_PARSER)/%.o: src/parser/%.c $(HEADER) Makefile | $(OBJ_DIR_PARSER) $(DEP_DIR_PARSER)
-	$(CC) $(CFLAGS) -c $< -o $@ -MMD -MP -MF $(DEP_DIR_PARSER)/$*.d
+	$(CC) $(CFLAGS) -DBONUS=$(BONUS) -c $< -o $@ -MMD -MP -MF $(DEP_DIR_PARSER)/$*.d
 
 # Ensure that obj and dep directories are created
 $(OBJ_DIR) $(DEP_DIR):
@@ -68,10 +76,13 @@ $(OBJ_DIR) $(DEP_DIR):
 # Ensure that parser subdirectories are created
 $(OBJ_DIR_PARSER) $(DEP_DIR_PARSER): | $(OBJ_DIR) $(DEP_DIR)
 	mkdir -p $@
+
+bonus:
+	make all BONUS=1
 	
 clean:
 	rm -f $(OBJS) $(DEPS)
-	rm -f $(NAME)
+	rm -f $(NAME) $(NAME)_bonus 
 
 fclean: clean
 	$(MAKE) fclean -sC libft
@@ -82,4 +93,4 @@ re: fclean all
 
 -include $(DEPS)
 
-.PHONY: all bonus clean fclean re
+.PHONY: all bonus clean fclean re bonus
