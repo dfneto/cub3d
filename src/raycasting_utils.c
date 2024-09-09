@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:38:19 by davifern          #+#    #+#             */
-/*   Updated: 2024/09/05 10:58:38 by davifern         ###   ########.fr       */
+/*   Updated: 2024/09/09 18:15:15 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ t_img	*define_wall_texture(t_ray *ray, t_textures *textures)
 void	calculate_line_height(t_ray *ray)
 {
 	ray->line_height = (int)(HEIGHT / ray->wall_distance);
+	if (ray->line_height < 0)
+		ray->line_height = 0;
 	ray->draw_start = -ray->line_height / 2 + HEIGHT / 2;
 	if (ray->draw_start < 0)
 		ray->draw_start = 0;
