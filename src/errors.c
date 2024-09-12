@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 19:29:43 by davifern          #+#    #+#             */
-/*   Updated: 2024/09/09 18:43:50 by davifern         ###   ########.fr       */
+/*   Updated: 2024/09/12 09:41:56 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,11 @@ void	clean_exit(t_data *data, char *msg)
 	free_data(data);
 	if (data->mlx_ptr && data->win_ptr)
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-	if (data->mlx_ptr)
-	{
-		mlx_destroy_display(data->mlx_ptr);
-		mlx_loop_end(data->mlx_ptr);
-		free(data->mlx_ptr);
-	}
+	// if (data->mlx_ptr)
+	// {
+	// 	mlx_destroy_display(data->mlx_ptr);
+	// 	mlx_loop_end(data->mlx_ptr);
+	// 	free(data->mlx_ptr);
+	// }
 	exit(0);
 }

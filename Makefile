@@ -36,9 +36,10 @@ OBJ_DIR = obj
 OBJ_DIR_PARSER = obj/parser
 DEP_DIR = dep
 DEP_DIR_PARSER = dep/parser
-DIR_MLX = mlx_linux
+DIR_MLX = mlx
 CC = gcc
-CFLAGS += -Wextra -Werror -Wall -g  -I/usr/include -Imlx_linux -Iinc -Ilibft -O3
+CFLAGS += -Wextra -Werror -Wall -MMD -g -I mlx -I inc -I libft
+
 
 # This line itself doesn't actually generate the object files; it just sets up the 
 # names that will be used when the object files are generated
@@ -49,13 +50,11 @@ DEPS = $(SRC:src/%.c=$(DEP_DIR)/%.d)
 # -C <path> option. This changes the current path to the path '<path>', -s silent
 all:
 	$(MAKE) -C libft
-	$(MAKE) -sC mlx_linux
+	$(MAKE) -sC mlx
 	$(MAKE) $(NAME)
 	
 $(NAME): $(OBJS) $(HEADER) Makefile
-	$(CC) $(OBJS) -Lmlx_linux -lmlx_Linux -L/usr/lib -Llibft -lft -lXext -lX11 -lm -lz -o $(NAME)
-#-Ilibft -Imlx_linux (acho que posso retirar esse -Ilibft e o mlx)
-
+	$(CC) $(OBJS) -O3 -Lmlx -Llibft -lft -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 # This is a pattern rule that specifies to make how to build an object file (.o) from a 
 # corresponding source file (.c). It also depends on the $(HEADER) file and Makefile, meaning the

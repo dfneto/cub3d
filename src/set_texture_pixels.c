@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:45:06 by davifern          #+#    #+#             */
-/*   Updated: 2024/09/03 20:12:37 by davifern         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:30:05 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	make_color_darker_for_y_sides(int side, int texture_pixel)
 //na tela (que vai ser o 3D do raycasting)
 //que pode ser maior ou menor do que esses 64px. Não basta copiar uma coluna da
 // textura e colocar na tela.
-//Agora o que não entendo eh porque o texY não vai de 0 a 64. Acho que deveria
+//Agora o que não entendo eh por que o texY não vai de 0 a 64. Acho que deveria
 //pegar toda a linha vertical da textura e 
 //desenhar na tela, aumentando/diminuindo de acordo com o tamanho que essa 
 //linha deve ter na tela

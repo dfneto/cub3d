@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 13:04:23 by davifern          #+#    #+#             */
-/*   Updated: 2024/09/06 17:15:36 by davifern         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:31:15 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	init_data(t_data *data, char *argv)
 	init_player(data);
 }
 
-//VER COMO FAZER PARA INICIAR AS ESTRUTURAS. Pq?
+
 // ft_bzero(&data, sizeof(t_data));
 //mlx_destroy_image(data.mlx_ptr, data.img->img_ptr) não é necessário
 //porque para o programa sair tem que dar esc que detrói tudo

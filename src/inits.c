@@ -6,7 +6,7 @@
 /*   By: davifern <davifern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 19:23:03 by davifern          #+#    #+#             */
-/*   Updated: 2024/09/09 16:56:05 by davifern         ###   ########.fr       */
+/*   Updated: 2024/09/12 14:27:21 by davifern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ void	set_player_direction_and_plane(t_player *player, char dir)
 		set_to_east_or_west(player, dir);
 }
 
-//TODO: acho que não é necessário malloc se eu colocar
-// o data->player no lugar
 //O vetor posição x e y são as colunas e linhas do grid 
 //e não coordenadas cartesianas. +0.5 pra ficar no meio de um quadrado
 //Em data->player: troquei malloc por safe_malloc, ai nao precisa
